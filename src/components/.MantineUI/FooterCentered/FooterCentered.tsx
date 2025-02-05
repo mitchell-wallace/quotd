@@ -1,15 +1,12 @@
 import React from 'react';
-import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandLinkedin } from '@tabler/icons-react';
 import { ActionIcon, Anchor, Group, Text } from '@mantine/core';
-// import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from './FooterCentered.module.css';
 
 const links = [
-  { link: '#', label: 'Contact' },
-  { link: '#', label: 'Privacy' },
-  { link: '#', label: 'Blog' },
-  { link: '#', label: 'Store' },
-  { link: '#', label: 'Careers' },
+  { link: 'https://ephodstudio.com/#get-quote', label: 'Contact' },
+  { link: 'https://mitchellwallace.dev', label: 'Portfolio' },
+  { link: 'https://checkboxd.vercel.app/', label: 'Checkboxd' }
 ];
 
 export function FooterCentered() {
@@ -36,13 +33,10 @@ export function FooterCentered() {
 
         <Group gap="xs" justify="flex-end" wrap="nowrap">
           <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandTwitter size={18} stroke={1.5} />
+            <IconBrandGithub size={18} stroke={1.5} />
           </ActionIcon>
           <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandYoutube size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandInstagram size={18} stroke={1.5} />
+            <IconBrandLinkedin size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
       </div>

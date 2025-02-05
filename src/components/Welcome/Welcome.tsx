@@ -1,5 +1,6 @@
-import { Anchor, Image, Text, Title } from '@mantine/core';
+import { Anchor, Image, Text, Title, Button, Group } from '@mantine/core';
 import classes from './Welcome.module.css';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export function Welcome() {
   return (
@@ -15,6 +16,7 @@ export function Welcome() {
         height={400}
         maw={580}
         mx="auto"
+        mt={30}
         fit="cover"
         src="/assets/images/hello.jpeg"
         alt="Astronaut waving hello"
@@ -31,6 +33,15 @@ export function Welcome() {
         </Anchor>
         {' '}to see more of our work.
       </Text>
+
+      <Group justify="center">
+        <Button mx="auto" mt="xl" size="lg">
+          Get inspired
+          <IconChevronRight size={18} stroke={1.5} style={{ marginLeft: '0.5rem', marginRight: '-0.1rem' }} />
+
+        </Button>
+      </Group>
+
     </>
   );
 }

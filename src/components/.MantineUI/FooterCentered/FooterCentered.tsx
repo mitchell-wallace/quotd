@@ -11,8 +11,8 @@ const links = [
 ];
 
 const socialLinks = {
-  github: 'https://github.com/mitchelldwallace',
-  linkedin: 'https://linkedin.com/in/mitchelldwallace'
+  github: 'https://github.com/mitchell-wallace',
+  linkedin: 'https://linkedin.com/in/mitchell-wallace-dev'
 };
 
 export function FooterCentered() {

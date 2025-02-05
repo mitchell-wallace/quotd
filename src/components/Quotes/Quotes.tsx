@@ -1,5 +1,5 @@
-import { Image, Select, Group, Container, Text, Box } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
+import { Image, Group, Container, Text, Box, Button } from '@mantine/core';
+import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 
 // Import fonts
@@ -30,29 +30,43 @@ const fonts = [
 ];
 
 export function Quotes() {
-  const [selectedFont, setSelectedFont] = useState(fonts[0].value);
+  const [currentFontIndex, setCurrentFontIndex] = useState(0);
+  const selectedFont = fonts[currentFontIndex].value;
 
-  const handleFontChange = (value: string | null) => {
-    if (value) {
-      setSelectedFont(value);
-    }
+  const nextFont = () => {
+    setCurrentFontIndex((prev) => (prev + 1) % fonts.length);
+  };
+
+  const prevFont = () => {
+    setCurrentFontIndex((prev) => (prev - 1 + fonts.length) % fonts.length);
   };
 
   return (
     <Container ta="center">
       <Group justify="center">
-        <Select
-          data={fonts}
-          label="Font"
-          placeholder="Pick one"
-          radius="md"
-          size="md"
-          maw={260}
-          value={selectedFont}
-          onChange={handleFontChange}
-          rightSection={<IconChevronDown size={18} />}
-          rightSectionWidth={30}
-        />
+        <Group gap={0}>
+          <Button
+            variant="light"
+            onClick={prevFont}
+            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+          >
+            <IconMinus size={18} />
+          </Button>
+          <Button
+            variant="light"
+            style={{ borderRadius: 0, borderLeft: '1px solid var(--mantine-color-gray-3)', borderRight: '1px solid var(--mantine-color-gray-3)' }}
+            w={80}
+          >
+            Font
+          </Button>
+          <Button
+            variant="light"
+            onClick={nextFont}
+            style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+          >
+            <IconPlus size={18} />
+          </Button>
+        </Group>
       </Group>
       <Box pos="relative" mt={30}>
         <Image
@@ -80,6 +94,7 @@ export function Quotes() {
           <Text 
             size="xl" 
             fw={700}
+            maw={500}
             style={{ 
               fontFamily: `"${selectedFont}", sans-serif`,
               fontSize: '2.5rem',

@@ -1,7 +1,8 @@
-import { Image, Group, Container, Box, Button } from '@mantine/core';
+import { Group, Container, Box, Button } from '@mantine/core';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { useState, useCallback } from 'react';
-import { QuoteText, FontControls } from './QuoteText';
+import { QuoteText } from './QuoteText';
+import { QuoteImage } from './QuoteImage';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
@@ -42,15 +43,7 @@ export function Quotes() {
         </Group>
       </Group>
       <Box pos="relative" mt={30}>
-        <Image
-          radius="md"
-          height={400}
-          maw={580}
-          mx="auto"
-          fit="cover"
-          src="/assets/images/hello.jpeg"
-          alt="Astronaut waving hello"
-        />
+        <QuoteImage />
         <Box 
           pos="absolute" 
           top={0} 

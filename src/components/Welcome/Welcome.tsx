@@ -1,8 +1,11 @@
 import { Anchor, Image, Text, Title, Button, Group } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export function Welcome() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
@@ -35,10 +38,14 @@ export function Welcome() {
       </Text>
 
       <Group justify="center">
-        <Button mx="auto" mt="xl" size="lg">
+        <Button 
+          mx="auto" 
+          mt="xl" 
+          size="lg"
+          onClick={() => navigate('/app')}
+        >
           Get inspired
           <IconChevronRight size={18} stroke={1.5} style={{ marginLeft: '0.5rem', marginRight: '-0.1rem' }} />
-
         </Button>
       </Group>
 

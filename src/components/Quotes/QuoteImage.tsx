@@ -15,6 +15,9 @@ export function QuoteImage({ currentImageIndex }: QuoteImageProps) {
             fit="cover"
             src={QuoteImageUrlList[currentImageIndex]}
             alt="Astronaut waving hello"
+            style={{
+                filter: 'brightness(0.7)' // Reduces brightness to 70% (darkens by 30%)
+            }}
         />
     );
 }

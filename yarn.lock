@@ -5855,6 +5855,7 @@ __metadata:
     stylelint-config-standard-scss: "npm:^14.0.0"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.20.0"
+    unsplash-js: "npm:^7.0.19"
     vite: "npm:^6.0.7"
     vite-tsconfig-paths: "npm:^5.1.4"
     vitest: "npm:^3.0.2"
@@ -8421,6 +8422,13 @@ __metadata:
     webpack-sources: "npm:^3.2.3"
     webpack-virtual-modules: "npm:^0.5.0"
   checksum: 10c0/2f79a7bf6b428a6aac80bf21852ed83cafead0ae3ed8866db1dca1cd4489f3b50c95874275e9a9b0f10c2e3c4892bfe0431c70d13635775c4c620a6a3f9eae37
+  languageName: node
+  linkType: hard
+
+"unsplash-js@npm:^7.0.19":
+  version: 7.0.19
+  resolution: "unsplash-js@npm:7.0.19"
+  checksum: 10c0/ea139e38e80b43d21baa5a97b3a461f0938da4e80c3ca1c2af62e4609ee204f27b20800b7459b62287f39c201d4d6b0578393f8412db4e9d3fd2b586af32a8bb
   languageName: node
   linkType: hard
 

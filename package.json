@@ -20,6 +20,17 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@fontsource/amatic-sc": "^5.1.1",
+    "@fontsource/architects-daughter": "^5.1.1",
+    "@fontsource/covered-by-your-grace": "^5.1.1",
+    "@fontsource/fredericka-the-great": "^5.1.1",
+    "@fontsource/josefin-slab": "^5.1.1",
+    "@fontsource/love-ya-like-a-sister": "^5.1.1",
+    "@fontsource/nothing-you-could-do": "^5.1.1",
+    "@fontsource/reenie-beanie": "^5.1.1",
+    "@fontsource/syne-mono": "^5.1.1",
+    "@fontsource/tangerine": "^5.1.1",
+    "@fontsource/walter-turncoat": "^5.1.1",
     "@mantine/core": "7.16.2",
     "@mantine/hooks": "7.16.2",
     "@mantinex/mantine-logo": "^1.1.0",

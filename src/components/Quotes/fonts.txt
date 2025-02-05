@@ -1,0 +1,1 @@
+"@fontsource/tangerine"; "@fontsource/amatic-sc"; "@fontsource/josefin-slab"; "@fontsource/architects-daughter"; "@fontsource/reenie-beanie"; "@fontsource/fredericka-the-great"; "@fontsource/love-ya-like-a-sister"; "@fontsource/syne-mono"; "@fontsource/walter-turncoat"; "@fontsource/nothing-you-could-do"; "@fontsource/covered-by-your-grace"

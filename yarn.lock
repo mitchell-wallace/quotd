@@ -1026,6 +1026,83 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/amatic-sc@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/amatic-sc@npm:5.1.1"
+  checksum: 10c0/4f116a37f01969341cf2b410ca32282d13f5cea7b8d0f5df01d82ffc25c6373d82321437a45b145919c707cb55ffdece1fe66bffa4b74c9c77bc9aa98feb3d9e
+  languageName: node
+  linkType: hard
+
+"@fontsource/architects-daughter@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/architects-daughter@npm:5.1.1"
+  checksum: 10c0/5bc6272f9664d8abefc3f8e56d80cada16a4b2a81c102f8dad8b32e20b13c0d84c4ad8c6c4c31e889f968b3e8faa938b17b0818d4ca152c04336f400590eafa4
+  languageName: node
+  linkType: hard
+
+"@fontsource/covered-by-your-grace@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/covered-by-your-grace@npm:5.1.1"
+  checksum: 10c0/52811c83b3854c1a7621e6ca344a54b787d1f831601285d7a302d9fbdeb7119092567f7a0db2b65e3464034754df03c8ee7360c8c7a8c448751c1a9da0d5ab46
+  languageName: node
+  linkType: hard
+
+"@fontsource/fredericka-the-great@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/fredericka-the-great@npm:5.1.1"
+  checksum: 10c0/28e7bcf4278199f13f3626fd83dca0d35eb1cb153e10b2933163a837306c8e5208403550c06fcf5f2b02ed97cb08d6a54628a6d6f4305de8c3f9b743c545b601
+  languageName: node
+  linkType: hard
+
+"@fontsource/josefin-slab@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/josefin-slab@npm:5.1.1"
+  checksum: 10c0/d83b2ce2f9e00fce3a9b145aac69016c9acb8ecb74ce428d4012c949d615a4cfcf966eeb48f6862889a456d6b8b668f105fb088163d4d06c0d3a841081c6de5d
+  languageName: node
+  linkType: hard
+
+"@fontsource/love-ya-like-a-sister@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/love-ya-like-a-sister@npm:5.1.1"
+  checksum: 10c0/a49c63a38a9d27bddfd6bfba5ae218bff7e752a1a591f47a69ea9a3624de621566814cba60de2f05d35088f278e9526e305d134ff95096dff72da62b19ba3b49
+  languageName: node
+  linkType: hard
+
+"@fontsource/nothing-you-could-do@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/nothing-you-could-do@npm:5.1.1"
+  checksum: 10c0/7f63bdfd83b663b424029a9a05e7a12790b7bc8c73246a9825173deac5b40e0580fb3f20f3ebef13faa8fc2896444570961b3ec302d9123382bc9c8616eccacc
+  languageName: node
+  linkType: hard
+
+"@fontsource/reenie-beanie@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/reenie-beanie@npm:5.1.1"
+  checksum: 10c0/c53d85424d8156e540223de91279ed795fe8a634afd87d740822abcaf9d497ee2bff6322a62ca8ef99de9ef738779ce530ad2e88ab45513be5aa572875bda953
+  languageName: node
+  linkType: hard
+
+"@fontsource/syne-mono@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/syne-mono@npm:5.1.1"
+  checksum: 10c0/752d8b9369550a676b020bf5d7dd958c4c11a12aa0692392774ad6d8ee0bc5f862ac82466748d6bf74602504aff25fb7b544803a53b543142e51457c7d5f5424
+  languageName: node
+  linkType: hard
+
+"@fontsource/tangerine@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/tangerine@npm:5.1.1"
+  checksum: 10c0/13949c2a054ab58f2c81a60c41ae8bc44d73353b6c5fd2605e9cd29d6d322bfeae0e49474cfd62283d9326ee3bdafd10170c32d797b90adcb4531c4ad13c919c
+  languageName: node
+  linkType: hard
+
+"@fontsource/walter-turncoat@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@fontsource/walter-turncoat@npm:5.1.1"
+  checksum: 10c0/49636b1e6f347faa397ff4127f115ffd409293a68e00c86a7257f34e49c630c911893d7b67d8c81df8eb70bd896277007ebd33a6658808eaf4b9a6d74a13bcae
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -5731,6 +5808,17 @@ __metadata:
   resolution: "mantine-vite-template@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.18.0"
+    "@fontsource/amatic-sc": "npm:^5.1.1"
+    "@fontsource/architects-daughter": "npm:^5.1.1"
+    "@fontsource/covered-by-your-grace": "npm:^5.1.1"
+    "@fontsource/fredericka-the-great": "npm:^5.1.1"
+    "@fontsource/josefin-slab": "npm:^5.1.1"
+    "@fontsource/love-ya-like-a-sister": "npm:^5.1.1"
+    "@fontsource/nothing-you-could-do": "npm:^5.1.1"
+    "@fontsource/reenie-beanie": "npm:^5.1.1"
+    "@fontsource/syne-mono": "npm:^5.1.1"
+    "@fontsource/tangerine": "npm:^5.1.1"
+    "@fontsource/walter-turncoat": "npm:^5.1.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.4.1"
     "@mantine/core": "npm:7.16.2"
     "@mantine/hooks": "npm:7.16.2"

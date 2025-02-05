@@ -1,5 +1,4 @@
 import { Text } from '@mantine/core';
-import { useState } from 'react';
 
 // Import fonts
 import "@fontsource/tangerine";

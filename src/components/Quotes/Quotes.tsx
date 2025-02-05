@@ -6,6 +6,7 @@ import { QuoteImage } from './QuoteImage';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextFont = useCallback(() => {
     setCurrentFontIndex((prev) => (prev + 1) % 11);
@@ -43,7 +44,8 @@ export function Quotes() {
         </Group>
       </Group>
       <Box pos="relative" mt={30}>
-        <QuoteImage />
+        <QuoteImage 
+          currentImageIndex={currentImageIndex} />
         <Box 
           pos="absolute" 
           top={0} 

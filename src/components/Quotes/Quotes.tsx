@@ -6,6 +6,7 @@ import { SplitButton } from './SplitButton';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
+  const [currentFontSize, setCurrentFontSize] = useState(3);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextFont = useCallback(() => {
@@ -16,6 +17,24 @@ export function Quotes() {
     setCurrentFontIndex((prev) => (prev - 1 + 11) % 11);
   }, []);
 
+  const maxFontSize:number = 5.5;
+  const minFontSize:number = 1.5;
+  const incFontSize:number = 0.25;
+
+  const nextFontSize = useCallback(() => {
+    setCurrentFontSize((prev) => {
+      const next = prev + incFontSize;
+      return Math.min(next, maxFontSize);
+    });
+  }, []);
+
+  const prevFontSize = useCallback(() => {
+    setCurrentFontSize((prev) => {
+      const next = prev - incFontSize;
+      return Math.max(next, minFontSize);
+    });
+  }, []);
+
   return (
     <Container ta="center">
       <Group justify="center">
@@ -24,6 +43,12 @@ export function Quotes() {
           prevAction={prevFont}
           nextAction={nextFont}
           iconStyle="arrows"
+        />
+        <SplitButton
+          buttonText="Font Size"
+          prevAction={prevFontSize}
+          nextAction={nextFontSize}
+          iconStyle="plusminus"
         />
       </Group>
       <Box pos="relative" mt={30}>
@@ -45,6 +70,7 @@ export function Quotes() {
           <QuoteText 
             text="The journey of a thousand miles begins with a single step"
             currentFontIndex={currentFontIndex}
+            currentFontSize={currentFontSize}
           />
         </Box>
       </Box>

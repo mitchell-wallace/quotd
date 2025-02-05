@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Burger, Container, Group, Text, Title } from '@mantine/core';
 import { useDisclosure, useClickOutside, useViewportSize } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { Link, useLocation } from 'react-router-dom';
+import { useHeaderStore } from '@/stores/headerStore';
 
 const links = [
   { link: '/', label: 'Home' },
@@ -14,13 +15,18 @@ const links = [
 export function HeaderSimple() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const location = useLocation();
-  const [active, setActive] = useState(location.pathname);
+  const { active, setActive } = useHeaderStore();
   const headerRef = useClickOutside(() => {
     if (opened) {
       close();
     }
   });
   const { width } = useViewportSize();
+
+  // Set initial active state from location
+  useEffect(() => {
+    setActive(location.pathname);
+  }, [location.pathname, setActive]);
 
   // Close menu when viewport becomes larger than xs breakpoint
   useEffect(() => {
@@ -74,11 +80,9 @@ export function HeaderSimple() {
 
         <Group>
           <ColorSchemeToggle />
-
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="xs" />
         </Group>
 
-        
         {/* Mobile menu */}
         <div className={`${classes.mobileMenu} ${opened ? classes.mobileMenuOpened : ''}`}>
           {items}

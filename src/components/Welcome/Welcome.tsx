@@ -2,9 +2,16 @@ import { Anchor, Image, Text, Title, Button, Group } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
+import { useHeaderStore } from '@/stores/headerStore';
 
 export function Welcome() {
   const navigate = useNavigate();
+  const setActive = useHeaderStore((state) => state.setActive);
+
+  const handleGetInspired = () => {
+    navigate('/app');
+    setActive('/app');
+  };
 
   return (
     <>
@@ -31,7 +38,7 @@ export function Welcome() {
         <Anchor href="https://ephodstudio.com/" size="lg">
           our agency website
         </Anchor>
-        {' '}or {' '}
+        {' '}or{' '}
         <Anchor href="https://mitchellwallace.dev/" size="lg">
           my portfolio
         </Anchor>
@@ -39,17 +46,18 @@ export function Welcome() {
       </Text>
 
       <Group justify="center">
-        <Button 
-          mx="auto" 
-          mt="xl" 
-          size="lg"
-          onClick={() => navigate('/app')}
+        <Button
+          variant="gradient"
+          gradient={{ from: 'pink', to: 'yellow' }}
+          size="xl"
+          radius="md"
+          mt={30}
+          onClick={handleGetInspired}
         >
-          Get inspired
+          Get Inspired
           <IconChevronRight size={18} stroke={1.5} style={{ marginLeft: '0.5rem', marginRight: '-0.1rem' }} />
         </Button>
       </Group>
-
     </>
   );
 }

@@ -3,6 +3,7 @@ import { Burger, Container, Group, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
+import { Link, useLocation } from 'react-router-dom';
 
 const links = [
   { link: '/', label: 'Home' },
@@ -13,21 +14,31 @@ const links = [
 
 export function HeaderSimple() {
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
+  const location = useLocation();
+  const [active, setActive] = useState(location.pathname);
 
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      data-active={active === link.link || undefined}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
-      }}
-    >
-      {link.label}
-    </a>
+    link.link.startsWith('http') ? (
+      <a
+        key={link.label}
+        href={link.link}
+        className={classes.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {link.label}
+      </a>
+    ) : (
+      <Link
+        key={link.label}
+        to={link.link}
+        className={classes.link}
+        data-active={active === link.link || undefined}
+        onClick={() => setActive(link.link)}
+      >
+        {link.label}
+      </Link>
+    )
   ));
 
   return (

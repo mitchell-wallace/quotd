@@ -8,8 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 const links = [
   { link: '/', label: 'Home' },
   { link: '/app', label: 'App' },
-  { link: 'https://checkboxd.vercel.app/', label: 'Checkboxd' },
-  { link: '', label: 'Contact' },
+  { link: 'https://ephodstudio.com/#get-quote', label: 'Contact' }
 ];
 
 export function HeaderSimple() {

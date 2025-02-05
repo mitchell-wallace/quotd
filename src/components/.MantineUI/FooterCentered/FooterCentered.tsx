@@ -7,8 +7,7 @@ import classes from './FooterCentered.module.css';
 const links = [
   { link: 'https://ephodstudio.com/#get-quote', label: 'Contact' },
   { link: 'https://mitchellwallace.dev', label: 'Portfolio' },
-  { link: 'https://checkboxd.vercel.app/', label: 'Checkboxd' },
-  { link: '/app', label: 'App' }
+  { link: 'https://checkboxd.vercel.app/', label: 'Checkboxd' }
 ];
 
 const socialLinks = {

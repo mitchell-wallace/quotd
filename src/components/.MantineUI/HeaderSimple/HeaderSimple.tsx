@@ -62,7 +62,7 @@ export function HeaderSimple() {
         <Group>
           <ColorSchemeToggle />
 
-          <Burger opened={opened} onClick={toggle} size="sm" />
+          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="xs" />
         </Group>
 
         

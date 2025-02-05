@@ -1,45 +1,18 @@
-import { Image, Group, Container, Text, Box, Button } from '@mantine/core';
+import { Image, Group, Container, Box, Button } from '@mantine/core';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
-import { useState } from 'react';
-
-// Import fonts
-import "@fontsource/tangerine";
-import "@fontsource/amatic-sc";
-import "@fontsource/josefin-slab";
-import "@fontsource/architects-daughter";
-import "@fontsource/reenie-beanie";
-import "@fontsource/fredericka-the-great";
-import "@fontsource/love-ya-like-a-sister";
-import "@fontsource/syne-mono";
-import "@fontsource/walter-turncoat";
-import "@fontsource/nothing-you-could-do";
-import "@fontsource/covered-by-your-grace";
-
-const fonts = [
-  { value: 'Tangerine', label: 'Tangerine' },
-  { value: 'Amatic SC', label: 'Amatic SC' },
-  { value: 'Josefin Slab', label: 'Josefin Slab' },
-  { value: 'Architects Daughter', label: 'Architects Daughter' },
-  { value: 'Reenie Beanie', label: 'Reenie Beanie' },
-  { value: 'Fredericka the Great', label: 'Fredericka the Great' },
-  { value: 'Love Ya Like A Sister', label: 'Love Ya Like A Sister' },
-  { value: 'Syne Mono', label: 'Syne Mono' },
-  { value: 'Walter Turncoat', label: 'Walter Turncoat' },
-  { value: 'Nothing You Could Do', label: 'Nothing You Could Do' },
-  { value: 'Covered By Your Grace', label: 'Covered By Your Grace' }
-];
+import { useState, useCallback } from 'react';
+import { QuoteText, FontControls } from './QuoteText';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
-  const selectedFont = fonts[currentFontIndex].value;
 
-  const nextFont = () => {
-    setCurrentFontIndex((prev) => (prev + 1) % fonts.length);
-  };
+  const nextFont = useCallback(() => {
+    setCurrentFontIndex((prev) => (prev + 1) % 11);
+  }, []);
 
-  const prevFont = () => {
-    setCurrentFontIndex((prev) => (prev - 1 + fonts.length) % fonts.length);
-  };
+  const prevFont = useCallback(() => {
+    setCurrentFontIndex((prev) => (prev - 1 + 11) % 11);
+  }, []);
 
   return (
     <Container ta="center">
@@ -91,21 +64,10 @@ export function Quotes() {
             padding: '2rem'
           }}
         >
-          <Text 
-            size="xl" 
-            fw={700}
-            maw={500}
-            style={{ 
-              fontFamily: `"${selectedFont}", sans-serif`,
-              fontSize: '2.5rem',
-              color: 'white',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-              lineHeight: 1.4,
-              maxWidth: '80%'
-            }}
-          >
-            The journey of a thousand miles begins with a single step
-          </Text>
+          <QuoteText 
+            text="The journey of a thousand miles begins with a single step"
+            currentFontIndex={currentFontIndex}
+          />
         </Box>
       </Box>
     </Container>

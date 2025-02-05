@@ -1,8 +1,9 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback } from 'react';
 import { QuoteTypography } from './QuoteTypography';
-import { QuoteImage } from './QuoteImage';
+import { QuoteImage, imageUrls } from './QuoteImage';
 import { SplitButton } from './SplitButton';
+import { QuoteWordsList } from './QuoteWordsList';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
@@ -36,9 +37,25 @@ export function Quotes() {
     });
   }, []);
 
+  const nextWordsIndex = useCallback(() => {
+    setCurrentWordsIndex((prev) => (prev + 1) % QuoteWordsList.length);
+  }, []);
+
+  const prevWordsIndex = useCallback(() => {
+    setCurrentWordsIndex((prev) => (prev - 1 + QuoteWordsList.length) % QuoteWordsList.length);
+  }, []);
+
+  const nextImageIndex = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length);
+  }, []);
+
+  const prevImageIndex = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev - 1 + imageUrls.length) % imageUrls.length);
+  }, []);
+
   return (
     <Container ta="center">
-      <Group justify="center">
+      <Group justify="center" maw={580} mx="auto">
         <SplitButton
           buttonText="Font"
           prevAction={prevFont}
@@ -50,6 +67,18 @@ export function Quotes() {
           prevAction={prevFontSize}
           nextAction={nextFontSize}
           iconStyle="plusminus"
+        />
+        <SplitButton
+          buttonText="Words"
+          prevAction={prevWordsIndex}
+          nextAction={nextWordsIndex}
+          iconStyle="arrows"
+        />
+        <SplitButton
+          buttonText="Image"
+          prevAction={prevImageIndex}
+          nextAction={nextImageIndex}
+          iconStyle="arrows"
         />
       </Group>
       <Box pos="relative" mt={30}>

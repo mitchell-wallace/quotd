@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Burger, Container, Group, Text, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useClickOutside } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { Link, useLocation } from 'react-router-dom';
@@ -12,9 +13,14 @@ const links = [
 ];
 
 export function HeaderSimple() {
-  const [opened, { toggle }] = useDisclosure(false);
+  const [opened, { toggle, close }] = useDisclosure(false);
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
+  const headerRef = useClickOutside(() => {
+    if (opened) {
+      close();
+    }
+  });
 
   const items = links.map((link) => (
     link.link.startsWith('http') ? (
@@ -41,7 +47,7 @@ export function HeaderSimple() {
   ));
 
   return (
-    <header className={classes.header}>
+    <header className={classes.header} ref={headerRef}>
       <Container size="md" className={classes.inner}>
         <Title className={classes.title}>
             <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
@@ -53,9 +59,17 @@ export function HeaderSimple() {
           {items}
         </Group>
 
-        <ColorSchemeToggle />
+        <Group>
+          <ColorSchemeToggle />
 
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+          <Burger opened={opened} onClick={toggle} size="sm" />
+        </Group>
+
+        
+        {/* Mobile menu */}
+        <div className={`${classes.mobileMenu} ${opened ? classes.mobileMenuOpened : ''}`}>
+          {items}
+        </div>
       </Container>
     </header>
   );

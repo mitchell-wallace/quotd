@@ -1,18 +1,7 @@
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomePage } from './pages/Home.page';
 import { QuotesPage } from './pages/Quotes.page';
-import { HeaderSimple } from './components/.MantineUI/HeaderSimple/HeaderSimple';
-import { FooterCentered } from './components/.MantineUI/FooterCentered/FooterCentered';
-
-const Layout = () => {
-  return (
-    <>
-      <HeaderSimple />
-      <Outlet />
-      <FooterCentered />
-    </>
-  );
-};
+import { Layout } from './Layout';
 
 const router = createBrowserRouter([
   {

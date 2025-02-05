@@ -1,12 +1,11 @@
 .footer {
     margin-top: 120px;
     border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
-    position: fixed;
-    bottom: 0;
+    position: block;
     left: 0;
     right: 0;
     background-color: var(--mantine-color-body);
-    z-index: 1000;
+    /* z-index: 1000; */
 
   }
   

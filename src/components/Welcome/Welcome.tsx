@@ -8,7 +8,7 @@ export function Welcome() {
 
   return (
     <>
-      <Title className={classes.title} ta="center" mt={100}>
+      <Title className={classes.title} ta="center" mt={100} px={15}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
           Quotd.
@@ -22,10 +22,11 @@ export function Welcome() {
         mt={30}
         fit="cover"
         src="/assets/images/hello.webp"
+        className={classes.welcomeImage}
         alt="Astronaut waving hello"
       />
 
-      <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
+      <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl" px={15}>
         Find daily inspiration right here. Visit{' '}
         <Anchor href="https://ephodstudio.com/" size="lg">
           our agency website

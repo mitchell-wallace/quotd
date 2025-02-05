@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Burger, Container, Group, Text, Title } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { useClickOutside } from '@mantine/hooks';
+import { useDisclosure, useClickOutside, useViewportSize } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { Link, useLocation } from 'react-router-dom';
@@ -21,6 +20,19 @@ export function HeaderSimple() {
       close();
     }
   });
+  const { width } = useViewportSize();
+
+  // Close menu when viewport becomes larger than xs breakpoint
+  useEffect(() => {
+    if (width >= 576) { // Mantine's default xs breakpoint
+      close();
+    }
+  }, [width, close]);
+
+  const handleLinkClick = (path: string) => {
+    setActive(path);
+    close();
+  };
 
   const items = links.map((link) => (
     link.link.startsWith('http') ? (
@@ -30,6 +42,7 @@ export function HeaderSimple() {
         className={classes.link}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => close()}
       >
         {link.label}
       </a>
@@ -39,7 +52,7 @@ export function HeaderSimple() {
         to={link.link}
         className={classes.link}
         data-active={active === link.link || undefined}
-        onClick={() => setActive(link.link)}
+        onClick={() => handleLinkClick(link.link)}
       >
         {link.label}
       </Link>

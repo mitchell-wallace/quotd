@@ -1,8 +1,8 @@
-import { Group, Container, Box, Button } from '@mantine/core';
-import { IconMinus, IconPlus } from '@tabler/icons-react';
+import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback } from 'react';
 import { QuoteText } from './QuoteText';
 import { QuoteImage } from './QuoteImage';
+import { SplitButton } from './SplitButton';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
@@ -19,29 +19,12 @@ export function Quotes() {
   return (
     <Container ta="center">
       <Group justify="center">
-        <Group gap={0}>
-          <Button
-            variant="light"
-            onClick={prevFont}
-            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-          >
-            <IconMinus size={18} />
-          </Button>
-          <Button
-            variant="light"
-            style={{ borderRadius: 0, borderLeft: '1px solid var(--mantine-color-gray-3)', borderRight: '1px solid var(--mantine-color-gray-3)' }}
-            w={80}
-          >
-            Font
-          </Button>
-          <Button
-            variant="light"
-            onClick={nextFont}
-            style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-          >
-            <IconPlus size={18} />
-          </Button>
-        </Group>
+        <SplitButton
+          buttonText="Font"
+          prevAction={prevFont}
+          nextAction={nextFont}
+          iconStyle="arrows"
+        />
       </Group>
       <Box pos="relative" mt={30}>
         <QuoteImage 

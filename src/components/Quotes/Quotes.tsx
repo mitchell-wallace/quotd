@@ -1,12 +1,13 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback } from 'react';
-import { QuoteText } from './QuoteText';
+import { QuoteTypography } from './QuoteTypography';
 import { QuoteImage } from './QuoteImage';
 import { SplitButton } from './SplitButton';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
   const [currentFontSize, setCurrentFontSize] = useState(3);
+  const [currentWordsIndex, setCurrentWordsIndex] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextFont = useCallback(() => {
@@ -67,8 +68,8 @@ export function Quotes() {
             padding: '2rem'
           }}
         >
-          <QuoteText 
-            text="The journey of a thousand miles begins with a single step"
+          <QuoteTypography 
+            currentWordsIndex={currentWordsIndex}
             currentFontIndex={currentFontIndex}
             currentFontSize={currentFontSize}
           />

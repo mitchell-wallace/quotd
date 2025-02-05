@@ -1,4 +1,5 @@
 import { Text } from '@mantine/core';
+import { QuoteWordsList } from './QuoteWordsList';
 
 // Import fonts
 import "@fontsource/tangerine";
@@ -28,12 +29,12 @@ const fonts = [
 ] as const;
 
 interface QuoteTextProps {
-  text: string;
+  currentWordsIndex: number;
   currentFontIndex: number;
   currentFontSize: number;
 }
 
-export function QuoteText({ text, currentFontIndex, currentFontSize }: QuoteTextProps) {
+export function QuoteTypography({ currentWordsIndex, currentFontIndex, currentFontSize }: QuoteTextProps) {
   const selectedFont = fonts[currentFontIndex].value;
 
   return (
@@ -50,7 +51,7 @@ export function QuoteText({ text, currentFontIndex, currentFontSize }: QuoteText
         maxWidth: '80%'
       }}
     >
-      {text}
+      {QuoteWordsList[currentWordsIndex].text}
     </Text>
   );
 }

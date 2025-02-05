@@ -55,7 +55,12 @@ export function FooterCentered() {
   return (
     <div className={classes.footer}>
       <div className={classes.inner}>
-        <Text> 2025 Quotd. All rights reserved.</Text>
+        <Text>2025 Quotd. All rights reserved.</Text>
+
+        <Text>Icon by {' '}
+        <a href="https://www.flaticon.com/free-icons/quotation-marks" title="quotation marks icons">
+        Md Tanvirul Haque - Flaticon</a>
+        </Text>
 
         <Group className={classes.links}>{items}</Group>
 

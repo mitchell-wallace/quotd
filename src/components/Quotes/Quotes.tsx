@@ -1,9 +1,10 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback } from 'react';
 import { QuoteTypography } from './QuoteTypography';
-import { QuoteImage, imageUrls } from './QuoteImage';
+import { QuoteImage } from './QuoteImage';
 import { SplitButton } from './SplitButton';
 import { QuoteWordsList } from './QuoteWordsList';
+import { QuoteImageUrlList } from './QuoteImageUrlList';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
@@ -46,11 +47,11 @@ export function Quotes() {
   }, []);
 
   const nextImageIndex = useCallback(() => {
-    setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length);
+    setCurrentImageIndex((prev) => (prev + 1) % QuoteImageUrlList.length);
   }, []);
 
   const prevImageIndex = useCallback(() => {
-    setCurrentImageIndex((prev) => (prev - 1 + imageUrls.length) % imageUrls.length);
+    setCurrentImageIndex((prev) => (prev - 1 + QuoteImageUrlList.length) % QuoteImageUrlList.length);
   }, []);
 
   return (

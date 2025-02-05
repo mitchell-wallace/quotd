@@ -18,7 +18,7 @@ export function Welcome() {
         mx="auto"
         mt={30}
         fit="cover"
-        src="/assets/images/hello.jpeg"
+        src="/assets/images/hello.webp"
         alt="Astronaut waving hello"
       />
 

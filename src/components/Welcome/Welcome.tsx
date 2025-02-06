@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useHeaderStore } from '@/stores/headerStore';
+import { themeGradients } from '@/theme';
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function Welcome() {
     <>
       <Title className={classes.title} ta="center" mt={100} px={15}>
         Welcome to{' '}
-        <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
+        <Text inherit variant="gradient" component="span" gradient={themeGradients.logo}>
           Quotd.
         </Text>
       </Title>
@@ -47,8 +48,8 @@ export function Welcome() {
 
       <Group justify="center">
         <Button
-          variant="gradient"
-          gradient={{ from: 'pink', to: 'yellow' }}
+          variant="filled"
+          color="secondary"
           size="xl"
           radius="md"
           mt={30}

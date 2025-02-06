@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { Burger, Container, Group, Text, Title } from '@mantine/core';
+import { Burger, Container, Group, Text, Title, Anchor } from '@mantine/core';
 import { useDisclosure, useClickOutside, useViewportSize } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { Link, useLocation } from 'react-router-dom';
 import { useHeaderStore } from '@/stores/headerStore';
+import { themeGradients, getThemeColor } from '@/theme';
 
 const links = [
   { link: '/', label: 'Home' },
@@ -30,7 +31,7 @@ export function HeaderSimple() {
 
   // Close menu when viewport becomes larger than xs breakpoint
   useEffect(() => {
-    if (width >= 576) { // Mantine's default xs breakpoint
+    if (width >= 576) {
       close();
     }
   }, [width, close]);
@@ -42,7 +43,7 @@ export function HeaderSimple() {
 
   const items = links.map((link) => (
     link.link.startsWith('http') ? (
-      <a
+      <Anchor
         key={link.label}
         href={link.link}
         className={classes.link}
@@ -51,17 +52,24 @@ export function HeaderSimple() {
         onClick={() => close()}
       >
         {link.label}
-      </a>
+      </Anchor>
     ) : (
-      <Link
+      <Anchor
         key={link.label}
+        component={Link}
         to={link.link}
         className={classes.link}
+        underline="never"
         data-active={active === link.link || undefined}
         onClick={() => handleLinkClick(link.link)}
+        variant="filled"
+        c={active === link.link ? "white" : undefined}
+        style={{
+          backgroundColor: active === link.link ? getThemeColor("secondary") : undefined,
+        }}
       >
         {link.label}
-      </Link>
+      </Anchor>
     )
   ));
 
@@ -69,7 +77,7 @@ export function HeaderSimple() {
     <header className={classes.header} ref={headerRef}>
       <Container size="md" className={classes.inner}>
         <Title className={classes.title}>
-            <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
+            <Text inherit variant="gradient" component="span" gradient={themeGradients.logo}>
             Quotd.
             </Text>
         </Title>

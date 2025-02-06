@@ -25,8 +25,8 @@ export function SplitButton({ buttonText, prevAction, nextAction, iconStyle }: S
                     variant="light"
                     style={{
                         borderRadius: 0, 
-                        borderLeft: '1px solid var(--mantine-color-gray-3)', 
-                        borderRight: '1px solid var(--mantine-color-gray-3)'
+                        borderLeft: '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))', 
+                        borderRight: '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))'
                     }}
                     w={120}
                 >

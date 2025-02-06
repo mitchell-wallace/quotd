@@ -58,8 +58,8 @@ export function FooterCentered() {
         <Text>2025 Quotd. All rights reserved.</Text>
 
         <Text>Icon by {' '}
-        <a href="https://www.flaticon.com/free-icons/quotation-marks" title="quotation marks icons">
-        Md Tanvirul Haque - Flaticon</a>
+        <Anchor href="https://www.flaticon.com/free-icons/quotation-marks" title="quotation marks icons">
+        Md Tanvirul Haque - Flaticon</Anchor>
         </Text>
 
         <Group className={classes.links}>{items}</Group>

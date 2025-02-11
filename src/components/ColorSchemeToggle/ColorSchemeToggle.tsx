@@ -1,5 +1,5 @@
 import { Menu, ActionIcon, useMantineColorScheme, rem } from '@mantine/core';
-import { IconSun, IconMoon, IconRefresh } from '@tabler/icons-react';
+import { IconSun, IconMoon, IconBrightnessAuto } from '@tabler/icons-react';
 
 export function ColorSchemeToggle() {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
@@ -7,7 +7,7 @@ export function ColorSchemeToggle() {
   const isDark = colorScheme === 'dark';
   const isAuto = colorScheme === 'auto';
 
-  const Icon = isAuto ? IconRefresh : isDark ? IconMoon : IconSun;
+  const Icon = isAuto ? IconBrightnessAuto : isDark ? IconMoon : IconSun;
 
   return (
     <Menu shadow="md" width={200}>
@@ -37,7 +37,7 @@ export function ColorSchemeToggle() {
           Dark
         </Menu.Item>
         <Menu.Item
-          leftSection={<IconRefresh style={{ width: rem(14), height: rem(14) }} />}
+          leftSection={<IconBrightnessAuto style={{ width: rem(14), height: rem(14) }} />}
           onClick={() => setColorScheme('auto')}
         >
           Auto

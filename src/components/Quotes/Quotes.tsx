@@ -84,26 +84,13 @@ export function Quotes() {
       </Group>
       <Box pos="relative" mt={30}>
         <QuoteImage 
-          currentImageIndex={currentImageIndex} />
-        <Box 
-          pos="absolute" 
-          top={0} 
-          left={0} 
-          right={0} 
-          bottom={0} 
-          style={{ 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2rem'
-          }}
-        >
+          currentImageIndex={currentImageIndex} >
           <QuoteTypography 
             currentWordsIndex={currentWordsIndex}
             currentFontIndex={currentFontIndex}
             currentFontSize={currentFontSize}
           />
-        </Box>
+        </QuoteImage>
       </Box>
     </Container>
   );

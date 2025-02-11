@@ -1,5 +1,6 @@
-import { Text } from '@mantine/core';
+import { Text, Box } from '@mantine/core';
 import { QuoteWordsList } from './QuoteWordsList';
+import { useEffect, useRef, useState } from 'react';
 
 // Import fonts
 import "@fontsource/tangerine";
@@ -36,23 +37,59 @@ interface QuoteTextProps {
 
 export function QuoteTypography({ currentWordsIndex, currentFontIndex, currentFontSize }: QuoteTextProps) {
   const selectedFont = fonts[currentFontIndex].value;
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [viewScaleFactor, setViewScaleFactor] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (boxRef.current) {
+        // Base the scale on the box width, where 580 is our max width
+        // This gives us 1 at max width, scaling down proportionally
+        const scale = boxRef.current.offsetWidth / 580;
+        setViewScaleFactor(scale);
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (boxRef.current) {
+      resizeObserver.observe(boxRef.current);
+      updateScale(); // Initial measurement
+    }
+
+    return () => resizeObserver.disconnect();
+  }, []);
 
   return (
-    <Text 
-      size="xl" 
-
-      maw={500}
-      style={{ 
-        fontFamily: `"${selectedFont}", sans-serif`,
-        fontSize: `${currentFontSize * fonts[currentFontIndex].sizingFactor}rem`,
-        color: 'white',
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-        lineHeight: `${1.4 * fonts[currentFontIndex].spacingFactor}`,
-        maxWidth: '80%'
-      }}
-    >
-      {QuoteWordsList[currentWordsIndex].text}
-    </Text>
+    <Box
+      ref={boxRef}
+      pos="absolute"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      mah={400}
+      maw={580}
+      mx="auto"
+      p={`${2 * viewScaleFactor}em`}
+      display="flex"
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+      <Text 
+        maw={500}
+        style={{ 
+          fontFamily: `"${selectedFont}", sans-serif`,
+          fontSize: `${currentFontSize * fonts[currentFontIndex].sizingFactor * viewScaleFactor}em`,
+          color: 'white',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+          lineHeight: `${1.4 * fonts[currentFontIndex].spacingFactor}`,
+          maxWidth: '80%'
+        }}
+      >
+        {QuoteWordsList[currentWordsIndex].text}
+      </Text>
+    </Box>
   );
 }
 

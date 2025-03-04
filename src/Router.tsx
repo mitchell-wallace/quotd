@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/quotes',
+        path: '/app',
         element: <QuotesPage />,
       },
     ],

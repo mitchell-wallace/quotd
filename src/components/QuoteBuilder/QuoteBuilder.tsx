@@ -1,12 +1,13 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback, useEffect } from 'react';
-import { QuoteTypography, fonts, loadFontByIndex } from './QuoteTypography';
-import { QuoteImage } from './QuoteImage';
-import { SplitButton } from './SplitButton';
-import { QuoteWordsList } from './QuoteWordsList';
-import { QuoteImageUrlList } from './QuoteImageUrlList';
+import { QuoteTypography, loadFontByIndex } from '../QuoteTypography/QuoteTypography';
+import { fonts } from '../QuoteTypography/fonts';
+import { QuoteImage } from '../QuoteImage/QuoteImage';
+import { SplitButton } from '../SplitButton/SplitButton';
+import { QuoteWordsList } from '../QuoteTypography/QuoteWordsList';
+import { QuoteImageUrlList } from '../QuoteImage/QuoteImageUrlList';
 
-export function Quotes() {
+export function QuoteBuilder() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
   const [outgoingFontIndex, setOutgoingFontIndex] = useState(currentFontIndex);
   const [isFontLoading, setIsFontLoading] = useState(false);

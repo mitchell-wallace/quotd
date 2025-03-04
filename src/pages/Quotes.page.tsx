@@ -1,9 +1,9 @@
-import { Quotes } from '../components/Quotes/Quotes';
+import { QuoteBuilder } from '../components/Quotes/QuoteBuilder';
 
 export function QuotesPage() {
   return (
     <>
-      <Quotes />
+      <QuoteBuilder />
     </>
   );
 }

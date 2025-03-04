@@ -31,6 +31,7 @@ export function SplitButton({ buttonText, prevAction, nextAction, iconStyle, loa
                         borderRight: '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))'
                     }}
                     w={120}
+                    disabled={loading}
                 >
                 {loading ? <Loader size="xs" /> : buttonText}
                 </Button>

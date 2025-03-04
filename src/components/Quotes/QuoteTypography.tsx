@@ -32,57 +32,29 @@ export const fonts = [
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFont = (fontFamily: string): Promise<void> => {
   return new Promise((resolve) => {
-    // Use the FontFace API to check if the font is loaded
+    // Use the FontFace API's document.fonts.ready promise
+    // This doesn't seem correct - there is still a brief moment where the font is not loaded
     document.fonts.ready.then(() => {
-      setTimeout(() => {
-        document.body.removeChild(testElement);
-        // Resolve anyway after timeout to prevent hanging
-        resolve();
-      }, 3000); // 3 second timeout
-
-      // Create a test element with the font
-      const testElement = document.createElement('span');
-      testElement.style.fontFamily = `"${fontFamily}", sans-serif`;
-      testElement.style.visibility = 'hidden';
-      testElement.textContent = 'Test Font Loading';
-      document.body.appendChild(testElement);
-      
-      // Check if font is already loaded
-      if (document.fonts.check(`1em "${fontFamily}"`)) {
-        document.body.removeChild(testElement);
-        resolve();
-        return;
-      }
-      
-      // If not loaded yet, wait for it to load
-      const timeout = setTimeout(() => {
-        document.body.removeChild(testElement);
-        // Resolve anyway after timeout to prevent hanging
-        resolve();
-      }, 3000); // 3 second timeout
-      
-      // Set up an observer to check when the font loads
-      const checkFont = () => {
+      const checkFontLoaded = () => {
         if (document.fonts.check(`1em "${fontFamily}"`)) {
-          clearTimeout(timeout);
-          document.body.removeChild(testElement);
           resolve();
           return true;
         }
         return false;
       };
-      
-      // Try checking immediately
-      if (!checkFont()) {
-        // If not loaded, check periodically
-        const interval = setInterval(() => {
-          if (checkFont()) {
-            clearInterval(interval);
+      const isLoadedPreviously = checkFontLoaded();
+
+      // If not loaded
+      if (!isLoadedPreviously) {
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            resolve();
+          }, 50);
+          if (checkFontLoaded()) {
+            break;
           }
-        }, 50);
+        }
         
-        // Clear interval after timeout
-        setTimeout(() => clearInterval(interval), 3000);
       }
     });
   });

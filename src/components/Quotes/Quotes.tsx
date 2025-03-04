@@ -97,7 +97,6 @@ export function Quotes() {
           prevAction={prevFontSize}
           nextAction={nextFontSize}
           iconStyle="plusminus"
-          loading={isFontLoading}
         />
         <SplitButton
           buttonText="Words"

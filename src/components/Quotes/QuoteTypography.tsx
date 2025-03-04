@@ -1,4 +1,4 @@
-import { Text, Box } from '@mantine/core';
+import { Text, Box, Stack } from '@mantine/core';
 import { QuoteWordsList } from './QuoteWordsList';
 import { useEffect, useRef, useState } from 'react';
 
@@ -17,7 +17,7 @@ import "@fontsource/covered-by-your-grace";
 
 export const fonts = [
   { value: 'Reenie Beanie', label: 'Reenie Beanie', sizingFactor: 1, spacingFactor: 0.7 },
-  { value: 'Amatic SC', label: 'Amatic SC', sizingFactor: 1.1, spacingFactor: 0.85 },
+  { value: 'Amatic SC', label: 'Amatic SC', sizingFactor: 1, spacingFactor: 0.8 },
   { value: 'Josefin Slab', label: 'Josefin Slab', sizingFactor: 0.8, spacingFactor: 1 },
   { value: 'Syne Mono', label: 'Syne Mono', sizingFactor: 0.6, spacingFactor: 1.1 },
   { value: 'Walter Turncoat', label: 'Walter Turncoat', sizingFactor: 0.7, spacingFactor: 1 },
@@ -26,7 +26,7 @@ export const fonts = [
   { value: 'Architects Daughter', label: 'Architects Daughter', sizingFactor: 0.7, spacingFactor: 1 },
   { value: 'Love Ya Like A Sister', label: 'Love Ya Like A Sister', sizingFactor: 0.7, spacingFactor: 1 },
   { value: 'Fredericka the Great', label: 'Fredericka the Great', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Tangerine', label: 'Tangerine', sizingFactor: 1.4, spacingFactor: 0.7 }
+  { value: 'Tangerine', label: 'Tangerine', sizingFactor: 1.2, spacingFactor: 0.65 }
 ] as const;
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
@@ -134,19 +134,34 @@ export function QuoteTypography({
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-      <Text 
-        maw={500}
-        style={{ 
-          fontFamily: `"${selectedFont}", sans-serif`,
-          fontSize: `${currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor}em`,
-          color: 'white',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-          lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
-          maxWidth: '80%'
-        }}
-      >
-        {QuoteWordsList[currentWordsIndex].text}
-      </Text>
+      <Stack align="center" spacing="xs">
+        <Text 
+          maw={500}
+          style={{ 
+            fontFamily: `"${selectedFont}", sans-serif`,
+            fontSize: `${currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor}em`,
+            color: 'white',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+            lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
+            maxWidth: '80%'
+          }}
+        >
+          {QuoteWordsList[currentWordsIndex].text}
+        </Text>
+        <Text 
+          maw={500}
+          style={{ 
+            fontFamily: `"${selectedFont}", sans-serif`,
+            fontSize: `${(currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor) - 0.8}em`,
+            color: 'white',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+            lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
+            maxWidth: '80%'
+          }}
+        >
+          {QuoteWordsList[currentWordsIndex].source} {QuoteWordsList[currentWordsIndex].translation}
+        </Text>
+      </Stack>
     </Box>
   );
 }

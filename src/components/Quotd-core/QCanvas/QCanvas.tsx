@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { AspectRatio, Box } from '@mantine/core';
 import { forwardRef, useRef } from 'react';
 import { QImage } from '../QImage/QImage';
 import { QTypography } from '../QTypography/QTypography';
@@ -27,22 +27,26 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
     const actualRef = canvasRef || internalRef;
     
     return (
-      <Box 
-        pos="relative" 
-        mt={30} 
-        ref={ref || actualRef}
-        style={width ? { width: `${width}px`, height: `${height}px` } : undefined}
-      >
-        <QImage currentImageIndex={currentImageIndex}>
-          <QTypography 
-            currentWordsIndex={currentWordsIndex}
-            currentFontIndex={currentFontIndex}
-            currentFontSize={currentFontSize}
-            outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
-            onFontLoaded={handleFontLoaded}
-          />
-        </QImage>
-      </Box>
+        <Box 
+            pos="relative" 
+            mt={30} 
+            ref={ref || actualRef}
+            style={width ? { width: `${width}px`, height: `${height}px` } : undefined}
+        >
+            <AspectRatio ratio={3/2} style={{ position: 'relative' }}>
+                <QImage 
+                    currentImageIndex={currentImageIndex}
+                >
+                    <QTypography 
+                        currentWordsIndex={currentWordsIndex}
+                        currentFontIndex={currentFontIndex}
+                        currentFontSize={currentFontSize}
+                        outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
+                        onFontLoaded={handleFontLoaded}
+                    />
+                </QImage>
+            </AspectRatio>
+        </Box>
     );
   }
 );

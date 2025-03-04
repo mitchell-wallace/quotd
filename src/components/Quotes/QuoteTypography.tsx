@@ -44,13 +44,13 @@ export const fonts: FontDefinition[] = [
 ] as const;
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
-export const loadFont = (fontFamily: string): Promise<void> => {
+export const loadFontByIndex = (fontIndex: number): Promise<void> => {
   return new Promise((resolve) => {
     // Use the FontFace API's document.fonts.ready promise
     // This doesn't seem correct - there is still a brief moment where the font is not loaded
     document.fonts.ready.then(() => {
       const checkFontLoaded = () => {
-        if (document.fonts.check(`1em "${fontFamily}"`)) {
+        if (document.fonts.check(`1em "${fonts[fontIndex].fontName}"`)) {
           resolve();
           return true;
         }
@@ -60,11 +60,11 @@ export const loadFont = (fontFamily: string): Promise<void> => {
 
       // If not loaded
       if (!isLoadedPreviously) {
-        document.fonts.load(`1em "${fontFamily}"`);
+        document.fonts.load(`1em "${fonts[fontIndex].fontName}"`);
         for (let i = 0; i < 10; i++) {
           setTimeout(() => {
             resolve();
-          }, 50);
+          }, 100);
           if (checkFontLoaded()) {
             break;
           }
@@ -79,7 +79,7 @@ interface QuoteTextProps {
   currentWordsIndex: number;
   currentFontIndex: number;
   currentFontSize: number;
-  actualFontIndex?: number; // Optional prop to handle the case when we're still loading a font
+  previousFontIndex?: number; // Optional prop to handle the case when we're still loading a font
   onFontLoaded?: () => void; // Callback when font is loaded
 }
 
@@ -87,12 +87,11 @@ export function QuoteTypography({
   currentWordsIndex, 
   currentFontIndex, 
   currentFontSize,
-  actualFontIndex,
+  previousFontIndex,
   onFontLoaded
 }: QuoteTextProps) {
-  // Use actualFontIndex if provided (during loading), otherwise use currentFontIndex
-  const displayFontIndex = typeof actualFontIndex === 'number' ? actualFontIndex : currentFontIndex;
-  const selectedFont = fonts[displayFontIndex].fontName;
+  // Use previousFontIndex if provided (during loading), otherwise use currentFontIndex
+  const displayFontIndex = typeof previousFontIndex === 'number' ? previousFontIndex : currentFontIndex;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
@@ -117,19 +116,19 @@ export function QuoteTypography({
 
   // Effect to handle font loading
   useEffect(() => {
-    // Only try to load the font if we need to (when currentFontIndex != actualFontIndex)
-    if (actualFontIndex !== undefined && currentFontIndex !== actualFontIndex) {
-      const fontToLoad = fonts[currentFontIndex].fontName;
+    // Only try to load the font if we need to (when currentFontIndex != previousFontIndex)
+    if (previousFontIndex !== undefined && currentFontIndex !== previousFontIndex) {
+      // const fontToLoad = fonts[currentFontIndex].fontName;
       
       // Load the font
-      loadFont(fontToLoad).then(() => {
+      loadFontByIndex(currentFontIndex).then(() => {
         // Notify parent that font is loaded
         if (onFontLoaded) {
           onFontLoaded();
         }
       });
     }
-  }, [currentFontIndex, actualFontIndex, onFontLoaded]);
+  }, [currentFontIndex, previousFontIndex, onFontLoaded]);
 
   return (
     <Box
@@ -152,8 +151,9 @@ export function QuoteTypography({
         <Text 
           maw={500}
           style={{ 
-            fontFamily: `"${selectedFont}", sans-serif`,
+            fontFamily: `"${fonts[displayFontIndex].fontName}", sans-serif`,
             fontSize: `${currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor}em`,
+            fontDisplay: 'swap',
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
@@ -165,7 +165,7 @@ export function QuoteTypography({
         <Text 
           maw={500}
           style={{ 
-            fontFamily: `"${selectedFont}", sans-serif`,
+            fontFamily: `"${fonts[displayFontIndex].fontName}", sans-serif`,
             fontSize: `${(currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor) - 0.8}em`,
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',

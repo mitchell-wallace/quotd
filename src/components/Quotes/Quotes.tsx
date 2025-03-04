@@ -1,6 +1,6 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback, useEffect } from 'react';
-import { QuoteTypography, fonts, loadFont } from './QuoteTypography';
+import { QuoteTypography, fonts, loadFontByIndex } from './QuoteTypography';
 import { QuoteImage } from './QuoteImage';
 import { SplitButton } from './SplitButton';
 import { QuoteWordsList } from './QuoteWordsList';
@@ -17,7 +17,7 @@ export function Quotes() {
   // Preload the initial font
   useEffect(() => {
     // Load the first font on mount
-    loadFont(fonts[0].fontName);
+    loadFontByIndex(0);
   }, []);
 
   const handleFontChange = useCallback(async (newIndex: number) => {
@@ -118,7 +118,7 @@ export function Quotes() {
             currentWordsIndex={currentWordsIndex}
             currentFontIndex={currentFontIndex}
             currentFontSize={currentFontSize}
-            actualFontIndex={isFontLoading ? actualFontIndex : undefined}
+            previousFontIndex={isFontLoading ? actualFontIndex : undefined}
             onFontLoaded={handleFontLoaded}
           />
         </QuoteImage>

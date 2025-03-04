@@ -3,30 +3,44 @@ import { QuoteWordsList } from './QuoteWordsList';
 import { useEffect, useRef, useState } from 'react';
 
 // Import fonts
-import "@fontsource/tangerine";
-import "@fontsource/amatic-sc";
-import "@fontsource/josefin-slab";
-import "@fontsource/architects-daughter";
-import "@fontsource/reenie-beanie";
-import "@fontsource/fredericka-the-great";
-import "@fontsource/love-ya-like-a-sister";
+import "@fontsource/raleway";
+import "@fontsource/roboto-slab";
+import "@fontsource/inconsolata";
+import "@fontsource/exo-2";
+import "@fontsource/maiden-orange";
+import "@fontsource/lilita-one";
+import "@fontsource/covered-by-your-grace";
+import "@fontsource/smooch-sans";
 import "@fontsource/syne-mono";
 import "@fontsource/walter-turncoat";
 import "@fontsource/nothing-you-could-do";
-import "@fontsource/covered-by-your-grace";
+import "@fontsource/josefin-slab";
+import "@fontsource/architects-daughter";
+import "@fontsource/love-ya-like-a-sister";
+import "@fontsource/fredericka-the-great";
 
-export const fonts = [
-  { value: 'Reenie Beanie', label: 'Reenie Beanie', sizingFactor: 1, spacingFactor: 0.7 },
-  { value: 'Amatic SC', label: 'Amatic SC', sizingFactor: 1, spacingFactor: 0.8 },
-  { value: 'Josefin Slab', label: 'Josefin Slab', sizingFactor: 0.8, spacingFactor: 1 },
-  { value: 'Syne Mono', label: 'Syne Mono', sizingFactor: 0.6, spacingFactor: 1.1 },
-  { value: 'Walter Turncoat', label: 'Walter Turncoat', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Nothing You Could Do', label: 'Nothing You Could Do', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Covered By Your Grace', label: 'Covered By Your Grace', sizingFactor: 0.9, spacingFactor: 0.9 },
-  { value: 'Architects Daughter', label: 'Architects Daughter', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Love Ya Like A Sister', label: 'Love Ya Like A Sister', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Fredericka the Great', label: 'Fredericka the Great', sizingFactor: 0.7, spacingFactor: 1 },
-  { value: 'Tangerine', label: 'Tangerine', sizingFactor: 1.2, spacingFactor: 0.65 }
+interface FontDefinition {
+  fontName: string;
+  sizingFactor: number;
+  spacingFactor: number;
+}
+
+export const fonts: FontDefinition[] = [
+  { fontName: 'Raleway', sizingFactor: 0.75, spacingFactor: 0.9 },
+  { fontName: 'Roboto Slab', sizingFactor: 0.7, spacingFactor: 1.0 },
+  { fontName: 'Inconsolata', sizingFactor: 0.7, spacingFactor: 1.0 },
+  { fontName: 'Exo 2', sizingFactor: 0.75, spacingFactor: 0.95 },
+  { fontName: 'Maiden Orange', sizingFactor: 0.95, spacingFactor: 0.8 },
+  { fontName: 'Lilita One', sizingFactor: 0.8, spacingFactor: 0.95 },
+  { fontName: 'Covered By Your Grace', sizingFactor: 0.9, spacingFactor: 0.85 },
+  { fontName: 'Smooch Sans', sizingFactor: 1.0, spacingFactor: 0.75 },
+  { fontName: 'Syne Mono', sizingFactor: 0.65, spacingFactor: 1.05 },
+  { fontName: 'Walter Turncoat', sizingFactor: 0.7, spacingFactor: 1 },
+  { fontName: 'Nothing You Could Do', sizingFactor: 0.7, spacingFactor: 1 },
+  { fontName: 'Josefin Slab', sizingFactor: 0.8, spacingFactor: 0.85 },
+  { fontName: 'Architects Daughter', sizingFactor: 0.7, spacingFactor: 1 },
+  { fontName: 'Love Ya Like A Sister', sizingFactor: 0.7, spacingFactor: 1 },
+  { fontName: 'Fredericka the Great', sizingFactor: 0.7, spacingFactor: 1 },
 ] as const;
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
@@ -78,7 +92,7 @@ export function QuoteTypography({
 }: QuoteTextProps) {
   // Use actualFontIndex if provided (during loading), otherwise use currentFontIndex
   const displayFontIndex = typeof actualFontIndex === 'number' ? actualFontIndex : currentFontIndex;
-  const selectedFont = fonts[displayFontIndex].value;
+  const selectedFont = fonts[displayFontIndex].fontName;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
@@ -105,7 +119,7 @@ export function QuoteTypography({
   useEffect(() => {
     // Only try to load the font if we need to (when currentFontIndex != actualFontIndex)
     if (actualFontIndex !== undefined && currentFontIndex !== actualFontIndex) {
-      const fontToLoad = fonts[currentFontIndex].value;
+      const fontToLoad = fonts[currentFontIndex].fontName;
       
       // Load the font
       loadFont(fontToLoad).then(() => {
@@ -134,7 +148,7 @@ export function QuoteTypography({
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-      <Stack align="center" spacing="xs">
+      <Stack align="center">
         <Text 
           maw={500}
           style={{ 

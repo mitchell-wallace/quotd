@@ -17,7 +17,7 @@ export function Quotes() {
   // Preload the initial font
   useEffect(() => {
     // Load the first font on mount
-    loadFont(fonts[0].value);
+    loadFont(fonts[0].fontName);
   }, []);
 
   const handleFontChange = useCallback(async (newIndex: number) => {
@@ -48,7 +48,7 @@ export function Quotes() {
     handleFontChange(prevIndex);
   }, [currentFontIndex, handleFontChange, isFontLoading]);
 
-  const maxFontSize:number = 3.4;
+  const maxFontSize:number = 3.2;
   const minFontSize:number = 2.0;
   const incFontSize:number = 0.2;
 

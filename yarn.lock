@@ -1026,13 +1026,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/amatic-sc@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "@fontsource/amatic-sc@npm:5.1.1"
-  checksum: 10c0/4f116a37f01969341cf2b410ca32282d13f5cea7b8d0f5df01d82ffc25c6373d82321437a45b145919c707cb55ffdece1fe66bffa4b74c9c77bc9aa98feb3d9e
-  languageName: node
-  linkType: hard
-
 "@fontsource/architects-daughter@npm:^5.1.1":
   version: 5.1.1
   resolution: "@fontsource/architects-daughter@npm:5.1.1"
@@ -1047,10 +1040,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/exo-2@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/exo-2@npm:5.2.5"
+  checksum: 10c0/b053e5c9e59743abf416dead8fadb61a7e1cb7de1a820f027cffdd61471bd03364a0c6629d5219170b25ffa8076507341af2b5c5d79e6052a9cb31238579fba5
+  languageName: node
+  linkType: hard
+
 "@fontsource/fredericka-the-great@npm:^5.1.1":
   version: 5.1.1
   resolution: "@fontsource/fredericka-the-great@npm:5.1.1"
   checksum: 10c0/28e7bcf4278199f13f3626fd83dca0d35eb1cb153e10b2933163a837306c8e5208403550c06fcf5f2b02ed97cb08d6a54628a6d6f4305de8c3f9b743c545b601
+  languageName: node
+  linkType: hard
+
+"@fontsource/inconsolata@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/inconsolata@npm:5.2.5"
+  checksum: 10c0/95e337719f90f45fa8d0e0bebf36bea43711c923cb67441ff166253d61687e4dd9612e2de42a758c1981cdce56f3c731f81663323415f1f8c9fbfe9356ce6e01
   languageName: node
   linkType: hard
 
@@ -1061,10 +1068,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/lilita-one@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/lilita-one@npm:5.2.5"
+  checksum: 10c0/65c485648e11c9100ddfbed301ecb8f5a9d855773e8aeb11eb71abd5ea12e5fddc7681bb3922a617bd4b89d87f8df1a7d1945c81f30af9e9f5127846077677bd
+  languageName: node
+  linkType: hard
+
 "@fontsource/love-ya-like-a-sister@npm:^5.1.1":
   version: 5.1.1
   resolution: "@fontsource/love-ya-like-a-sister@npm:5.1.1"
   checksum: 10c0/a49c63a38a9d27bddfd6bfba5ae218bff7e752a1a591f47a69ea9a3624de621566814cba60de2f05d35088f278e9526e305d134ff95096dff72da62b19ba3b49
+  languageName: node
+  linkType: hard
+
+"@fontsource/maiden-orange@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/maiden-orange@npm:5.2.5"
+  checksum: 10c0/cc680dcd691367552bda648699e901cf282ccb1cd91c94394a0428c6e6eed45a50781e495f779ea165003e8eadce29d24145d63804270df0fe3aa3192f34f978
   languageName: node
   linkType: hard
 
@@ -1075,10 +1096,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/reenie-beanie@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "@fontsource/reenie-beanie@npm:5.1.1"
-  checksum: 10c0/c53d85424d8156e540223de91279ed795fe8a634afd87d740822abcaf9d497ee2bff6322a62ca8ef99de9ef738779ce530ad2e88ab45513be5aa572875bda953
+"@fontsource/raleway@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/raleway@npm:5.2.5"
+  checksum: 10c0/ad60ff3da0e1193271b3a28774918f74f9c44810b09989722bfaaf07b54cd8c506f2bf97e118f075fe27aa4b7c772c2695f15f6d156ab4623168b4bcfb9f1fd2
+  languageName: node
+  linkType: hard
+
+"@fontsource/roboto-slab@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/roboto-slab@npm:5.2.5"
+  checksum: 10c0/c8ce1219daebd02f11a72b8ebf4d5a1fc625dd34c6387ecba076f12c9b323b7a8968eb70958753e295c0dcf5d494f4cedd60d411d5dd14d5632ab5131f01eb7f
+  languageName: node
+  linkType: hard
+
+"@fontsource/smooch-sans@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/smooch-sans@npm:5.2.5"
+  checksum: 10c0/d47a5d27c0280d71bf96fc26d08332bb579001053df2ad78f808ea415915fb507d6a31a6f1723d8c1675d30ebaeb43bea80c2e73be4544998e4bf79a6fc2ba48
   languageName: node
   linkType: hard
 
@@ -1086,13 +1121,6 @@ __metadata:
   version: 5.1.1
   resolution: "@fontsource/syne-mono@npm:5.1.1"
   checksum: 10c0/752d8b9369550a676b020bf5d7dd958c4c11a12aa0692392774ad6d8ee0bc5f862ac82466748d6bf74602504aff25fb7b544803a53b543142e51457c7d5f5424
-  languageName: node
-  linkType: hard
-
-"@fontsource/tangerine@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "@fontsource/tangerine@npm:5.1.1"
-  checksum: 10c0/13949c2a054ab58f2c81a60c41ae8bc44d73353b6c5fd2605e9cd29d6d322bfeae0e49474cfd62283d9326ee3bdafd10170c32d797b90adcb4531c4ad13c919c
   languageName: node
   linkType: hard
 
@@ -5808,16 +5836,20 @@ __metadata:
   resolution: "mantine-vite-template@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.18.0"
-    "@fontsource/amatic-sc": "npm:^5.1.1"
     "@fontsource/architects-daughter": "npm:^5.1.1"
     "@fontsource/covered-by-your-grace": "npm:^5.1.1"
+    "@fontsource/exo-2": "npm:^5.2.5"
     "@fontsource/fredericka-the-great": "npm:^5.1.1"
+    "@fontsource/inconsolata": "npm:^5.2.5"
     "@fontsource/josefin-slab": "npm:^5.1.1"
+    "@fontsource/lilita-one": "npm:^5.2.5"
     "@fontsource/love-ya-like-a-sister": "npm:^5.1.1"
+    "@fontsource/maiden-orange": "npm:^5.2.5"
     "@fontsource/nothing-you-could-do": "npm:^5.1.1"
-    "@fontsource/reenie-beanie": "npm:^5.1.1"
+    "@fontsource/raleway": "npm:^5.2.5"
+    "@fontsource/roboto-slab": "npm:^5.2.5"
+    "@fontsource/smooch-sans": "npm:^5.2.5"
     "@fontsource/syne-mono": "npm:^5.1.1"
-    "@fontsource/tangerine": "npm:^5.1.1"
     "@fontsource/walter-turncoat": "npm:^5.1.1"
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.4.1"
     "@mantine/core": "npm:7.16.2"

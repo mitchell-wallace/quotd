@@ -46,13 +46,20 @@ export const fonts: FontDefinition[] = [
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFontByIndex = (fontIndex: number): Promise<void> => {
   return new Promise((resolve) => {
-    // Add a hidden element with the target font to ensure accurate font loading detection
+    // Add a hidden element with the target font to enable accurate font loading detection
+    // Include styling redundancy to ensure it doesn't affect page styling (e.g. increasing page length)
     const hiddenElement = document.createElement('span');
     Object.assign(hiddenElement.style, {
       fontFamily: `"${fonts[fontIndex].fontName}"`,
       visibility: 'hidden',
       position: 'absolute',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      fontSize: '0px',
+      margin: 0,
+      padding: 0,
+      boxSizing: 'border-box',
+      maxWidth: 0,
+      maxHeight: 0
     });
     hiddenElement.textContent = '\u00A0'; // Non-breaking space
     document.body.appendChild(hiddenElement);
@@ -178,7 +185,7 @@ export function QuoteTypography({
           maw={500}
           style={{ 
             fontFamily: `"${fonts[displayFontIndex].fontName}", sans-serif`,
-            fontSize: `${(currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor) - 0.8}em`,
+            fontSize: `${(currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor) - 0.6}em`,
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,

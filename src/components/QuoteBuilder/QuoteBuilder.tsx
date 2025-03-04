@@ -1,11 +1,13 @@
-import { Group, Container, Box } from '@mantine/core';
-import { useState, useCallback, useEffect } from 'react';
+import { Group, Container, Box, Button } from '@mantine/core';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { QuoteTypography, loadFontByIndex } from '../QuoteTypography/QuoteTypography';
 import { FontDefinitions } from '../QuoteTypography/FontDefinitions';
 import { QuoteImage } from '../QuoteImage/QuoteImage';
 import { SplitButton } from '../SplitButton/SplitButton';
 import { QuoteWordsList } from '../QuoteTypography/QuoteWordsList';
 import { QuoteImageUrlList } from '../QuoteImage/QuoteImageUrlList';
+import { IconDownload } from '@tabler/icons-react';
+import html2canvas from 'html2canvas';
 
 export function QuoteBuilder() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
@@ -83,6 +85,45 @@ export function QuoteBuilder() {
     setCurrentImageIndex((prev) => (prev - 1 + QuoteImageUrlList.length) % QuoteImageUrlList.length);
   }, []);
 
+  const quoteImageRef = useRef<HTMLDivElement>(null);
+
+  const handleDownload = useCallback(async () => {
+    if (!quoteImageRef.current) {
+      return;
+    }
+    
+    try {
+      // Create a canvas with fixed width of 1080px
+      const canvas = await html2canvas(quoteImageRef.current, {
+        scale: 1080 / quoteImageRef.current.offsetWidth,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+      });
+      
+      // Convert canvas to blob
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          }
+        }, 'image/png');
+      });
+      
+      // Create a download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `quote-${new Date().getTime()}.png`;
+      link.href = url;
+      link.click();
+      
+      // Clean up
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      // console.error('Error downloading image:', error);
+    }
+  }, []);
+
   return (
     <Container ta="center">
       <Group justify="center" maw={580} mx="auto">
@@ -112,7 +153,7 @@ export function QuoteBuilder() {
           iconStyle="arrows"
         />
       </Group>
-      <Box pos="relative" mt={30}>
+      <Box pos="relative" mt={30} ref={quoteImageRef}>
         <QuoteImage 
           currentImageIndex={currentImageIndex} >
           <QuoteTypography 
@@ -124,6 +165,15 @@ export function QuoteBuilder() {
           />
         </QuoteImage>
       </Box>
+      <Button 
+        leftSection={<IconDownload size={18} />}
+        onClick={handleDownload}
+        mt={20}
+        variant="filled"
+        miw={160}
+      >
+        Download
+      </Button>
     </Container>
   );
 }

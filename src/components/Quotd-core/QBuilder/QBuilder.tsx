@@ -1,15 +1,15 @@
 import { Group, Container, Box, Button } from '@mantine/core';
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { QuoteTypography, loadFontByIndex } from '../QuoteTypography/QuoteTypography';
-import { FontDefinitions } from '../QuoteTypography/FontDefinitions';
-import { QuoteImage } from '../QuoteImage/QuoteImage';
-import { SplitButton } from '../SplitButton/SplitButton';
-import { QuoteWordsList } from '../QuoteTypography/QuoteWordsList';
-import { QuoteImageUrlList } from '../QuoteImage/QuoteImageUrlList';
+import { QuoteTypography, loadFontByIndex } from '../../QuoteTypography/QuoteTypography';
+import { FontDefinitions } from '../../QuoteTypography/FontDefinitions';
+import { QuoteImage } from '../../QuoteImage/QuoteImage';
+import { SplitButton } from '../../SplitButton/SplitButton';
+import { QuoteWordsList } from '../../QuoteTypography/QuoteWordsList';
+import { QuoteImageUrlList } from '../../QuoteImage/QuoteImageUrlList';
 import { IconDownload } from '@tabler/icons-react';
 import { handleDownload } from './handleDownload';
 
-export function QuoteBuilder() {
+export function QBuilder() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
   const [outgoingFontIndex, setOutgoingFontIndex] = useState(currentFontIndex);
   const [isFontLoading, setIsFontLoading] = useState(false);

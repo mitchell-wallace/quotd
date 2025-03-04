@@ -1,12 +1,12 @@
 import { Image, AspectRatio  } from '@mantine/core';
-import { QuoteImageUrlList } from './QuoteImageUrlList';
+import { QImageUrlList } from './QImageUrlList';
 
 interface QuoteImageProps {
     currentImageIndex: number;
     children?: React.ReactNode;
 }
 
-export function QuoteImage({ currentImageIndex, children }: QuoteImageProps) {
+export function QImage({ currentImageIndex, children }: QuoteImageProps) {
     return (
         <AspectRatio ratio={3/2} style={{ position: 'relative' }}>
             <Image
@@ -15,7 +15,7 @@ export function QuoteImage({ currentImageIndex, children }: QuoteImageProps) {
                 maw={580}
                 mx="auto"
                 fit="cover"
-                src={QuoteImageUrlList[currentImageIndex]}
+                src={QImageUrlList[currentImageIndex]}
                 alt="Inspirational nature image"
                 style={{
                     filter: 'brightness(0.7)' // Reduces brightness by 30%

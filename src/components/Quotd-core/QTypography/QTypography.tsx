@@ -1,5 +1,5 @@
 import { Text, Box, Stack } from '@mantine/core';
-import { QuoteWordsList } from './QuoteWordsList';
+import { QWordsList } from './QWordsList';
 import { useEffect, useRef, useState } from 'react';
 
 // Import fonts
@@ -79,7 +79,7 @@ interface QuoteTextProps {
   onFontLoaded?: () => void; // Callback when font is loaded
 }
 
-export function QuoteTypography({ 
+export function QTypography({ 
   currentWordsIndex, 
   currentFontIndex, 
   currentFontSize,
@@ -157,7 +157,7 @@ export function QuoteTypography({
             maxWidth: '80%'
           }}
         >
-          {QuoteWordsList[currentWordsIndex].text}
+          {QWordsList[currentWordsIndex].text}
         </Text>
         <Text 
           maw={500}
@@ -170,7 +170,7 @@ export function QuoteTypography({
             maxWidth: '80%'
           }}
         >
-          {QuoteWordsList[currentWordsIndex].source} {QuoteWordsList[currentWordsIndex].translation}
+          {QWordsList[currentWordsIndex].source} {QWordsList[currentWordsIndex].translation}
         </Text>
       </Stack>
     </Box>

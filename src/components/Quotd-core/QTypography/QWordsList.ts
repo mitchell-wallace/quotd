@@ -3,7 +3,7 @@ export interface QuoteWordsEntry {
     source: string;
     translation?: string;
   }
-export const QuoteWordsList: QuoteWordsEntry[] = [
+export const QWordsList: QuoteWordsEntry[] = [
     { text: "I can do all things through Christ who strengthens me", source: "Philippians 4:13", translation: "NKJV" },
     { text: "Your word is a lamp unto my feet and a light unto my path", source: "Psalm 119:105", translation: "KJV"},
     { text: "Trust in the Lord with all your heart, and lean not on your own understanding", source: "Proverbs 3:5", translation: "NKJV"},

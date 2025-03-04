@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas';
-import { QuoteImageUrlList } from '../QuoteImage/QuoteImageUrlList';
+import { QuoteImageUrlList } from '../../QuoteImage/QuoteImageUrlList';
 import { RefObject } from 'react';
 
 /**

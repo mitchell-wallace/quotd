@@ -8,7 +8,7 @@ import { QuoteImageUrlList } from './QuoteImageUrlList';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
-  const [currentFontSize, setCurrentFontSize] = useState(3);
+  const [currentFontSize, setCurrentFontSize] = useState(2.6);
   const [currentWordsIndex, setCurrentWordsIndex] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -20,9 +20,9 @@ export function Quotes() {
     setCurrentFontIndex((prev) => (prev - 1 + 11) % 11);
   }, []);
 
-  const maxFontSize:number = 5.5;
-  const minFontSize:number = 1.5;
-  const incFontSize:number = 0.25;
+  const maxFontSize:number = 3.4;
+  const minFontSize:number = 2.0;
+  const incFontSize:number = 0.2;
 
   const nextFontSize = useCallback(() => {
     setCurrentFontSize((prev) => {

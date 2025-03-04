@@ -46,6 +46,7 @@ export const loadFont = (fontFamily: string): Promise<void> => {
 
       // If not loaded
       if (!isLoadedPreviously) {
+        document.fonts.load(`1em "${fontFamily}"`);
         for (let i = 0; i < 10; i++) {
           setTimeout(() => {
             resolve();

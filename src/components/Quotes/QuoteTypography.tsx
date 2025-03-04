@@ -98,7 +98,7 @@ interface QuoteTextProps {
   currentWordsIndex: number;
   currentFontIndex: number;
   currentFontSize: number;
-  previousFontIndex?: number; // Optional prop to handle the case when we're still loading a font
+  outgoingFontIndex?: number; // Optional prop to handle the case when we're still loading a font
   onFontLoaded?: () => void; // Callback when font is loaded
 }
 
@@ -106,11 +106,11 @@ export function QuoteTypography({
   currentWordsIndex, 
   currentFontIndex, 
   currentFontSize,
-  previousFontIndex,
+  outgoingFontIndex,
   onFontLoaded
 }: QuoteTextProps) {
   // Use previousFontIndex if provided (during loading), otherwise use currentFontIndex
-  const displayFontIndex = typeof previousFontIndex === 'number' ? previousFontIndex : currentFontIndex;
+  const displayFontIndex = typeof outgoingFontIndex === 'number' ? outgoingFontIndex : currentFontIndex;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
@@ -136,7 +136,7 @@ export function QuoteTypography({
   // Effect to handle font loading
   useEffect(() => {
     // Only try to load the font if we need to (when currentFontIndex != previousFontIndex)
-    if (previousFontIndex !== undefined && currentFontIndex !== previousFontIndex) {
+    if (outgoingFontIndex !== undefined && currentFontIndex !== outgoingFontIndex) {
       // const fontToLoad = fonts[currentFontIndex].fontName;
       
       // Load the font
@@ -147,7 +147,7 @@ export function QuoteTypography({
         }
       });
     }
-  }, [currentFontIndex, previousFontIndex, onFontLoaded]);
+  }, [currentFontIndex, outgoingFontIndex, onFontLoaded]);
 
   return (
     <Box

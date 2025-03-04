@@ -8,10 +8,10 @@ import { QuoteImageUrlList } from './QuoteImageUrlList';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
-  const [actualFontIndex, setActualFontIndex] = useState(0); // Tracks the currently displayed font
+  const [outgoingFontIndex, setOutgoingFontIndex] = useState(currentFontIndex);
   const [isFontLoading, setIsFontLoading] = useState(false);
   const [currentFontSize, setCurrentFontSize] = useState(2.6);
-  const [currentWordsIndex, setCurrentWordsIndex] = useState(1);
+  const [currentWordsIndex, setCurrentWordsIndex] = useState(Math.floor(Math.random() * QuoteWordsList.length));
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Preload the initial font
@@ -28,7 +28,7 @@ export function Quotes() {
 
   const handleFontLoaded = useCallback(() => {
     // Update the actual font index to match the current font index once loaded
-    setActualFontIndex(currentFontIndex);
+    setOutgoingFontIndex(currentFontIndex);
     setIsFontLoading(false);
   }, [currentFontIndex]);
 
@@ -118,7 +118,7 @@ export function Quotes() {
             currentWordsIndex={currentWordsIndex}
             currentFontIndex={currentFontIndex}
             currentFontSize={currentFontSize}
-            previousFontIndex={isFontLoading ? actualFontIndex : undefined}
+            outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
             onFontLoaded={handleFontLoaded}
           />
         </QuoteImage>

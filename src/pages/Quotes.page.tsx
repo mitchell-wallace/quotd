@@ -1,4 +1,4 @@
-import { QuoteBuilder } from '../components/Quotes/QuoteBuilder';
+import { QuoteBuilder } from '../components/QuoteBuilder/QuoteBuilder';
 
 export function QuotesPage() {
   return (

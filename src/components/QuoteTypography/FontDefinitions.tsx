@@ -4,7 +4,7 @@ interface FontDefinition {
   spacingFactor: number;
 }
 
-export const fonts: FontDefinition[] = [
+export const FontDefinitions: FontDefinition[] = [
   { fontName: 'Raleway', sizingFactor: 0.75, spacingFactor: 0.9 },
   { fontName: 'Roboto Slab', sizingFactor: 0.7, spacingFactor: 1.0 },
   { fontName: 'Inconsolata', sizingFactor: 0.7, spacingFactor: 1.0 },

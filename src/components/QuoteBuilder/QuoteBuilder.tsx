@@ -1,7 +1,7 @@
 import { Group, Container, Box } from '@mantine/core';
 import { useState, useCallback, useEffect } from 'react';
 import { QuoteTypography, loadFontByIndex } from '../QuoteTypography/QuoteTypography';
-import { fonts } from '../QuoteTypography/fonts';
+import { FontDefinitions } from '../QuoteTypography/FontDefinitions';
 import { QuoteImage } from '../QuoteImage/QuoteImage';
 import { SplitButton } from '../SplitButton/SplitButton';
 import { QuoteWordsList } from '../QuoteTypography/QuoteWordsList';
@@ -37,7 +37,7 @@ export function QuoteBuilder() {
     if (isFontLoading) {
       return; // Prevent changing font while loading
     }
-    const nextIndex = (currentFontIndex + 1) % fonts.length;
+    const nextIndex = (currentFontIndex + 1) % FontDefinitions.length;
     handleFontChange(nextIndex);
   }, [currentFontIndex, handleFontChange, isFontLoading]);
 
@@ -45,7 +45,7 @@ export function QuoteBuilder() {
     if (isFontLoading) {
       return; // Prevent changing font while loading
     }
-    const prevIndex = (currentFontIndex - 1 + fonts.length) % fonts.length;
+    const prevIndex = (currentFontIndex - 1 + FontDefinitions.length) % FontDefinitions.length;
     handleFontChange(prevIndex);
   }, [currentFontIndex, handleFontChange, isFontLoading]);
 

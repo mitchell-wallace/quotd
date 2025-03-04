@@ -18,7 +18,7 @@ import "@fontsource/josefin-slab";
 import "@fontsource/architects-daughter";
 import "@fontsource/love-ya-like-a-sister";
 import "@fontsource/fredericka-the-great";
-import { fonts } from './fonts';
+import { FontDefinitions } from './FontDefinitions';
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFontByIndex = (fontIndex: number): Promise<void> => {
@@ -27,7 +27,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
     // Include styling redundancy to ensure it doesn't affect page styling (e.g. increasing page length)
     const hiddenElement = document.createElement('span');
     Object.assign(hiddenElement.style, {
-      fontFamily: `"${fonts[fontIndex].fontName}"`,
+      fontFamily: `"${FontDefinitions[fontIndex].fontName}"`,
       visibility: 'hidden',
       position: 'absolute',
       pointerEvents: 'none',
@@ -43,7 +43,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
 
     document.fonts.ready.then(() => {
       const checkFontLoaded = () => {
-        if (document.fonts.check(`1em "${fonts[fontIndex].fontName}"`)) {
+        if (document.fonts.check(`1em "${FontDefinitions[fontIndex].fontName}"`)) {
           hiddenElement.remove();
           resolve();
           return true;
@@ -54,7 +54,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
 
       // If not loaded
       if (!isLoadedPreviously) {
-        document.fonts.load(`1em "${fonts[fontIndex].fontName}"`);
+        document.fonts.load(`1em "${FontDefinitions[fontIndex].fontName}"`);
         for (let i = 0; i < 50; i++) { // Check every 100ms for up to 5s
           setTimeout(() => {
             resolve();
@@ -147,12 +147,12 @@ export function QuoteTypography({
         <Text 
           maw={500}
           style={{ 
-            fontFamily: `"${fonts[displayFontIndex].fontName}", sans-serif`,
-            fontSize: `${currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor}em`,
+            fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
+            fontSize: `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor}em`,
             fontDisplay: 'swap',
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-            lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
+            lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
             maxWidth: '80%'
           }}
         >
@@ -161,11 +161,11 @@ export function QuoteTypography({
         <Text 
           maw={500}
           style={{ 
-            fontFamily: `"${fonts[displayFontIndex].fontName}", sans-serif`,
-            fontSize: `${(currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor) - 0.6}em`,
+            fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
+            fontSize: `${(currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor) - 0.6}em`,
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-            lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
+            lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
             maxWidth: '80%'
           }}
         >

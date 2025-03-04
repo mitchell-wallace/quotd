@@ -139,6 +139,7 @@ export function QuoteTypography({
       mx="auto"
       p={`${2 * viewScaleFactor}em`}
       display="flex"
+      className="quote-typography"
       style={{
         alignItems: 'center',
         justifyContent: 'center'

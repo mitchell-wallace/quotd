@@ -46,11 +46,21 @@ export const fonts: FontDefinition[] = [
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFontByIndex = (fontIndex: number): Promise<void> => {
   return new Promise((resolve) => {
-    // Use the FontFace API's document.fonts.ready promise
-    // This doesn't seem correct - there is still a brief moment where the font is not loaded
+    // Add a hidden element with the target font to ensure accurate font loading detection
+    const hiddenElement = document.createElement('span');
+    Object.assign(hiddenElement.style, {
+      fontFamily: `"${fonts[fontIndex].fontName}"`,
+      visibility: 'hidden',
+      position: 'absolute',
+      pointerEvents: 'none'
+    });
+    hiddenElement.textContent = '\u00A0'; // Non-breaking space
+    document.body.appendChild(hiddenElement);
+
     document.fonts.ready.then(() => {
       const checkFontLoaded = () => {
         if (document.fonts.check(`1em "${fonts[fontIndex].fontName}"`)) {
+          hiddenElement.remove();
           resolve();
           return true;
         }
@@ -61,7 +71,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
       // If not loaded
       if (!isLoadedPreviously) {
         document.fonts.load(`1em "${fonts[fontIndex].fontName}"`);
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 50; i++) { // Check every 100ms for up to 5s
           setTimeout(() => {
             resolve();
           }, 100);
@@ -69,6 +79,8 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
             break;
           }
         }
+        // Clean up if font is not loaded in time
+        hiddenElement.remove();
         
       }
     });

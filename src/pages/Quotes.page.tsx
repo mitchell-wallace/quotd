@@ -1,9 +1,9 @@
-import { QuoteBuilder } from '../components/Quotd-core/QBuilder/QBuilder';
+import { QBuilder } from '../components/Quotd-core/QBuilder/QBuilder';
 
 export function QuotesPage() {
   return (
     <>
-      <QuoteBuilder />
+      <QBuilder />
     </>
   );
 }

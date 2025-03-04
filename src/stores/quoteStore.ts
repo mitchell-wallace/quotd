@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { QuoteWordsList } from '../components/Quotd-core/QTypography/QWordsList';
+import { QWordsList } from '../components/Quotd-core/QTypography/QWordsList';
 import { FontDefinitions } from '../components/Quotd-core/QTypography/FontDefinitions';
 import { QImageUrlList } from '../components/Quotd-core/QImage/QImageUrlList';
 
@@ -46,7 +46,7 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   outgoingFontIndex: 0,
   isFontLoading: false,
   currentFontSize: 2.6,
-  currentWordsIndex: Math.floor(Math.random() * QuoteWordsList.length),
+  currentWordsIndex: Math.floor(Math.random() * QWordsList.length),
   currentImageIndex: 0,
   
   // Font size constraints
@@ -80,14 +80,18 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   
   nextFont: () => {
     const { currentFontIndex, isFontLoading, handleFontChange } = get();
-    if (isFontLoading) return;
+    if (isFontLoading) {
+        return;
+    }
     const nextIndex = (currentFontIndex + 1) % FontDefinitions.length;
     handleFontChange(nextIndex);
   },
   
   prevFont: () => {
     const { currentFontIndex, isFontLoading, handleFontChange } = get();
-    if (isFontLoading) return;
+    if (isFontLoading) {
+        return;
+    }
     const prevIndex = (currentFontIndex - 1 + FontDefinitions.length) % FontDefinitions.length;
     handleFontChange(prevIndex);
   },
@@ -109,14 +113,14 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   nextWordsIndex: () => {
     const { currentWordsIndex } = get();
     set({ 
-      currentWordsIndex: (currentWordsIndex + 1) % QuoteWordsList.length
+      currentWordsIndex: (currentWordsIndex + 1) % QWordsList.length
     });
   },
   
   prevWordsIndex: () => {
     const { currentWordsIndex } = get();
     set({ 
-      currentWordsIndex: (currentWordsIndex - 1 + QuoteWordsList.length) % QuoteWordsList.length
+      currentWordsIndex: (currentWordsIndex - 1 + QWordsList.length) % QWordsList.length
     });
   },
   

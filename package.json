@@ -39,7 +39,7 @@
     "@mantine/hooks": "7.16.2",
     "@mantinex/mantine-logo": "^1.1.0",
     "@tabler/icons-react": "^3.29.0",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.13",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.3",

@@ -21,10 +21,6 @@ export const handleDownload = (
       canvasWidth: 1080,
       canvasHeight: 720,
       skipAutoScale: true,
-      // style: {
-      //   // Make sure filters are applied
-      //   filter: 'brightness(0.7)'
-      // }
     });
     
     // Create a download link

@@ -15,7 +15,7 @@ import "@fontsource/walter-turncoat";
 import "@fontsource/nothing-you-could-do";
 import "@fontsource/covered-by-your-grace";
 
-const fonts = [
+export const fonts = [
   { value: 'Reenie Beanie', label: 'Reenie Beanie', sizingFactor: 1, spacingFactor: 0.7 },
   { value: 'Amatic SC', label: 'Amatic SC', sizingFactor: 1.1, spacingFactor: 0.85 },
   { value: 'Josefin Slab', label: 'Josefin Slab', sizingFactor: 0.8, spacingFactor: 1 },
@@ -29,14 +29,83 @@ const fonts = [
   { value: 'Tangerine', label: 'Tangerine', sizingFactor: 1.4, spacingFactor: 0.7 }
 ] as const;
 
+// Helper function to load a font and return a promise that resolves when the font is loaded
+export const loadFont = (fontFamily: string): Promise<void> => {
+  return new Promise((resolve) => {
+    // Use the FontFace API to check if the font is loaded
+    document.fonts.ready.then(() => {
+      setTimeout(() => {
+        document.body.removeChild(testElement);
+        // Resolve anyway after timeout to prevent hanging
+        resolve();
+      }, 3000); // 3 second timeout
+
+      // Create a test element with the font
+      const testElement = document.createElement('span');
+      testElement.style.fontFamily = `"${fontFamily}", sans-serif`;
+      testElement.style.visibility = 'hidden';
+      testElement.textContent = 'Test Font Loading';
+      document.body.appendChild(testElement);
+      
+      // Check if font is already loaded
+      if (document.fonts.check(`1em "${fontFamily}"`)) {
+        document.body.removeChild(testElement);
+        resolve();
+        return;
+      }
+      
+      // If not loaded yet, wait for it to load
+      const timeout = setTimeout(() => {
+        document.body.removeChild(testElement);
+        // Resolve anyway after timeout to prevent hanging
+        resolve();
+      }, 3000); // 3 second timeout
+      
+      // Set up an observer to check when the font loads
+      const checkFont = () => {
+        if (document.fonts.check(`1em "${fontFamily}"`)) {
+          clearTimeout(timeout);
+          document.body.removeChild(testElement);
+          resolve();
+          return true;
+        }
+        return false;
+      };
+      
+      // Try checking immediately
+      if (!checkFont()) {
+        // If not loaded, check periodically
+        const interval = setInterval(() => {
+          if (checkFont()) {
+            clearInterval(interval);
+          }
+        }, 50);
+        
+        // Clear interval after timeout
+        setTimeout(() => clearInterval(interval), 3000);
+      }
+    });
+  });
+};
+
 interface QuoteTextProps {
   currentWordsIndex: number;
   currentFontIndex: number;
   currentFontSize: number;
+  actualFontIndex?: number; // Optional prop to handle the case when we're still loading a font
+  onFontLoaded?: () => void; // Callback when font is loaded
 }
 
-export function QuoteTypography({ currentWordsIndex, currentFontIndex, currentFontSize }: QuoteTextProps) {
-  const selectedFont = fonts[currentFontIndex].value;
+export function QuoteTypography({ 
+  currentWordsIndex, 
+  currentFontIndex, 
+  currentFontSize,
+  actualFontIndex,
+  onFontLoaded
+}: QuoteTextProps) {
+  // Use actualFontIndex if provided (during loading), otherwise use currentFontIndex
+  const displayFontIndex = typeof actualFontIndex === 'number' ? actualFontIndex : currentFontIndex;
+  const selectedFont = fonts[displayFontIndex].value;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
@@ -59,6 +128,22 @@ export function QuoteTypography({ currentWordsIndex, currentFontIndex, currentFo
     return () => resizeObserver.disconnect();
   }, []);
 
+  // Effect to handle font loading
+  useEffect(() => {
+    // Only try to load the font if we need to (when currentFontIndex != actualFontIndex)
+    if (actualFontIndex !== undefined && currentFontIndex !== actualFontIndex) {
+      const fontToLoad = fonts[currentFontIndex].value;
+      
+      // Load the font
+      loadFont(fontToLoad).then(() => {
+        // Notify parent that font is loaded
+        if (onFontLoaded) {
+          onFontLoaded();
+        }
+      });
+    }
+  }, [currentFontIndex, actualFontIndex, onFontLoaded]);
+
   return (
     <Box
       ref={boxRef}
@@ -80,10 +165,10 @@ export function QuoteTypography({ currentWordsIndex, currentFontIndex, currentFo
         maw={500}
         style={{ 
           fontFamily: `"${selectedFont}", sans-serif`,
-          fontSize: `${currentFontSize * fonts[currentFontIndex].sizingFactor * viewScaleFactor}em`,
+          fontSize: `${currentFontSize * fonts[displayFontIndex].sizingFactor * viewScaleFactor}em`,
           color: 'white',
           textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-          lineHeight: `${1.4 * fonts[currentFontIndex].spacingFactor}`,
+          lineHeight: `${1.4 * fonts[displayFontIndex].spacingFactor}`,
           maxWidth: '80%'
         }}
       >

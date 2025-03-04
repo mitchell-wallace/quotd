@@ -1,6 +1,6 @@
 import { Group, Container, Box } from '@mantine/core';
-import { useState, useCallback } from 'react';
-import { QuoteTypography } from './QuoteTypography';
+import { useState, useCallback, useEffect } from 'react';
+import { QuoteTypography, fonts, loadFont } from './QuoteTypography';
 import { QuoteImage } from './QuoteImage';
 import { SplitButton } from './SplitButton';
 import { QuoteWordsList } from './QuoteWordsList';
@@ -8,17 +8,45 @@ import { QuoteImageUrlList } from './QuoteImageUrlList';
 
 export function Quotes() {
   const [currentFontIndex, setCurrentFontIndex] = useState(0);
+  const [actualFontIndex, setActualFontIndex] = useState(0); // Tracks the currently displayed font
+  const [isFontLoading, setIsFontLoading] = useState(false);
   const [currentFontSize, setCurrentFontSize] = useState(2.6);
   const [currentWordsIndex, setCurrentWordsIndex] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const nextFont = useCallback(() => {
-    setCurrentFontIndex((prev) => (prev + 1) % 11);
+  // Preload the initial font
+  useEffect(() => {
+    // Load the first font on mount
+    loadFont(fonts[0].value);
   }, []);
 
-  const prevFont = useCallback(() => {
-    setCurrentFontIndex((prev) => (prev - 1 + 11) % 11);
+  const handleFontChange = useCallback(async (newIndex: number) => {
+    setIsFontLoading(true);
+    setCurrentFontIndex(newIndex);
+    // The actual font will be updated once loading is complete
   }, []);
+
+  const handleFontLoaded = useCallback(() => {
+    // Update the actual font index to match the current font index once loaded
+    setActualFontIndex(currentFontIndex);
+    setIsFontLoading(false);
+  }, [currentFontIndex]);
+
+  const nextFont = useCallback(() => {
+    if (isFontLoading) {
+      return; // Prevent changing font while loading
+    }
+    const nextIndex = (currentFontIndex + 1) % fonts.length;
+    handleFontChange(nextIndex);
+  }, [currentFontIndex, handleFontChange, isFontLoading]);
+
+  const prevFont = useCallback(() => {
+    if (isFontLoading) {
+      return; // Prevent changing font while loading
+    }
+    const prevIndex = (currentFontIndex - 1 + fonts.length) % fonts.length;
+    handleFontChange(prevIndex);
+  }, [currentFontIndex, handleFontChange, isFontLoading]);
 
   const maxFontSize:number = 3.4;
   const minFontSize:number = 2.0;
@@ -62,12 +90,14 @@ export function Quotes() {
           prevAction={prevFont}
           nextAction={nextFont}
           iconStyle="arrows"
+          loading={isFontLoading}
         />
         <SplitButton
           buttonText="Font Size"
           prevAction={prevFontSize}
           nextAction={nextFontSize}
           iconStyle="plusminus"
+          loading={isFontLoading}
         />
         <SplitButton
           buttonText="Words"
@@ -89,6 +119,8 @@ export function Quotes() {
             currentWordsIndex={currentWordsIndex}
             currentFontIndex={currentFontIndex}
             currentFontSize={currentFontSize}
+            actualFontIndex={isFontLoading ? actualFontIndex : undefined}
+            onFontLoaded={handleFontLoaded}
           />
         </QuoteImage>
       </Box>

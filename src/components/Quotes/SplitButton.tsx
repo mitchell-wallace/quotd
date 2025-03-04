@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core';
+import { Button, Group, Loader } from '@mantine/core';
 import { IconMinus, IconPlus, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 interface SplitButtonProps {
@@ -7,9 +7,10 @@ interface SplitButtonProps {
     nextAction: () => void;
     // iconStyle = either "arrows" or "plusminus"
     iconStyle: "arrows" | "plusminus";
+    loading?: boolean;
   }
 
-export function SplitButton({ buttonText, prevAction, nextAction, iconStyle }: SplitButtonProps) {
+export function SplitButton({ buttonText, prevAction, nextAction, iconStyle, loading = false }: SplitButtonProps) {
     return (
         <>
             <Group gap={0}>
@@ -17,6 +18,7 @@ export function SplitButton({ buttonText, prevAction, nextAction, iconStyle }: S
                     variant="light"
                     onClick={prevAction}
                     style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                    disabled={loading}
                 >
                 {iconStyle === "arrows" && <IconChevronLeft size={18} />}
                 {iconStyle === "plusminus" && <IconMinus size={18} />}
@@ -30,12 +32,13 @@ export function SplitButton({ buttonText, prevAction, nextAction, iconStyle }: S
                     }}
                     w={120}
                 >
-                {buttonText}
+                {loading ? <Loader size="xs" /> : buttonText}
                 </Button>
                 <Button
                     variant="light"
                     onClick={nextAction}
                     style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                    disabled={loading}
                 >
                 {iconStyle === "arrows" && <IconChevronRight size={18} />}
                 {iconStyle === "plusminus" && <IconPlus size={18} />}

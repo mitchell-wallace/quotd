@@ -12,7 +12,7 @@ export function QLayout() {
   const downloadQuote = useCallback(
     () => {
       if (downloadFrameRef.current) {
-        handleDownload(downloadFrameRef as RefObject<HTMLDivElement>);
+        handleDownload(downloadFrameRef as RefObject<HTMLDivElement>)();
       }
     },
     [downloadFrameRef]

@@ -7,13 +7,12 @@ import { handleDownload } from '../Download/handleDownload';
 import { DownloadFrame } from '../Download/DownloadFrame';
 
 export function QLayout() {
-  // const { currentImageIndex } = useQuoteStore();
-  const downloadFrameRef = useRef<HTMLDivElement>(null);
+  const downloadFrameRef = useRef<HTMLDivElement | null>(null);
   
   const downloadQuote = useCallback(
     () => {
       if (downloadFrameRef.current) {
-        handleDownload(downloadFrameRef as RefObject<HTMLDivElement>)();
+        handleDownload(downloadFrameRef as RefObject<HTMLDivElement>);
       }
     },
     [downloadFrameRef]

@@ -5,16 +5,19 @@ import { forwardRef } from 'react';
 interface QuoteImageProps {
     currentImageIndex: number;
     children?: React.ReactNode;
+    variant?: 'display' | 'download';
 }
 
 export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
-    ({ currentImageIndex, children }) => {
+    ({ currentImageIndex, children, variant }, ref) => {
         return (
             <>
                 <Image
                     radius="md"
-                    mah={400}
-                    maw={580}
+                    {...(variant === 'display'
+                        ? { mah: 400, maw: 580 }
+                        : { h: 720, w: 1080 }
+                    )}
                     mx="auto"
                     fit="cover"
                     src={QImageUrlList[currentImageIndex]}

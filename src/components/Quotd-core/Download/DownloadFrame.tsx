@@ -18,8 +18,9 @@ export const DownloadFrame = forwardRef<HTMLDivElement, DownloadFrameProps>(
         pos="fixed"
         top={-10000}
         left={-10000}
+        // top={0}
+        // left={0}
         style={{ 
-          visibility: 'hidden', 
           overflow: 'hidden',
           margin: 0,
           padding: 0,
@@ -29,8 +30,7 @@ export const DownloadFrame = forwardRef<HTMLDivElement, DownloadFrameProps>(
       >
         {/* Fixed size QCanvas specifically for downloading */}
         <QCanvas 
-          width={1080} 
-          height={720}
+          variant="download"
         />
       </Box>
     );

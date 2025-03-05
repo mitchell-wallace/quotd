@@ -5,13 +5,12 @@ import { QTypography } from '../QTypography/QTypography';
 import { useQuoteStore } from '../../../stores/quoteStore';
 
 interface QCanvasProps {
-  width?: number; // Optional width prop for fixed-width rendering (for download)
-  height?: number; // Optional height prop
+  variant?: 'display' | 'download';
   canvasRef?: React.RefObject<HTMLDivElement>; // Optional ref to be attached
 }
 
 export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
-  ({ width, height, canvasRef }, ref) => {
+  ({ variant = 'display', canvasRef }, ref) => {
     const {
       currentImageIndex,
       currentWordsIndex,
@@ -31,11 +30,11 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
             pos="relative" 
             mt={30} 
             ref={ref || actualRef}
-            style={width ? { width: `${width}px`, height: `${height}px` } : undefined}
         >
             <AspectRatio ratio={3/2} style={{ position: 'relative' }}>
                 <QImage 
                     currentImageIndex={currentImageIndex}
+                    variant={variant}
                 >
                     <QTypography 
                         currentWordsIndex={currentWordsIndex}

@@ -14,10 +14,10 @@ export const handleDownload = (
   
   try {
     // Find the QCanvas inside the download frame
-    const canvasElement = downloadFrameRef.current.querySelector('div > div'); // Target the Box with AspectRatio
+    const canvasElement = downloadFrameRef.current.querySelector('div > div') as HTMLElement; // Target the Box with AspectRatio
     
     if (!canvasElement) {
-      console.error('Could not find canvas element for download');
+      // console.error('Could not find canvas element for download');
       return;
     }
     

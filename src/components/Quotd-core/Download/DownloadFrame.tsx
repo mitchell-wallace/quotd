@@ -18,8 +18,6 @@ export const DownloadFrame = forwardRef<HTMLDivElement, DownloadFrameProps>(
         pos="fixed"
         top={-10000}
         left={-10000}
-        // top={0}
-        // left={0}
         style={{ 
           overflow: 'hidden',
           margin: 0,

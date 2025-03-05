@@ -13,7 +13,6 @@ export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
         return (
             <>
                 <Image
-                    // radius="md"
                     {...(variant === 'display'
                         ? { mah: 400, maw: 580, radius: 'md' }
                         : { h: 720, w: 1080 }

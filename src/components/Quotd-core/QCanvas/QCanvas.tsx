@@ -37,6 +37,7 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
                     variant={variant}
                 >
                     <QTypography 
+                        variant={variant}
                         currentWordsIndex={currentWordsIndex}
                         currentFontIndex={currentFontIndex}
                         currentFontSize={currentFontSize}

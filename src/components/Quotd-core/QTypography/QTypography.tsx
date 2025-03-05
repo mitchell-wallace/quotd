@@ -72,6 +72,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
 };
 
 interface QuoteTextProps {
+  variant?: 'display' | 'download';
   currentWordsIndex: number;
   currentFontIndex: number;
   currentFontSize: number;
@@ -80,6 +81,7 @@ interface QuoteTextProps {
 }
 
 export function QTypography({ 
+  variant,
   currentWordsIndex, 
   currentFontIndex, 
   currentFontSize,
@@ -92,8 +94,13 @@ export function QTypography({
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
   useEffect(() => {
+    if (variant === 'download') {
+      // Set a constant scale of 1080 / 580
+      setViewScaleFactor(1080 / 580);
+    }
+
     const updateScale = () => {
-      if (boxRef.current) {
+      if (variant === 'display' && boxRef.current) {
         // Base the scale on the box width, where 580 is our max width
         // This gives us 1 at max width, scaling down proportionally
         const scale = boxRef.current.offsetWidth / 580;
@@ -106,9 +113,9 @@ export function QTypography({
       resizeObserver.observe(boxRef.current);
       updateScale(); // Initial measurement
     }
-
+    
     return () => resizeObserver.disconnect();
-  }, []);
+  }, [variant]);
 
   // Effect to handle font loading
   useEffect(() => {
@@ -134,8 +141,8 @@ export function QTypography({
       left={0}
       right={0}
       bottom={0}
-      mah={400}
-      maw={580}
+      mah={variant === 'display' ? 400 : (400/580*1080)}
+      maw={variant === 'display' ? 580 : 1080}
       mx="auto"
       p={`${2 * viewScaleFactor}em`}
       display="flex"
@@ -146,7 +153,7 @@ export function QTypography({
       }}>
       <Stack align="center">
         <Text 
-          maw={500}
+          maw={variant === 'display' ? 500 : (500/580*1080)}
           style={{ 
             fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
             fontSize: `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor}em`,
@@ -160,7 +167,7 @@ export function QTypography({
           {QWordsList[currentWordsIndex].text}
         </Text>
         <Text 
-          maw={500}
+          maw={variant === 'display' ? 500 : (500/580*1080)}
           style={{ 
             fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
             fontSize: `${(currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor) - 0.6}em`,

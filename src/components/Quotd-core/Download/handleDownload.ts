@@ -3,24 +3,30 @@ import { RefObject } from 'react';
 
 /**
  * Downloads the quote image with a fixed width of 1080px
- * @param quoteImageRef - Reference to the quote image element
+ * @param downloadFrameRef - Reference to the download frame element
  */
 export const handleDownload = (
-  quoteImageRef: RefObject<HTMLDivElement>
+  downloadFrameRef: RefObject<HTMLDivElement>
 ) => async () => {
-  if (!quoteImageRef?.current) {
+  if (!downloadFrameRef?.current) {
     return;
   }
   
   try {
-    // Use html-to-image library to capture the element
-    const dataUrl = await toPng(quoteImageRef.current, {
-      width: 1080, // Fixed width
-      height: 720, // Height based on 3:2 aspect ratio
-      pixelRatio: 2, // Higher quality
-      canvasWidth: 1080,
-      canvasHeight: 720,
+    // Find the QCanvas inside the download frame
+    const canvasElement = downloadFrameRef.current.querySelector('div > div'); // Target the Box with AspectRatio
+    
+    if (!canvasElement) {
+      console.error('Could not find canvas element for download');
+      return;
+    }
+    
+    // Use html-to-image to capture the canvas at 1080px width
+    const dataUrl = await toPng(canvasElement, {
+      pixelRatio: 1, // Use 1 to get exactly 1080x720px
       skipAutoScale: true,
+      quality: 1.0,
+      backgroundColor: 'white',
     });
     
     // Create a download link
@@ -30,6 +36,6 @@ export const handleDownload = (
     link.click();
     
   } catch (error) {
-    console.error('Error downloading image:', error);
+    // console.error('Error downloading image:', error);
   }
 };

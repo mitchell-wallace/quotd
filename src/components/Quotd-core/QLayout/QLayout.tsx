@@ -5,14 +5,16 @@ import { QControls } from '../QControls/QControls';
 import { QCanvas } from '../QCanvas/QCanvas';
 import { handleDownload } from '../Download/handleDownload';
 import { useQuoteStore } from '../../../stores/quoteStore';
+import { DownloadFrame } from '../Download/DownloadFrame';
 
 export function QLayout() {
   const { currentImageIndex } = useQuoteStore();
   const quoteImageRef = useRef<HTMLDivElement | null>(null);
+  const downloadFrameRef = useRef<HTMLDivElement | null>(null);
   
   const downloadQuote = useCallback(
-    handleDownload(quoteImageRef),
-    [quoteImageRef]
+    handleDownload(downloadFrameRef),
+    [downloadFrameRef]
   );
 
   return (
@@ -28,6 +30,9 @@ export function QLayout() {
       >
         Download
       </Button>
+      
+      {/* Hidden download frame with fixed dimensions */}
+      <DownloadFrame ref={downloadFrameRef} />
     </Container>
   );
 }

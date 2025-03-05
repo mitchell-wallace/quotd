@@ -9,7 +9,7 @@ interface QuoteImageProps {
 }
 
 export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
-    ({ currentImageIndex, children, variant }, ref) => {
+    ({ currentImageIndex, children, variant }) => {
         return (
             <>
                 <Image

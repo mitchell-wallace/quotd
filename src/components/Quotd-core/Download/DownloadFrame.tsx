@@ -3,7 +3,8 @@ import { forwardRef } from 'react';
 import { QCanvas } from '../QCanvas/QCanvas';
 
 interface DownloadFrameProps {
-  // Any additional props we want to pass to the DownloadFrame
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -22,8 +23,8 @@ export const DownloadFrame = forwardRef<HTMLDivElement, DownloadFrameProps>(
           overflow: 'hidden',
           margin: 0,
           padding: 0,
-          width: '1080px',
-          height: '720px'
+          width: props.width ? `${props.width}px` : '1080px',
+          height: props.height ? `${props.height}px` : '720px'
         }}
       >
         {/* Fixed size QCanvas specifically for downloading */}

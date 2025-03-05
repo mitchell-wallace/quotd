@@ -1,13 +1,16 @@
-import { Anchor, Image, Text, Title, Button, Group } from '@mantine/core';
+import { Anchor, Image, Text, Title, Button, Group, AspectRatio,  } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useHeaderStore } from '@/stores/headerStore';
 import { themeGradients } from '@/theme';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function Welcome() {
   const navigate = useNavigate();
   const setActive = useHeaderStore((state) => state.setActive);
+  const isXs = useMediaQuery('(max-width: 40em)');
+  const isXxs = useMediaQuery('(max-width: 24em)');
 
   const handleGetInspired = () => {
     navigate('/app');
@@ -16,25 +19,40 @@ export function Welcome() {
 
   return (
     <>
-      <Title className={classes.title} ta="center" mt={100} px={15}>
+      <Title
+        className={classes.title}
+        ta="center"
+        mt={isXs ? 0 : 100}
+        px={15}
+      >
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={themeGradients.logo}>
           Quotd.
         </Text>
       </Title>
-      <Image
-        radius="md"
-        height={400}
-        maw={580}
-        mx="auto"
-        mt={30}
-        fit="cover"
-        src="/assets/images/hello.webp"
-        className={classes.welcomeImage}
-        alt="Astronaut waving hello"
-      />
+      <AspectRatio ratio={3/2}>
+        <Image
+          radius="md"
+          mah={isXs ? 260 : 400}
+          maw={isXs ? 400 : 580}
+          mx="auto"
+          mt={isXxs ? 10 : 30}
+          fit="cover"
+          src="/assets/images/hello.webp"
+          className={classes.welcomeImage}
+          alt="Astronaut waving hello"
+        />
+      </AspectRatio>
 
-      <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl" px={15}>
+      <Text 
+        c="dimmed" 
+        ta="center" 
+        size={isXxs ? "md" : "lg"} 
+        maw={580} 
+        mx="auto" 
+        mt={isXxs ? 15 : 30}
+        px={15}
+      >
         Find daily inspiration right here. Visit{' '}
         <Anchor href="https://ephodstudio.com/" size="lg">
           our agency website
@@ -52,7 +70,7 @@ export function Welcome() {
           color="secondary"
           size="xl"
           radius="md"
-          mt={30}
+          mt={isXxs ? 15 : 30}
           onClick={handleGetInspired}
         >
           Get Inspired

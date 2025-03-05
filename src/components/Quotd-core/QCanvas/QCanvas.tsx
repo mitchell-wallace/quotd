@@ -28,7 +28,7 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
     return (
         <Box 
             pos="relative" 
-            mt={30} 
+            mt={variant === 'download' ? 0 : 30} 
             ref={ref || actualRef}
         >
             <AspectRatio ratio={3/2} style={{ position: 'relative' }}>

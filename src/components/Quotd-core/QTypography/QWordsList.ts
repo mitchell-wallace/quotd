@@ -103,6 +103,6 @@ export const QWordsList: QuoteWordsEntry[] = [
     { text: "These things I have spoken to you, that My joy may remain in you, and that your joy may be full", source: "John 15:11", translation: "NKJV"},
     { text: "In the beginning was the Word, and the Word was with God, and the Word was God.", source: "John 1:1", translation: "NKJV"},
     { text: "And the Word became flesh and dwelt among us, and we beheld His glory, glory as of the only begotten of the Father, full of grace and truth", source: "John 1:14", translation: "NKJV"},
-    { text: "And she will bring forht a Son, and you shall call His name Jesus, for He will save His people from their sins", source: "Matthew 1:21", translation: "NKJV"},
+    { text: "And she will bring forth a Son, and you shall call His name Jesus, for He will save His people from their sins", source: "Matthew 1:21", translation: "NKJV"},
     { text: "Behold! The Lamb of God who takes away the sin of the world!", source: "John 1:29", translation: "NKJV"}
 ];

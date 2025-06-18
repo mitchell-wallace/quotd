@@ -23,7 +23,7 @@ export function QLayout() {
       <QControls />
       <QCanvas />
       <Button 
-        leftSection={<IconDownload size={18} />}
+        leftSection={<IconDownload size={20} />}
         onClick={downloadQuote}
         mt={20}
         variant="filled"

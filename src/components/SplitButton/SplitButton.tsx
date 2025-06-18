@@ -1,4 +1,4 @@
-import { Button, Group, Loader } from '@mantine/core';
+import { Button, Group, Loader, Box } from '@mantine/core';
 import { IconMinus, IconPlus, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 interface SplitButtonProps {
@@ -15,34 +15,40 @@ export function SplitButton({ buttonText, prevAction, nextAction, iconStyle, loa
         <>
             <Group gap={0}>
                 <Button
-                    variant="light"
+                    variant="default"
                     onClick={prevAction}
                     style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
                     disabled={loading}
                 >
-                {iconStyle === "arrows" && <IconChevronLeft size={18} />}
-                {iconStyle === "plusminus" && <IconMinus size={18} />}
+                {iconStyle === "arrows" && <IconChevronLeft size={20} />}
+                {iconStyle === "plusminus" && <IconMinus size={20} />}
                 </Button>
-                <Button
-                    variant="light"
+                <Box
                     style={{
-                        borderRadius: 0, 
-                        borderLeft: '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))', 
-                        borderRight: '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))'
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: 'var(--button-height, 36px)',
+                        paddingLeft: 'var(--button-padding-x, 18px)',
+                        paddingRight: 'var(--button-padding-x, 18px)',
+                        borderTop: '1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-4))',
+                        borderBottom: '1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-4))',
+                        backgroundColor: 'light-dark(var(--mantine-color-white), var(--mantine-color-dark-6))',
+                        color: 'light-dark(var(--mantine-color-black), var(--mantine-color-white))',
+                        width: 120,
+                        fontSize: 'var(--mantine-font-size-sm)',
                     }}
-                    w={120}
-                    disabled={loading}
                 >
-                {loading ? <Loader size="xs" /> : buttonText}
-                </Button>
+                    {loading ? <Loader size="xs" /> : buttonText}
+                </Box>
                 <Button
-                    variant="light"
+                    variant="default"
                     onClick={nextAction}
                     style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
                     disabled={loading}
                 >
-                {iconStyle === "arrows" && <IconChevronRight size={18} />}
-                {iconStyle === "plusminus" && <IconPlus size={18} />}
+                {iconStyle === "arrows" && <IconChevronRight size={20} />}
+                {iconStyle === "plusminus" && <IconPlus size={20} />}
                 </Button>
             </Group>
         </>

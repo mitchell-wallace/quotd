@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { QWordsList } from '../components/Quotd-core/QTypography/QWordsList';
-import { FontDefinitions } from '../components/Quotd-core/QTypography/FontDefinitions';
-import { QImageUrlList } from '../components/Quotd-core/QImage/QImageUrlList';
+import { WordsList } from '../data/WordsList';
+import { FontDefinitions } from '../data/FontDefinitions';
+import { ImageUrlList } from '../data/ImageUrlList';
 
 interface QuoteState {
   // Font state
@@ -46,7 +46,7 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   outgoingFontIndex: 0,
   isFontLoading: false,
   currentFontSize: 2.6,
-  currentWordsIndex: Math.floor(Math.random() * QWordsList.length),
+  currentWordsIndex: Math.floor(Math.random() * WordsList.length),
   currentImageIndex: 0,
   
   // Font size constraints
@@ -113,28 +113,28 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   nextWordsIndex: () => {
     const { currentWordsIndex } = get();
     set({ 
-      currentWordsIndex: (currentWordsIndex + 1) % QWordsList.length
+      currentWordsIndex: (currentWordsIndex + 1) % WordsList.length
     });
   },
   
   prevWordsIndex: () => {
     const { currentWordsIndex } = get();
     set({ 
-      currentWordsIndex: (currentWordsIndex - 1 + QWordsList.length) % QWordsList.length
+      currentWordsIndex: (currentWordsIndex - 1 + WordsList.length) % WordsList.length
     });
   },
   
   nextImageIndex: () => {
     const { currentImageIndex } = get();
     set({ 
-      currentImageIndex: (currentImageIndex + 1) % QImageUrlList.length
+      currentImageIndex: (currentImageIndex + 1) % ImageUrlList.length
     });
   },
   
   prevImageIndex: () => {
     const { currentImageIndex } = get();
     set({ 
-      currentImageIndex: (currentImageIndex - 1 + QImageUrlList.length) % QImageUrlList.length
+      currentImageIndex: (currentImageIndex - 1 + ImageUrlList.length) % ImageUrlList.length
     });
   }
 }));

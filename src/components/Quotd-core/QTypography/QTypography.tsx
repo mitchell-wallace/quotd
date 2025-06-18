@@ -1,5 +1,5 @@
 import { Text, Box, Stack } from '@mantine/core';
-import { QWordsList } from './QWordsList';
+import { WordsList } from '../../../data/WordsList';
 import { useEffect, useRef, useState } from 'react';
 
 // Import fonts
@@ -18,7 +18,7 @@ import "@fontsource/josefin-slab";
 import "@fontsource/architects-daughter";
 import "@fontsource/love-ya-like-a-sister";
 import "@fontsource/fredericka-the-great";
-import { FontDefinitions } from './FontDefinitions';
+import { FontDefinitions } from '../../../data/FontDefinitions';
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFontByIndex = (fontIndex: number): Promise<void> => {
@@ -164,7 +164,7 @@ export function QTypography({
             maxWidth: '80%'
           }}
         >
-          {QWordsList[currentWordsIndex].text}
+          {WordsList[currentWordsIndex].text}
         </Text>
         <Text 
           maw={variant === 'display' ? 500 : (500/580*1080)}
@@ -177,7 +177,7 @@ export function QTypography({
             maxWidth: '80%'
           }}
         >
-          {QWordsList[currentWordsIndex].source} {QWordsList[currentWordsIndex].translation}
+          {WordsList[currentWordsIndex].source} {WordsList[currentWordsIndex].translation}
         </Text>
       </Stack>
     </Box>

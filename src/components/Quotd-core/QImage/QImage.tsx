@@ -1,5 +1,5 @@
 import { Image } from '@mantine/core';
-import { QImageUrlList } from './QImageUrlList';
+import { ImageUrlList } from '../../../data/ImageUrlList';
 import { forwardRef } from 'react';
 
 interface QuoteImageProps {
@@ -19,7 +19,7 @@ export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
                     )}
                     mx="auto"
                     fit="cover"
-                    src={QImageUrlList[currentImageIndex]}
+                    src={ImageUrlList[currentImageIndex]}
                     alt="Inspirational nature image"
                     style={{
                     filter: 'brightness(0.7)' // Reduces brightness by 30%

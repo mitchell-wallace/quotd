@@ -18,7 +18,10 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
       currentFontSize,
       isFontLoading,
       outgoingFontIndex,
-      handleFontLoaded
+      isImageLoading,
+      outgoingImageIndex,
+      handleFontLoaded,
+      handleImageLoaded
     } = useQuoteStore();
 
     // Use provided ref or create our own
@@ -35,6 +38,8 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
                 <QImage 
                     currentImageIndex={currentImageIndex}
                     variant={variant}
+                    outgoingImageIndex={isImageLoading ? outgoingImageIndex : undefined}
+                    onImageLoaded={handleImageLoaded}
                 >
                     <QTypography 
                         variant={variant}

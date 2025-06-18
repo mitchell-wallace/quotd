@@ -12,7 +12,8 @@ export function QControls() {
     nextWordsIndex,
     prevWordsIndex,
     nextImageIndex,
-    prevImageIndex
+    prevImageIndex,
+    isImageLoading
   } = useQuoteStore();
 
   return (
@@ -41,6 +42,7 @@ export function QControls() {
         prevAction={prevImageIndex}
         nextAction={nextImageIndex}
         iconStyle="arrows"
+        loading={isImageLoading}
       />
     </Group>
   );

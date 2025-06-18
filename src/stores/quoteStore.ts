@@ -10,6 +10,10 @@ interface QuoteState {
   isFontLoading: boolean;
   currentFontSize: number;
   
+  // Image state
+  outgoingImageIndex: number;
+  isImageLoading: boolean;
+  
   // Content state
   currentWordsIndex: number;
   currentImageIndex: number;
@@ -24,12 +28,16 @@ interface QuoteState {
   setOutgoingFontIndex: (index: number) => void;
   setIsFontLoading: (loading: boolean) => void;
   setCurrentFontSize: (size: number) => void;
+  setOutgoingImageIndex: (index: number) => void;
+  setIsImageLoading: (loading: boolean) => void;
   setCurrentWordsIndex: (index: number) => void;
   setCurrentImageIndex: (index: number) => void;
   
   // Helper actions that combine multiple state updates
   handleFontChange: (newIndex: number) => void;
   handleFontLoaded: () => void;
+  handleImageChange: (newIndex: number) => void;
+  handleImageLoaded: () => void;
   nextFont: () => void;
   prevFont: () => void;
   nextFontSize: () => void;
@@ -46,6 +54,8 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   outgoingFontIndex: 0,
   isFontLoading: false,
   currentFontSize: 2.6,
+  outgoingImageIndex: 0,
+  isImageLoading: false,
   currentWordsIndex: Math.floor(Math.random() * WordsList.length),
   currentImageIndex: 0,
   
@@ -59,6 +69,8 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   setOutgoingFontIndex: (index) => set({ outgoingFontIndex: index }),
   setIsFontLoading: (loading) => set({ isFontLoading: loading }),
   setCurrentFontSize: (size) => set({ currentFontSize: size }),
+  setOutgoingImageIndex: (index) => set({ outgoingImageIndex: index }),
+  setIsImageLoading: (loading) => set({ isImageLoading: loading }),
   setCurrentWordsIndex: (index) => set({ currentWordsIndex: index }),
   setCurrentImageIndex: (index) => set({ currentImageIndex: index }),
   
@@ -75,6 +87,21 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
     set({
       outgoingFontIndex: currentFontIndex,
       isFontLoading: false
+    });
+  },
+
+  handleImageChange: (newIndex) => {
+    set({ 
+      isImageLoading: true,
+      currentImageIndex: newIndex
+    });
+  },
+  
+  handleImageLoaded: () => {
+    const { currentImageIndex } = get();
+    set({
+      outgoingImageIndex: currentImageIndex,
+      isImageLoading: false
     });
   },
   
@@ -125,16 +152,20 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   },
   
   nextImageIndex: () => {
-    const { currentImageIndex } = get();
-    set({ 
-      currentImageIndex: (currentImageIndex + 1) % ImageUrlList.length
-    });
+    const { currentImageIndex, isImageLoading, handleImageChange } = get();
+    if (isImageLoading) {
+        return;
+    }
+    const nextIndex = (currentImageIndex + 1) % ImageUrlList.length;
+    handleImageChange(nextIndex);
   },
   
   prevImageIndex: () => {
-    const { currentImageIndex } = get();
-    set({ 
-      currentImageIndex: (currentImageIndex - 1 + ImageUrlList.length) % ImageUrlList.length
-    });
+    const { currentImageIndex, isImageLoading, handleImageChange } = get();
+    if (isImageLoading) {
+        return;
+    }
+    const prevIndex = (currentImageIndex - 1 + ImageUrlList.length) % ImageUrlList.length;
+    handleImageChange(prevIndex);
   }
 }));

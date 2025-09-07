@@ -1,4 +1,4 @@
-import { Anchor, Image, Text, Title, Button, Group, AspectRatio,  } from '@mantine/core';
+import { Anchor, Image, Text, Button, Group, AspectRatio,  } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -19,17 +19,12 @@ export function Welcome() {
 
   return (
     <>
-      <Title
-        className={classes.title}
-        ta="center"
-        mt={isXs ? 0 : 100}
-        px={15}
-      >
+      <h1 className="text-3xl md:text-4xl font-bold text-center mt-0 md:mt-24 px-4">
         Welcome to{' '}
-        <Text inherit variant="gradient" component="span" gradient={themeGradients.logo}>
+        <span className="bg-gradient-to-r from-yellow-500 to-rose-500 bg-clip-text text-transparent">
           Quotd.
-        </Text>
-      </Title>
+        </span>
+      </h1>
       <AspectRatio ratio={3/2}>
         <Image
           radius="md"

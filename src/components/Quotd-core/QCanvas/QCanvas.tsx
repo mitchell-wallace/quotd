@@ -1,8 +1,7 @@
-import { AspectRatio, Box } from '@mantine/core';
 import { forwardRef, useRef } from 'react';
+import { useQuoteStore } from '../../../stores/quoteStore';
 import { QImage } from '../QImage/QImage';
 import { QTypography } from '../QTypography/QTypography';
-import { useQuoteStore } from '../../../stores/quoteStore';
 
 interface QCanvasProps {
   variant?: 'display' | 'download';
@@ -21,37 +20,42 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
       isImageLoading,
       outgoingImageIndex,
       handleFontLoaded,
-      handleImageLoaded
+      handleImageLoaded,
     } = useQuoteStore();
 
     // Use provided ref or create our own
     const internalRef = useRef<HTMLDivElement>(null);
     const actualRef = canvasRef || internalRef;
-    
+
     return (
-        <Box 
-            pos="relative" 
-            mt={variant === 'download' ? 0 : 30} 
-            ref={ref || actualRef}
+      <div
+        className={`relative ${variant === 'download' ? '' : 'mt-[30px]'}`}
+        ref={ref || actualRef}
+      >
+        <div
+          className="relative mx-auto w-full"
+          style={{
+            maxWidth: variant === 'display' ? 580 : 1080,
+            aspectRatio: '3 / 2',
+          }}
         >
-            <AspectRatio ratio={3/2} style={{ position: 'relative' }}>
-                <QImage 
-                    currentImageIndex={currentImageIndex}
-                    variant={variant}
-                    outgoingImageIndex={isImageLoading ? outgoingImageIndex : undefined}
-                    onImageLoaded={handleImageLoaded}
-                >
-                    <QTypography 
-                        variant={variant}
-                        currentWordsIndex={currentWordsIndex}
-                        currentFontIndex={currentFontIndex}
-                        currentFontSize={currentFontSize}
-                        outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
-                        onFontLoaded={handleFontLoaded}
-                    />
-                </QImage>
-            </AspectRatio>
-        </Box>
+          <QImage
+            currentImageIndex={currentImageIndex}
+            variant={variant}
+            outgoingImageIndex={isImageLoading ? outgoingImageIndex : undefined}
+            onImageLoaded={handleImageLoaded}
+          >
+            <QTypography
+              variant={variant}
+              currentWordsIndex={currentWordsIndex}
+              currentFontIndex={currentFontIndex}
+              currentFontSize={currentFontSize}
+              outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
+              onFontLoaded={handleFontLoaded}
+            />
+          </QImage>
+        </div>
+      </div>
     );
   }
 );

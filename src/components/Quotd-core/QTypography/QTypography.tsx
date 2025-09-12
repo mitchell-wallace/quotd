@@ -1,23 +1,22 @@
-import { Text, Box, Stack } from '@mantine/core';
-import { WordsList } from '../../../data/WordsList';
 import { useEffect, useRef, useState } from 'react';
-
+import { WordsList } from '../../../data/WordsList';
 // Import fonts
-import "@fontsource/raleway";
-import "@fontsource/roboto-slab";
-import "@fontsource/inconsolata";
-import "@fontsource/exo-2";
-import "@fontsource/maiden-orange";
-import "@fontsource/lilita-one";
-import "@fontsource/covered-by-your-grace";
-import "@fontsource/smooch-sans";
-import "@fontsource/syne-mono";
-import "@fontsource/walter-turncoat";
-import "@fontsource/nothing-you-could-do";
-import "@fontsource/josefin-slab";
-import "@fontsource/architects-daughter";
-import "@fontsource/love-ya-like-a-sister";
-import "@fontsource/fredericka-the-great";
+import '@fontsource/raleway';
+import '@fontsource/roboto-slab';
+import '@fontsource/inconsolata';
+import '@fontsource/exo-2';
+import '@fontsource/maiden-orange';
+import '@fontsource/lilita-one';
+import '@fontsource/covered-by-your-grace';
+import '@fontsource/smooch-sans';
+import '@fontsource/syne-mono';
+import '@fontsource/walter-turncoat';
+import '@fontsource/nothing-you-could-do';
+import '@fontsource/josefin-slab';
+import '@fontsource/architects-daughter';
+import '@fontsource/love-ya-like-a-sister';
+import '@fontsource/fredericka-the-great';
+
 import { FontDefinitions } from '../../../data/FontDefinitions';
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
@@ -36,7 +35,7 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
       padding: 0,
       boxSizing: 'border-box',
       maxWidth: 0,
-      maxHeight: 0
+      maxHeight: 0,
     });
     hiddenElement.textContent = '\u00A0'; // Non-breaking space
     document.body.appendChild(hiddenElement);
@@ -55,7 +54,8 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
       // If not loaded
       if (!isLoadedPreviously) {
         document.fonts.load(`1em "${FontDefinitions[fontIndex].fontName}"`);
-        for (let i = 0; i < 50; i++) { // Check every 100ms for up to 5s
+        for (let i = 0; i < 50; i++) {
+          // Check every 100ms for up to 5s
           setTimeout(() => {
             resolve();
           }, 100);
@@ -65,7 +65,6 @@ export const loadFontByIndex = (fontIndex: number): Promise<void> => {
         }
         // Clean up if font is not loaded in time
         hiddenElement.remove();
-        
       }
     });
   });
@@ -80,16 +79,17 @@ interface QuoteTextProps {
   onFontLoaded?: () => void; // Callback when font is loaded
 }
 
-export function QTypography({ 
+export function QTypography({
   variant,
-  currentWordsIndex, 
-  currentFontIndex, 
+  currentWordsIndex,
+  currentFontIndex,
   currentFontSize,
   outgoingFontIndex,
-  onFontLoaded
+  onFontLoaded,
 }: QuoteTextProps) {
   // Use previousFontIndex if provided (during loading), otherwise use currentFontIndex
-  const displayFontIndex = typeof outgoingFontIndex === 'number' ? outgoingFontIndex : currentFontIndex;
+  const displayFontIndex =
+    typeof outgoingFontIndex === 'number' ? outgoingFontIndex : currentFontIndex;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
 
@@ -113,7 +113,7 @@ export function QTypography({
       resizeObserver.observe(boxRef.current);
       updateScale(); // Initial measurement
     }
-    
+
     return () => resizeObserver.disconnect();
   }, [variant]);
 
@@ -122,7 +122,7 @@ export function QTypography({
     // Only try to load the font if we need to (when currentFontIndex != previousFontIndex)
     if (outgoingFontIndex !== undefined && currentFontIndex !== outgoingFontIndex) {
       // const fontToLoad = fonts[currentFontIndex].fontName;
-      
+
       // Load the font
       loadFontByIndex(currentFontIndex).then(() => {
         // Notify parent that font is loaded
@@ -134,53 +134,48 @@ export function QTypography({
   }, [currentFontIndex, outgoingFontIndex, onFontLoaded]);
 
   return (
-    <Box
+    <div
       ref={boxRef}
-      pos="absolute"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      mah={variant === 'display' ? 400 : (400/580*1080)}
-      maw={variant === 'display' ? 580 : 1080}
-      mx="auto"
-      p={`${2 * viewScaleFactor}em`}
-      display="flex"
-      className="quote-typography"
+      className="quote-typography absolute inset-0 mx-auto flex"
       style={{
+        maxHeight: variant === 'display' ? 400 : (400 / 580) * 1080,
+        maxWidth: variant === 'display' ? 580 : 1080,
+        padding: `${2 * viewScaleFactor}em`,
         alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-      <Stack align="center">
-        <Text 
-          maw={variant === 'display' ? 500 : (500/580*1080)}
-          style={{ 
+        justifyContent: 'center',
+      }}
+    >
+      <div className="flex flex-col items-center">
+        <p
+          className="text-center"
+          style={{
+            maxWidth: variant === 'display' ? 500 : (500 / 580) * 1080,
+            width: '80%',
             fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
             fontSize: `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor}em`,
-            fontDisplay: 'swap',
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
-            maxWidth: '80%'
           }}
         >
           {WordsList[currentWordsIndex].text}
-        </Text>
-        <Text 
-          maw={variant === 'display' ? 500 : (500/580*1080)}
-          style={{ 
+        </p>
+        <p
+          className="text-center"
+          style={{
+            maxWidth: variant === 'display' ? 500 : (500 / 580) * 1080,
+            width: '80%',
             fontFamily: `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
-            fontSize: `${(currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor) - 0.6}em`,
+            fontSize: `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor - 0.6}em`,
             color: 'white',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
-            maxWidth: '80%'
           }}
         >
           {WordsList[currentWordsIndex].source} {WordsList[currentWordsIndex].translation}
-        </Text>
-      </Stack>
-    </Box>
+        </p>
+      </div>
+    </div>
   );
 }
 

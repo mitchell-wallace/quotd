@@ -50,23 +50,10 @@ export function Footer() {
   return (
     <footer className="mt-28 surface border-t">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-muted">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm text-muted justify-items-center items-center">
           <div className="space-y-1">
             <p className="font-medium text-base-content/90">Quotd.</p>
             <p>2025 — All rights reserved.</p>
-          </div>
-          <div className="space-y-1">
-            <p className="font-medium text-base-content/90">Attribution</p>
-            <p>
-              Icon by{' '}
-              <a
-                href="https://www.flaticon.com/free-icons/quotation-marks"
-                title="quotation marks icons"
-                className="underline"
-              >
-                Md Tanvirul Haque — Flaticon
-              </a>
-            </p>
           </div>
           <div className="space-y-1">
             <p className="font-medium text-base-content/90">Links</p>

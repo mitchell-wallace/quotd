@@ -78,10 +78,7 @@ export function Header() {
     >
       <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <h1
-          className="text-xl font-bold bg-clip-text text-transparent"
-          style={{
-            backgroundImage: `linear-gradient(to right, ${themeGradients.logo.from}, ${themeGradients.logo.to})`,
-          }}
+          className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
         >
           Quotd.
         </h1>

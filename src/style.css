@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Tailwind v4 configuration and base design tokens via CSS */
+@config {
+  darkMode: "class";
+}
+
+/* Prefer class-driven dark mode and low-contrast borders */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /* App background and default text for both themes */
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-zinc-900 dark:text-zinc-100;
+  }
+
+  /* Provide consistent link color across themes */
+  a { @apply text-blue-600 dark:text-blue-400; }
+}
+
+/* Reusable subtle surface with backdrop blur for bars/cards */
+@utility surface {
+  @apply bg-white/80 dark:bg-zinc-900/70 border border-black/10 dark:border-white/10 backdrop-blur;
+}

@@ -40,7 +40,7 @@ export function Header() {
     const base = 'px-3 py-2 rounded text-sm font-medium';
     const activeClass =
       active === link.link
-        ? 'bg-secondary-500 text-white'
+        ? 'bg-amber-500 text-white'
         : 'hover:bg-gray-100 dark:hover:bg-gray-700';
     const className = `${base} ${activeClass}`;
 
@@ -73,10 +73,10 @@ export function Header() {
 
   return (
     <header
-      className="h-14 mb-8 border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
+      className="w-full h-14 mb-8 surface border-t-0 border-x-0"
       ref={ref}
     >
-      <div className="max-w-md mx-auto h-full flex items-center justify-between px-4">
+      <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <h1
           className="text-xl font-bold bg-clip-text text-transparent"
           style={{
@@ -85,11 +85,11 @@ export function Header() {
         >
           Quotd.
         </h1>
-        <nav className="hidden xs:flex gap-1">{items}</nav>
+        <nav className="hidden sm:flex gap-1">{items}</nav>
         <div className="flex items-center gap-2">
           <ColorSchemeToggle />
           <button
-            className="xs:hidden p-2"
+            className="sm:hidden p-2"
             onClick={() => setOpened((o) => !o)}
             aria-label="Toggle navigation"
             type="button"
@@ -99,7 +99,7 @@ export function Header() {
         </div>
       </div>
       {opened && (
-        <div className="xs:hidden absolute left-0 right-0 top-14 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 flex flex-col gap-2 p-4 z-50">
+        <div className="sm:hidden absolute left-0 right-0 top-14 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 flex flex-col gap-2 p-4 z-50">
           {items}
         </div>
       )}

@@ -45,7 +45,7 @@ export function Welcome() {
       </p>
       <div className="flex justify-center">
         <button
-          className="mt-8 max-[24rem]:mt-4 bg-secondary-500 text-white py-3 px-6 rounded-md text-xl flex items-center"
+          className="mt-8 max-[24rem]:mt-4 bg-secondary text-secondary-content py-3 px-6 rounded-md text-xl flex items-center hover:brightness-110"
           onClick={handleGetInspired}
           type="button"
         >

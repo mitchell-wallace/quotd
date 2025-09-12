@@ -19,7 +19,7 @@ export function QLayout() {
       <QControls />
       <QCanvas />
       <button
-        className="mt-5 inline-flex items-center justify-center min-w-[160px] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded"
+        className="mt-5 inline-flex items-center justify-center min-w-[160px] px-4 py-2 bg-primary text-primary-content hover:brightness-110 rounded"
         onClick={downloadQuote}
         type="button"
       >

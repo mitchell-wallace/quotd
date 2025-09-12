@@ -5,12 +5,11 @@ type Scheme = 'light' | 'dark' | 'auto';
 
 function applyScheme(scheme: Scheme) {
   const root = document.documentElement;
-  if (scheme === 'auto') {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    root.classList.toggle('dark', prefersDark);
-  } else {
-    root.classList.toggle('dark', scheme === 'dark');
-  }
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = scheme === 'dark' || (scheme === 'auto' && prefersDark);
+  root.classList.toggle('dark', isDark);
+  // Improve native form controls rendering
+  root.style.colorScheme = isDark ? 'dark' : 'light';
 }
 
 export function ColorSchemeToggle() {
@@ -24,6 +23,16 @@ export function ColorSchemeToggle() {
     localStorage.setItem('color-scheme', scheme);
   }, [scheme]);
 
+  // Keep in sync when in auto mode and OS theme changes
+  useEffect(() => {
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = () => {
+      if (scheme === 'auto') applyScheme('auto');
+    };
+    mql.addEventListener?.('change', handler);
+    return () => mql.removeEventListener?.('change', handler);
+  }, [scheme]);
+
   const Icon = scheme === 'auto' ? IconBrightnessAuto : scheme === 'dark' ? IconMoon : IconSun;
 
   const setAndClose = (value: Scheme) => {
@@ -35,17 +44,17 @@ export function ColorSchemeToggle() {
     <div className="relative">
       <button
         aria-label="Toggle color scheme"
-        className="border rounded p-2 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800"
+        className="border border-border rounded p-2 bg-surface text-base-content"
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
         <Icon className="w-4 h-4" />
       </button>
       {open && (
-        <ul className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-700 border rounded shadow-md text-sm">
+        <ul className="absolute right-0 mt-2 w-32 bg-surface border border-border rounded shadow-md text-sm">
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
+              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('light')}
               type="button"
             >
@@ -54,7 +63,7 @@ export function ColorSchemeToggle() {
           </li>
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
+              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('dark')}
               type="button"
             >
@@ -63,7 +72,7 @@ export function ColorSchemeToggle() {
           </li>
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-600"
+              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('auto')}
               type="button"
             >

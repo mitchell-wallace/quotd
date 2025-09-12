@@ -1,24 +1,61 @@
 @import "tailwindcss";
 
-/* Tailwind v4 configuration and base design tokens via CSS */
-@config {
-  darkMode: "class";
-}
-
-/* Prefer class-driven dark mode and low-contrast borders */
+/* Custom variant still available for ad-hoc dark: utilities */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Light theme colors (default) */
+@theme {
+  /* Base and content colors */
+  --color-base: #f7f7f8;
+  --color-base-content: #0f172a;
+
+  /* Surface and interaction colors */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
+  --color-border: rgb(0 0 0 / 0.12);
+
+  /* Brand colors */
+  --color-primary: #f59e0b;
+  --color-primary-content: #ffffff;
+  --color-secondary: #ef4444;
+  --color-secondary-content: #ffffff;
+
+  /* Text helper colors */
+  --color-muted: #6b7280;
+}
+
+/* Dark theme color overrides */
+@theme dark {
+  --color-base: #0f1115;
+  --color-base-content: #e7e7ea;
+  --color-surface: #17181c;
+  --color-surface-hover: #23262b;
+  --color-border: rgb(255 255 255 / 0.14);
+  --color-primary: #f59e0b;
+  --color-primary-content: #0b0b0b;
+  --color-secondary: #ef4444;
+  --color-secondary-content: #0b0b0b;
+  --color-muted: #9aa1a9;
+}
+
+/* Ensure light mode is properly applied when dark class is not present */
+:root:not(.dark) {
+  --color-base: #f7f7f8;
+  --color-base-content: #0f172a;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
+  --color-border: rgb(0 0 0 / 0.12);
+  --color-primary: #f59e0b;
+  --color-primary-content: #ffffff;
+  --color-secondary: #ef4444;
+  --color-secondary-content: #ffffff;
+  --color-muted: #6b7280;
+}
+
 @layer base {
-  /* App background and default text for both themes */
-  body {
-    @apply bg-gray-50 text-gray-900 dark:bg-zinc-900 dark:text-zinc-100;
-  }
-
-  /* Provide consistent link color across themes */
-  a { @apply text-blue-600 dark:text-blue-400; }
+  body { @apply bg-base text-base-content; }
+  a { @apply text-primary; }
 }
 
-/* Reusable subtle surface with backdrop blur for bars/cards */
-@utility surface {
-  @apply bg-white/80 dark:bg-zinc-900/70 border border-black/10 dark:border-white/10 backdrop-blur;
-}
+/* Reusable subtle surface with blur and semantic border */
+@utility surface { @apply bg-surface text-base-content border border-border backdrop-blur; }

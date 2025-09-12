@@ -2,6 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        try {
+          var scheme = localStorage.getItem('color-scheme') || 'auto';
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = scheme === 'dark' || (scheme === 'auto' && prefersDark);
+          document.documentElement.classList.toggle('dark', isDark);
+          document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/src/favicon.png" />
     <link href="/src/style.css" rel="stylesheet">
     <meta

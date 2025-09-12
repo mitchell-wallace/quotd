@@ -37,11 +37,11 @@ export function Header() {
   };
 
   const items = links.map((link) => {
-    const base = 'px-3 py-2 rounded text-sm font-medium';
+    const base = 'px-3 py-2 rounded text-sm font-medium text-muted';
     const activeClass =
       active === link.link
-        ? 'bg-amber-500 text-white'
-        : 'hover:bg-gray-100 dark:hover:bg-gray-700';
+        ? 'bg-primary text-primary-content'
+        : 'hover:bg-surface-hover';
     const className = `${base} ${activeClass}`;
 
     if (link.link.startsWith('http')) {
@@ -89,7 +89,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ColorSchemeToggle />
           <button
-            className="sm:hidden p-2"
+            className="sm:hidden p-2 border border-border rounded bg-surface hover:bg-surface-hover"
             onClick={() => setOpened((o) => !o)}
             aria-label="Toggle navigation"
             type="button"
@@ -99,7 +99,7 @@ export function Header() {
         </div>
       </div>
       {opened && (
-        <div className="sm:hidden absolute left-0 right-0 top-14 bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 flex flex-col gap-2 p-4 z-50">
+        <div className="sm:hidden absolute left-0 right-0 top-14 bg-surface border-b border-border flex flex-col gap-2 p-4 z-50">
           {items}
         </div>
       )}

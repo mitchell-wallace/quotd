@@ -3,7 +3,11 @@
     "allow": [
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebSearch",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "Bash(yarn dev)"
     ],
     "deny": []
   }

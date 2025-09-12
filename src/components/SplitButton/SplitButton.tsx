@@ -24,13 +24,13 @@ export function SplitButton({
         type="button"
         onClick={prevAction}
         disabled={loading}
-        className="border border-black/15 dark:border-white/15 rounded-l px-3 py-2 bg-white dark:bg-gray-800 disabled:opacity-50"
+        className="border border-border rounded-l px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
       >
         <PrevIcon size={20} />
       </button>
-      <div className="flex items-center justify-center border-y border-black/15 dark:border-white/15 px-4 min-w-[120px] text-sm bg-white dark:bg-gray-800">
+      <div className="flex items-center justify-center border-y border-border px-4 min-w-[120px] text-sm bg-surface text-base-content">
         {loading ? (
-          <svg className="animate-spin h-4 w-4 text-gray-500" viewBox="0 0 24 24">
+          <svg className="animate-spin h-4 w-4 text-muted" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
               cx="12"
@@ -54,7 +54,7 @@ export function SplitButton({
         type="button"
         onClick={nextAction}
         disabled={loading}
-        className="border border-black/15 dark:border-white/15 rounded-r px-3 py-2 bg-white dark:bg-gray-800 disabled:opacity-50"
+        className="border border-border rounded-r px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
       >
         <NextIcon size={20} />
       </button>

@@ -1,11 +1,5 @@
-import { render as testingLibraryRender } from '@testing-library/react';
-import { MantineProvider } from '@mantine/core';
-import { theme } from '../src/theme';
+import { render as rtlRender } from '@testing-library/react';
 
 export function render(ui: React.ReactNode) {
-  return testingLibraryRender(ui, {
-    wrapper: ({ children }: { children: React.ReactNode }) => (
-      <MantineProvider theme={theme}>{children}</MantineProvider>
-    ),
-  });
+  return rtlRender(ui);
 }

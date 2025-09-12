@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { WordsList } from '../data/WordsList';
 import { FontDefinitions } from '../data/FontDefinitions';
 import { ImageUrlList } from '../data/ImageUrlList';
+import { WordsList } from '../data/WordsList';
 
 interface QuoteState {
   // Font state
@@ -9,20 +9,20 @@ interface QuoteState {
   outgoingFontIndex: number;
   isFontLoading: boolean;
   currentFontSize: number;
-  
+
   // Image state
   outgoingImageIndex: number;
   isImageLoading: boolean;
-  
+
   // Content state
   currentWordsIndex: number;
   currentImageIndex: number;
-  
+
   // Font size constraints
   maxFontSize: number;
   minFontSize: number;
   incFontSize: number;
-  
+
   // Actions
   setCurrentFontIndex: (index: number) => void;
   setOutgoingFontIndex: (index: number) => void;
@@ -32,7 +32,7 @@ interface QuoteState {
   setIsImageLoading: (loading: boolean) => void;
   setCurrentWordsIndex: (index: number) => void;
   setCurrentImageIndex: (index: number) => void;
-  
+
   // Helper actions that combine multiple state updates
   handleFontChange: (newIndex: number) => void;
   handleFontLoaded: () => void;
@@ -58,12 +58,12 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   isImageLoading: false,
   currentWordsIndex: Math.floor(Math.random() * WordsList.length),
   currentImageIndex: 0,
-  
+
   // Font size constraints
   maxFontSize: 3.2,
   minFontSize: 2.0,
   incFontSize: 0.2,
-  
+
   // Basic setter actions
   setCurrentFontIndex: (index) => set({ currentFontIndex: index }),
   setOutgoingFontIndex: (index) => set({ outgoingFontIndex: index }),
@@ -73,99 +73,99 @@ export const useQuoteStore = create<QuoteState>((set, get) => ({
   setIsImageLoading: (loading) => set({ isImageLoading: loading }),
   setCurrentWordsIndex: (index) => set({ currentWordsIndex: index }),
   setCurrentImageIndex: (index) => set({ currentImageIndex: index }),
-  
+
   // Helper actions
   handleFontChange: (newIndex) => {
-    set({ 
+    set({
       isFontLoading: true,
-      currentFontIndex: newIndex
+      currentFontIndex: newIndex,
     });
   },
-  
+
   handleFontLoaded: () => {
     const { currentFontIndex } = get();
     set({
       outgoingFontIndex: currentFontIndex,
-      isFontLoading: false
+      isFontLoading: false,
     });
   },
 
   handleImageChange: (newIndex) => {
-    set({ 
+    set({
       isImageLoading: true,
-      currentImageIndex: newIndex
+      currentImageIndex: newIndex,
     });
   },
-  
+
   handleImageLoaded: () => {
     const { currentImageIndex } = get();
     set({
       outgoingImageIndex: currentImageIndex,
-      isImageLoading: false
+      isImageLoading: false,
     });
   },
-  
+
   nextFont: () => {
     const { currentFontIndex, isFontLoading, handleFontChange } = get();
     if (isFontLoading) {
-        return;
+      return;
     }
     const nextIndex = (currentFontIndex + 1) % FontDefinitions.length;
     handleFontChange(nextIndex);
   },
-  
+
   prevFont: () => {
     const { currentFontIndex, isFontLoading, handleFontChange } = get();
     if (isFontLoading) {
-        return;
+      return;
     }
     const prevIndex = (currentFontIndex - 1 + FontDefinitions.length) % FontDefinitions.length;
     handleFontChange(prevIndex);
   },
-  
+
   nextFontSize: () => {
     const { currentFontSize, maxFontSize, incFontSize } = get();
-    set({ 
-      currentFontSize: Math.min(currentFontSize + incFontSize, maxFontSize)
+    set({
+      currentFontSize: Math.min(currentFontSize + incFontSize, maxFontSize),
     });
   },
-  
+
   prevFontSize: () => {
     const { currentFontSize, minFontSize, incFontSize } = get();
-    set({ 
-      currentFontSize: Math.max(currentFontSize - incFontSize, minFontSize)
+    set({
+      currentFontSize: Math.max(currentFontSize - incFontSize, minFontSize),
     });
   },
-  
+
   nextWordsIndex: () => {
     const { currentWordsIndex } = get();
-    set({ 
-      currentWordsIndex: (currentWordsIndex + 1) % WordsList.length
+    set({
+      currentWordsIndex: (currentWordsIndex + 1) % WordsList.length,
     });
   },
-  
+
   prevWordsIndex: () => {
     const { currentWordsIndex } = get();
-    set({ 
-      currentWordsIndex: (currentWordsIndex - 1 + WordsList.length) % WordsList.length
+    set({
+      currentWordsIndex: (currentWordsIndex - 1 + WordsList.length) % WordsList.length,
     });
   },
-  
+
   nextImageIndex: () => {
     const { currentImageIndex, isImageLoading, handleImageChange } = get();
     if (isImageLoading) {
-        return;
+      return;
     }
     const nextIndex = (currentImageIndex + 1) % ImageUrlList.length;
     handleImageChange(nextIndex);
   },
-  
+
   prevImageIndex: () => {
     const { currentImageIndex, isImageLoading, handleImageChange } = get();
     if (isImageLoading) {
-        return;
+      return;
     }
     const prevIndex = (currentImageIndex - 1 + ImageUrlList.length) % ImageUrlList.length;
     handleImageChange(prevIndex);
-  }
+  },
 }));

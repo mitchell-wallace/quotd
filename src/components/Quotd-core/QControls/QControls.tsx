@@ -1,6 +1,5 @@
-import { Group } from '@mantine/core';
-import { SplitButton } from '../../SplitButton/SplitButton';
 import { useQuoteStore } from '../../../stores/quoteStore';
+import { SplitButton } from '../../SplitButton/SplitButton';
 
 export function QControls() {
   const {
@@ -13,11 +12,11 @@ export function QControls() {
     prevWordsIndex,
     nextImageIndex,
     prevImageIndex,
-    isImageLoading
+    isImageLoading,
   } = useQuoteStore();
 
   return (
-    <Group justify="center" maw={580} mx="auto">
+    <div className="flex flex-wrap justify-center gap-4 max-w-[580px] mx-auto">
       <SplitButton
         buttonText="Font"
         prevAction={prevFont}
@@ -44,6 +43,6 @@ export function QControls() {
         iconStyle="arrows"
         loading={isImageLoading}
       />
-    </Group>
+    </div>
   );
 }

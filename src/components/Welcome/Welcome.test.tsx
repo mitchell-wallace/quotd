@@ -2,11 +2,11 @@ import { render, screen } from '@test-utils';
 import { Welcome } from './Welcome';
 
 describe('Welcome component', () => {
-  it('has correct Vite guide link', () => {
+  it('links to agency website', () => {
     render(<Welcome />);
-    expect(screen.getByText('this guide')).toHaveAttribute(
+    expect(screen.getByText('our agency website')).toHaveAttribute(
       'href',
-      'https://mantine.dev/guides/vite/'
+      'https://ephodstudio.com/'
     );
   });
 });

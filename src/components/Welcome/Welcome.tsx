@@ -1,16 +1,11 @@
-import { Anchor, Image, Text, Button, Group, AspectRatio,  } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
-import classes from './Welcome.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 import { useHeaderStore } from '@/stores/headerStore';
 import { themeGradients } from '@/theme';
-import { useMediaQuery } from '@mantine/hooks';
 
 export function Welcome() {
   const navigate = useNavigate();
   const setActive = useHeaderStore((state) => state.setActive);
-  const isXs = useMediaQuery('(max-width: 40em)');
-  const isXxs = useMediaQuery('(max-width: 24em)');
 
   const handleGetInspired = () => {
     navigate('/app');
@@ -18,61 +13,48 @@ export function Welcome() {
   };
 
   return (
-    <>
-      <h1 className="text-3xl md:text-4xl font-bold text-center mt-0 md:mt-24 px-4">
+    <div className="text-center">
+      <h1 className="text-[100px] font-black tracking-tight px-4 mt-24 max-sm:mt-0 max-sm:text-5xl">
         Welcome to{' '}
-        <span className="bg-gradient-to-r from-yellow-500 to-rose-500 bg-clip-text text-transparent">
+        <span
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: `linear-gradient(to right, ${themeGradients.logo.from}, ${themeGradients.logo.to})`,
+          }}
+        >
           Quotd.
         </span>
       </h1>
-      <AspectRatio ratio={3/2}>
-        <Image
-          radius="md"
-          mah={isXs ? 260 : 400}
-          maw={isXs ? 400 : 580}
-          mx="auto"
-          mt={isXxs ? 10 : 30}
-          fit="cover"
+      <div className="max-w-[580px] mx-auto mt-8 aspect-[3/2]">
+        <img
           src="/assets/images/hello.webp"
-          className={classes.welcomeImage}
           alt="Astronaut waving hello"
+          className="w-full h-full object-cover rounded-md max-sm:rounded-none"
         />
-      </AspectRatio>
-
-      <Text 
-        c="dimmed" 
-        ta="center" 
-        size={isXxs ? "md" : "lg"} 
-        maw={580} 
-        mx="auto" 
-        mt={isXxs ? 15 : 30}
-        px={15}
-      >
+      </div>
+      <p className="text-gray-500 mx-auto text-lg mt-8 max-w-[580px] px-4 max-[24rem]:text-base max-[24rem]:mt-4">
         Find daily inspiration right here. Visit{' '}
-        <Anchor href="https://ephodstudio.com/" size="lg">
+        <a href="https://ephodstudio.com/" className="underline text-lg">
           our agency website
-        </Anchor>
-        {' '}or{' '}
-        <Anchor href="https://mitchellwallace.dev/" size="lg">
+        </a>{' '}
+        or{' '}
+        <a href="https://mitchellwallace.dev/" className="underline text-lg">
           my portfolio
-        </Anchor>
-        {' '}to see more of our work.
-      </Text>
-
-      <Group justify="center">
-        <Button
-          variant="filled"
-          color="secondary"
-          size="xl"
-          radius="md"
-          mt={isXxs ? 15 : 30}
+        </a>{' '}
+        to see more of our work.
+      </p>
+      <div className="flex justify-center">
+        <button
+          className="mt-8 max-[24rem]:mt-4 bg-secondary-500 text-white py-3 px-6 rounded-md text-xl flex items-center"
           onClick={handleGetInspired}
+          type="button"
         >
           Get Inspired
-          <IconChevronRight size={18} stroke={1.5} style={{ marginLeft: '0.5rem', marginRight: '-0.1rem' }} />
-        </Button>
-      </Group>
-    </>
+          <IconChevronRight size={18} className="ml-2 -mr-1" />
+        </button>
+      </div>
+    </div>
   );
 }
+
 // Photo by T Leish: https://www.pexels.com/photo/astronaut-with-a-planet-earth-ball-5258241/

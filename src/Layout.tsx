@@ -1,20 +1,19 @@
-import { HeaderSimple } from './components/.MantineUI/HeaderSimple/HeaderSimple';
-import { FooterCentered } from './components/.MantineUI/FooterCentered/FooterCentered';
 import { Outlet } from 'react-router-dom';
-import classes from './Layout.module.css';
+import { Footer } from './components/Footer/Footer';
+import { Header } from './components/Header/Header';
 
 export function Layout() {
-    return (
-        <div className={classes['body-wrap']}>
-            <div className={classes['header-wrap']}>
-                <HeaderSimple />
-            </div>
-            <div className={classes['content-wrap']}>
-                <Outlet />
-            </div>
-            <div className={classes['footer-wrap']}>
-                <FooterCentered />
-            </div>
-        </div>
-    );
+  return (
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-shrink-0">
+        <Header />
+      </div>
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <div className="flex-shrink-0">
+        <Footer />
+      </div>
+    </div>
+  );
 }

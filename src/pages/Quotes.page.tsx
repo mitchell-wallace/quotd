@@ -1,4 +1,4 @@
-import { QLayout } from '../components/Quotd-core/QLayout/QLayout';
+import { QLayout } from '../components/Quotd-core/QLayout';
 
 export function QuotesPage() {
   return (

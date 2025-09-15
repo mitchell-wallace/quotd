@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { WordsList } from '../../../data/WordsList';
+import { WordsList } from '../../data/WordsList';
 // Import fonts
 import '@fontsource/raleway';
 import '@fontsource/roboto-slab';
@@ -17,7 +17,7 @@ import '@fontsource/architects-daughter';
 import '@fontsource/love-ya-like-a-sister';
 import '@fontsource/fredericka-the-great';
 
-import { FontDefinitions } from '../../../data/FontDefinitions';
+import { FontDefinitions } from '../../data/FontDefinitions';
 
 // Helper function to load a font and return a promise that resolves when the font is loaded
 export const loadFontByIndex = (fontIndex: number): Promise<void> => {

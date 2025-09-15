@@ -1,5 +1,5 @@
 import { forwardRef, useEffect } from 'react';
-import { ImageUrlList } from '../../../data/ImageUrlList';
+import { ImageUrlList } from '../../data/ImageUrlList';
 
 // Helper function to load an image and return a promise that resolves when the image is loaded
 export const loadImageByUrl = (imageUrl: string): Promise<void> => {

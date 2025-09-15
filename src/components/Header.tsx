@@ -3,7 +3,7 @@ import { IconMenu2, IconX } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useHeaderStore } from '@/stores/headerStore';
 import { themeGradients } from '@/theme';
-import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 const links = [
   { link: '/', label: 'Home' },

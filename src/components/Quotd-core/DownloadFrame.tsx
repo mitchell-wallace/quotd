@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { QCanvas } from '../QCanvas/QCanvas';
+import { QCanvas } from './QCanvas';
 
 interface DownloadFrameProps {
   width?: number;

@@ -1,7 +1,7 @@
 import { forwardRef, useRef } from 'react';
-import { useQuoteStore } from '../../../stores/quoteStore';
-import { QImage } from '../QImage/QImage';
-import { QTypography } from '../QTypography/QTypography';
+import { useQuoteStore } from '../../stores/quoteStore';
+import { QImage } from './QImage';
+import { QTypography } from './QTypography';
 
 interface QCanvasProps {
   variant?: 'display' | 'download';

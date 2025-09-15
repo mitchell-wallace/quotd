@@ -1,5 +1,5 @@
-import { useQuoteStore } from '../../../stores/quoteStore';
-import { SplitButton } from '../../SplitButton/SplitButton';
+import { useQuoteStore } from '../../stores/quoteStore';
+import { SplitButton } from '../SplitButton';
 
 export function QControls() {
   const {

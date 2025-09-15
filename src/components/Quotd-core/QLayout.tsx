@@ -1,9 +1,9 @@
 import { RefObject, useCallback, useRef } from 'react';
 import { IconDownload } from '@tabler/icons-react';
-import { DownloadFrame } from '../Download/DownloadFrame';
-import { handleDownload } from '../Download/handleDownload';
-import { QCanvas } from '../QCanvas/QCanvas';
-import { QControls } from '../QControls/QControls';
+import { DownloadFrame } from './DownloadFrame';
+import { handleDownload } from './handleDownload';
+import { QCanvas } from './QCanvas';
+import { QControls } from './QControls';
 
 export function QLayout() {
   const downloadFrameRef = useRef<HTMLDivElement | null>(null);

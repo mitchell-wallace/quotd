@@ -15,13 +15,14 @@ export function QLayout() {
   }, []);
 
   return (
-    <div className="text-center">
+    <div className="text-center" data-testid="quote-layout">
       <QControls />
       <QCanvas />
       <button
         className="mt-5 inline-flex items-center justify-center min-w-[160px] px-4 py-2 bg-primary text-primary-content hover:brightness-110 rounded"
         onClick={downloadQuote}
         type="button"
+        data-testid="download-quote-button"
       >
         <IconDownload size={20} className="mr-2" />
         Download

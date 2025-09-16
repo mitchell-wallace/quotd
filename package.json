@@ -15,6 +15,7 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "vitest": "vitest run",
     "vitest:watch": "vitest",
+    "test:e2e": "yarn build && playwright test",
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build"
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+    "@playwright/test": "^1.49.1",
     "@storybook/react": "^8.5.0",
     "@storybook/react-vite": "^8.5.0",
     "@testing-library/dom": "^10.4.0",
@@ -77,5 +79,5 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.2"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.9.4"
 }

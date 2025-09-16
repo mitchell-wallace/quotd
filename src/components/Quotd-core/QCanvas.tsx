@@ -26,11 +26,13 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
     // Use provided ref or create our own
     const internalRef = useRef<HTMLDivElement>(null);
     const actualRef = canvasRef || internalRef;
+    const isDisplayVariant = variant === 'display';
 
     return (
       <div
         className={`relative ${variant === 'download' ? '' : 'mt-[30px]'}`}
         ref={ref || actualRef}
+        data-testid={isDisplayVariant ? 'quote-canvas-wrapper' : undefined}
       >
         <div
           className="relative mx-auto w-full"
@@ -38,6 +40,7 @@ export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
             maxWidth: variant === 'display' ? 580 : 1080,
             aspectRatio: '3 / 2',
           }}
+          data-testid={isDisplayVariant ? 'quote-canvas' : undefined}
         >
           <QImage
             currentImageIndex={currentImageIndex}

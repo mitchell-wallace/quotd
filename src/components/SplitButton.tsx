@@ -6,6 +6,7 @@ interface SplitButtonProps {
   nextAction: () => void;
   iconStyle: 'arrows' | 'plusminus';
   loading?: boolean;
+  idPrefix?: string;
 }
 
 export function SplitButton({
@@ -14,9 +15,12 @@ export function SplitButton({
   nextAction,
   iconStyle,
   loading = false,
+  idPrefix,
 }: SplitButtonProps) {
   const PrevIcon = iconStyle === 'arrows' ? IconChevronLeft : IconMinus;
   const NextIcon = iconStyle === 'arrows' ? IconChevronRight : IconPlus;
+  const prevButtonTestId = idPrefix ? `${idPrefix}-prev` : undefined;
+  const nextButtonTestId = idPrefix ? `${idPrefix}-next` : undefined;
 
   return (
     <div className="inline-flex">
@@ -25,6 +29,8 @@ export function SplitButton({
         onClick={prevAction}
         disabled={loading}
         className="border border-border rounded-l px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
+        data-testid={prevButtonTestId}
+        aria-label={`${buttonText} previous`}
       >
         <PrevIcon size={20} />
       </button>
@@ -55,6 +61,8 @@ export function SplitButton({
         onClick={nextAction}
         disabled={loading}
         className="border border-border rounded-r px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
+        data-testid={nextButtonTestId}
+        aria-label={`${buttonText} next`}
       >
         <NextIcon size={20} />
       </button>

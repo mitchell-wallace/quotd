@@ -24,6 +24,7 @@ export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
     // Use outgoingImageIndex if provided (during loading), otherwise use currentImageIndex
     const displayImageIndex =
       typeof outgoingImageIndex === 'number' ? outgoingImageIndex : currentImageIndex;
+    const isDisplayVariant = variant === 'display';
 
     // Effect to handle image loading
     useEffect(() => {
@@ -65,6 +66,7 @@ export const QImage = forwardRef<HTMLDivElement, QuoteImageProps>(
           src={ImageUrlList[displayImageIndex]}
           alt="Inspirational nature image"
           style={{ filter: 'brightness(0.7)' }}
+          data-testid={isDisplayVariant ? 'quote-image' : undefined}
         />
         {children && <>{children}</>}
       </div>

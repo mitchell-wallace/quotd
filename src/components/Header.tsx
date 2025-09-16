@@ -36,7 +36,9 @@ export function Header() {
     setOpened(false);
   };
 
-  const items = links.map((link) => {
+  const renderLink = (link: (typeof links)[number], context: 'desktop' | 'mobile') => {
+    const linkIdBase = `header-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`;
+    const linkId = context === 'desktop' ? linkIdBase : `${linkIdBase}-${context}`;
     const base = 'px-3 py-2 rounded text-sm font-medium text-muted';
     const activeClass =
       active === link.link
@@ -47,11 +49,12 @@ export function Header() {
     if (link.link.startsWith('http')) {
       return (
         <a
-          key={link.label}
+          key={`${context}-${link.label}`}
           href={link.link}
           target="_blank"
           rel="noopener noreferrer"
           className={className}
+          data-testid={linkId}
           onClick={() => setOpened(false)}
         >
           {link.label}
@@ -61,28 +64,33 @@ export function Header() {
 
     return (
       <Link
-        key={link.label}
+        key={`${context}-${link.label}`}
         to={link.link}
         className={className}
+        data-testid={linkId}
         onClick={() => handleLinkClick(link.link)}
       >
         {link.label}
       </Link>
     );
-  });
+  };
 
   return (
     <header
       className="w-full h-14 mb-8 surface border-t-0 border-x-0"
       ref={ref}
+      data-testid="app-header"
     >
       <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <h1
           className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+          data-testid="header-logo"
         >
           Quotd.
         </h1>
-        <nav className="hidden sm:flex gap-1">{items}</nav>
+        <nav className="hidden sm:flex gap-1" data-testid="header-navigation">
+          {links.map((link) => renderLink(link, 'desktop'))}
+        </nav>
         <div className="flex items-center gap-2">
           <ColorSchemeToggle />
           <button
@@ -90,14 +98,18 @@ export function Header() {
             onClick={() => setOpened((o) => !o)}
             aria-label="Toggle navigation"
             type="button"
+            data-testid="header-menu-toggle"
           >
             {opened ? <IconX size={20} /> : <IconMenu2 size={20} />}
           </button>
         </div>
       </div>
       {opened && (
-        <div className="sm:hidden absolute left-0 right-0 top-14 bg-surface border-b border-border flex flex-col gap-2 p-4 z-50">
-          {items}
+        <div
+          className="sm:hidden absolute left-0 right-0 top-14 bg-surface border-b border-border flex flex-col gap-2 p-4 z-50"
+          data-testid="header-mobile-menu"
+        >
+          {links.map((link) => renderLink(link, 'mobile'))}
         </div>
       )}
     </header>

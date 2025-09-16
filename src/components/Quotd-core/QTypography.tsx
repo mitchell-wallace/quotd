@@ -92,6 +92,7 @@ export function QTypography({
     typeof outgoingFontIndex === 'number' ? outgoingFontIndex : currentFontIndex;
   const boxRef = useRef<HTMLDivElement>(null);
   const [viewScaleFactor, setViewScaleFactor] = useState(1);
+  const isDisplayVariant = variant !== 'download';
 
   useEffect(() => {
     if (variant === 'download') {
@@ -157,6 +158,7 @@ export function QTypography({
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
           }}
+          data-testid={isDisplayVariant ? 'quote-text' : undefined}
         >
           {WordsList[currentWordsIndex].text}
         </p>
@@ -171,6 +173,7 @@ export function QTypography({
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
             lineHeight: `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
           }}
+          data-testid={isDisplayVariant ? 'quote-source' : undefined}
         >
           {WordsList[currentWordsIndex].source} {WordsList[currentWordsIndex].translation}
         </p>

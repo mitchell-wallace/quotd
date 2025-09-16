@@ -14,7 +14,10 @@ export function Welcome() {
 
   return (
     <div className="text-center">
-      <h1 className="text-[100px] font-black tracking-tight px-4 mt-24 max-sm:mt-0 max-sm:text-5xl">
+      <h1
+        className="text-[100px] font-black tracking-tight px-4 mt-24 max-sm:mt-0 max-sm:text-5xl"
+        data-testid="welcome-heading"
+      >
         Welcome to{' '}
         <span
           className="bg-clip-text text-transparent"
@@ -48,6 +51,7 @@ export function Welcome() {
           className="mt-8 max-[24rem]:mt-4 bg-secondary text-secondary-content py-3 px-6 rounded-md text-xl flex items-center hover:brightness-110"
           onClick={handleGetInspired}
           type="button"
+          data-testid="welcome-get-inspired"
         >
           Get Inspired
           <IconChevronRight size={18} className="ml-2 -mr-1" />

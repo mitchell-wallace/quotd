@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { IconMenu2, IconX } from '@tabler/icons-react';
-import { Link, useLocation } from 'react-router-dom';
+import { createEffect, createSignal, onCleanup } from 'solid-js';
+import { IconMenu2, IconX } from '@tabler/icons-solidjs';
+import { A, useLocation } from '@solidjs/router';
 import { useHeaderStore } from '@/stores/headerStore';
 import { themeGradients } from '@/theme';
 import { ColorSchemeToggle } from './ColorSchemeToggle';
@@ -12,24 +12,24 @@ const links = [
 ];
 
 export function Header() {
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = createSignal(false);
   const location = useLocation();
   const { active, setActive } = useHeaderStore();
-  const ref = useRef<HTMLDivElement>(null);
+  let ref: HTMLElement | undefined;
 
-  useEffect(() => {
+  createEffect(() => {
     setActive(location.pathname);
-  }, [location.pathname, setActive]);
+  });
 
-  useEffect(() => {
+  createEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      if (ref && !ref.contains(e.target as Node)) {
         setOpened(false);
       }
     }
     document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+    onCleanup(() => document.removeEventListener('mousedown', handleClick));
+  });
 
   const handleLinkClick = (path: string) => {
     setActive(path);
@@ -41,7 +41,7 @@ export function Header() {
     const linkId = context === 'desktop' ? linkIdBase : `${linkIdBase}-${context}`;
     const base = 'px-3 py-2 rounded text-sm font-medium text-muted';
     const activeClass =
-      active === link.link
+      active() === link.link
         ? 'bg-primary text-primary-content'
         : 'hover:bg-surface-hover';
     const className = `${base} ${activeClass}`;
@@ -49,11 +49,10 @@ export function Header() {
     if (link.link.startsWith('http')) {
       return (
         <a
-          key={`${context}-${link.label}`}
           href={link.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={className}
+          class={className}
           data-testid={linkId}
           onClick={() => setOpened(false)}
         >
@@ -63,50 +62,49 @@ export function Header() {
     }
 
     return (
-      <Link
-        key={`${context}-${link.label}`}
-        to={link.link}
-        className={className}
+      <A
+        href={link.link}
+        class={className}
         data-testid={linkId}
         onClick={() => handleLinkClick(link.link)}
       >
         {link.label}
-      </Link>
+      </A>
     );
   };
 
   return (
     <header
-      className="w-full h-14 mb-8 surface border-t-0 border-x-0"
-      ref={ref}
+      class="w-full h-14 mb-8 surface border-t-0 border-x-0"
+      ref={(el) => (ref = el)}
       data-testid="app-header"
     >
-      <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div class="w-full max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <h1
-          className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+          class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
           data-testid="header-logo"
         >
           Quotd.
         </h1>
-        <nav className="hidden sm:flex gap-1" data-testid="header-navigation">
+        <nav class="hidden sm:flex gap-1" data-testid="header-navigation">
           {links.map((link) => renderLink(link, 'desktop'))}
         </nav>
-        <div className="flex items-center gap-2">
+        <div class="flex items-center gap-2">
           <ColorSchemeToggle />
           <button
-            className="sm:hidden p-2 border border-border rounded bg-surface hover:bg-surface-hover"
+            class="sm:hidden p-2 border border-border rounded bg-surface hover:bg-surface-hover"
             onClick={() => setOpened((o) => !o)}
             aria-label="Toggle navigation"
             type="button"
             data-testid="header-menu-toggle"
           >
-            {opened ? <IconX size={20} /> : <IconMenu2 size={20} />}
+            {opened() ? <IconX size={20} /> : <IconMenu2 size={20} />}
           </button>
         </div>
       </div>
-      {opened && (
+      {opened() && (
         <div
-          className="sm:hidden absolute left-0 right-0 top-14 bg-surface border-b border-border flex flex-col gap-2 p-4 z-50"
+          class="sm:hidden absolute left-0 right-0 top-14 bg-surface border-b border-border flex flex-col gap-2 p-4 z-50"
           data-testid="header-mobile-menu"
         >
           {links.map((link) => renderLink(link, 'mobile'))}

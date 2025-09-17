@@ -1,18 +1,17 @@
-import { RefObject } from 'react';
 import { toPng } from 'html-to-image';
 
 /**
  * Downloads the quote image with a fixed width of 1080px
  * @param downloadFrameRef - Reference to the download frame element
  */
-export const handleDownload = (downloadFrameRef: RefObject<HTMLDivElement>) => async () => {
-  if (!downloadFrameRef?.current) {
+export const handleDownload = (downloadFrameEl: HTMLDivElement) => async () => {
+  if (!downloadFrameEl) {
     return;
   }
 
   try {
     // Find the QCanvas inside the download frame
-    const canvasElement = downloadFrameRef.current.querySelector('div > div') as HTMLElement; // Target the Box with AspectRatio
+    const canvasElement = downloadFrameEl.querySelector('div > div') as HTMLElement; // Target the Box with AspectRatio
 
     if (!canvasElement) {
       // console.error('Could not find canvas element for download');

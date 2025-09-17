@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { IconBrightnessAuto, IconMoon, IconSun } from '@tabler/icons-react';
+import { createEffect, createSignal, onCleanup } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
+import { IconBrightnessAuto, IconMoon, IconSun } from '@tabler/icons-solidjs';
 
 type Scheme = 'light' | 'dark' | 'auto';
 
@@ -13,27 +14,25 @@ function applyScheme(scheme: Scheme) {
 }
 
 export function ColorSchemeToggle() {
-  const [open, setOpen] = useState(false);
-  const [scheme, setScheme] = useState<Scheme>(
-    () => (localStorage.getItem('color-scheme') as Scheme) || 'auto'
-  );
+  const [open, setOpen] = createSignal(false);
+  const [scheme, setScheme] = createSignal<Scheme>((localStorage.getItem('color-scheme') as Scheme) || 'auto');
 
-  useEffect(() => {
-    applyScheme(scheme);
-    localStorage.setItem('color-scheme', scheme);
-  }, [scheme]);
+  createEffect(() => {
+    applyScheme(scheme());
+    localStorage.setItem('color-scheme', scheme());
+  });
 
   // Keep in sync when in auto mode and OS theme changes
-  useEffect(() => {
+  createEffect(() => {
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => {
-      if (scheme === 'auto') applyScheme('auto');
+      if (scheme() === 'auto') applyScheme('auto');
     };
     mql.addEventListener?.('change', handler);
-    return () => mql.removeEventListener?.('change', handler);
-  }, [scheme]);
+    onCleanup(() => mql.removeEventListener?.('change', handler));
+  });
 
-  const Icon = scheme === 'auto' ? IconBrightnessAuto : scheme === 'dark' ? IconMoon : IconSun;
+  const CurrentIcon = () => (scheme() === 'auto' ? IconBrightnessAuto : scheme() === 'dark' ? IconMoon : IconSun);
 
   const setAndClose = (value: Scheme) => {
     setScheme(value);
@@ -41,42 +40,42 @@ export function ColorSchemeToggle() {
   };
 
   return (
-    <div className="relative">
+    <div class="relative">
       <button
         aria-label="Toggle color scheme"
-        className="border border-border rounded p-2 bg-surface text-base-content"
+        class="border border-border rounded p-2 bg-surface text-base-content"
         onClick={() => setOpen((o) => !o)}
         type="button"
       >
-        <Icon className="w-4 h-4" />
+        <Dynamic component={scheme() === 'auto' ? IconBrightnessAuto : scheme() === 'dark' ? IconMoon : IconSun} />
       </button>
-      {open && (
-        <ul className="absolute right-0 mt-2 w-32 bg-surface border border-border rounded shadow-md text-sm">
+      {open() && (
+        <ul class="absolute right-0 mt-2 w-32 bg-surface border border-border rounded shadow-md text-sm">
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
+              class="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('light')}
               type="button"
             >
-              <IconSun className="w-4 h-4 mr-2" /> Light
+              <IconSun class="w-4 h-4 mr-2" /> Light
             </button>
           </li>
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
+              class="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('dark')}
               type="button"
             >
-              <IconMoon className="w-4 h-4 mr-2" /> Dark
+              <IconMoon class="w-4 h-4 mr-2" /> Dark
             </button>
           </li>
           <li>
             <button
-              className="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
+              class="flex items-center w-full px-2 py-1 hover:bg-surface-hover"
               onClick={() => setAndClose('auto')}
               type="button"
             >
-              <IconBrightnessAuto className="w-4 h-4 mr-2" /> Auto
+              <IconBrightnessAuto class="w-4 h-4 mr-2" /> Auto
             </button>
           </li>
         </ul>

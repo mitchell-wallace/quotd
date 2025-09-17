@@ -1,21 +1,19 @@
-import { forwardRef } from 'react';
 import { QCanvas } from './QCanvas';
 
 interface DownloadFrameProps {
   width?: number;
   height?: number;
+  ref?: (el: HTMLDivElement) => void;
 }
 
-export const DownloadFrame = forwardRef<HTMLDivElement, DownloadFrameProps>(
-  ({ width, height }, ref) => (
+export function DownloadFrame(props: DownloadFrameProps) {
+  return (
     <div
-      ref={ref}
-      className="fixed -top-[10000px] -left-[10000px] overflow-hidden m-0 p-0"
-      style={{ width: width ? `${width}px` : '1080px', height: height ? `${height}px` : '720px' }}
+      ref={(el) => props.ref?.(el)}
+      class="fixed -top-[10000px] -left-[10000px] overflow-hidden m-0 p-0"
+      style={{ width: props.width ? `${props.width}px` : '1080px', height: props.height ? `${props.height}px` : '720px' }}
     >
       <QCanvas variant="download" />
     </div>
-  )
-);
-
-DownloadFrame.displayName = 'DownloadFrame';
+  );
+}

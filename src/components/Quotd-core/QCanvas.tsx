@@ -1,64 +1,44 @@
-import { forwardRef, useRef } from 'react';
 import { useQuoteStore } from '../../stores/quoteStore';
 import { QImage } from './QImage';
 import { QTypography } from './QTypography';
 
 interface QCanvasProps {
   variant?: 'display' | 'download';
-  canvasRef?: React.RefObject<HTMLDivElement>; // Optional ref to be attached
 }
 
-export const QCanvas = forwardRef<HTMLDivElement, QCanvasProps>(
-  ({ variant = 'display', canvasRef }, ref) => {
-    const {
-      currentImageIndex,
-      currentWordsIndex,
-      currentFontIndex,
-      currentFontSize,
-      isFontLoading,
-      outgoingFontIndex,
-      isImageLoading,
-      outgoingImageIndex,
-      handleFontLoaded,
-      handleImageLoaded,
-    } = useQuoteStore();
+export function QCanvas({ variant = 'display' }: QCanvasProps) {
+  const qs = useQuoteStore();
+  const isDisplayVariant = variant === 'display';
 
-    // Use provided ref or create our own
-    const internalRef = useRef<HTMLDivElement>(null);
-    const actualRef = canvasRef || internalRef;
-    const isDisplayVariant = variant === 'display';
-
-    return (
+  return (
+    <div
+      class={`relative ${variant === 'download' ? '' : 'mt-[30px]'}`}
+      data-testid={isDisplayVariant ? 'quote-canvas-wrapper' : undefined}
+    >
       <div
-        className={`relative ${variant === 'download' ? '' : 'mt-[30px]'}`}
-        ref={ref || actualRef}
-        data-testid={isDisplayVariant ? 'quote-canvas-wrapper' : undefined}
+        class="relative mx-auto w-full"
+        style={{
+          'max-width': variant === 'display' ? '580px' : '1080px',
+          'aspect-ratio': '3 / 2',
+        }}
+        data-testid={isDisplayVariant ? 'quote-canvas' : undefined}
       >
-        <div
-          className="relative mx-auto w-full"
-          style={{
-            maxWidth: variant === 'display' ? 580 : 1080,
-            aspectRatio: '3 / 2',
-          }}
-          data-testid={isDisplayVariant ? 'quote-canvas' : undefined}
+        <QImage
+          currentImageIndex={qs.currentImageIndex}
+          variant={variant}
+          outgoingImageIndex={qs.isImageLoading ? qs.outgoingImageIndex : undefined}
+          onImageLoaded={qs.handleImageLoaded}
         >
-          <QImage
-            currentImageIndex={currentImageIndex}
+          <QTypography
             variant={variant}
-            outgoingImageIndex={isImageLoading ? outgoingImageIndex : undefined}
-            onImageLoaded={handleImageLoaded}
-          >
-            <QTypography
-              variant={variant}
-              currentWordsIndex={currentWordsIndex}
-              currentFontIndex={currentFontIndex}
-              currentFontSize={currentFontSize}
-              outgoingFontIndex={isFontLoading ? outgoingFontIndex : undefined}
-              onFontLoaded={handleFontLoaded}
-            />
-          </QImage>
-        </div>
+            currentWordsIndex={qs.currentWordsIndex}
+            currentFontIndex={qs.currentFontIndex}
+            currentFontSize={qs.currentFontSize}
+            outgoingFontIndex={qs.isFontLoading ? qs.outgoingFontIndex : undefined}
+            onFontLoaded={qs.handleFontLoaded}
+          />
+        </QImage>
       </div>
-    );
-  }
-);
+    </div>
+  );
+}

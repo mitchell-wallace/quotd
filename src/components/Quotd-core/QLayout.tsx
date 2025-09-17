@@ -1,33 +1,32 @@
-import { RefObject, useCallback, useRef } from 'react';
-import { IconDownload } from '@tabler/icons-react';
+import { IconDownload } from '@tabler/icons-solidjs';
 import { DownloadFrame } from './DownloadFrame';
 import { handleDownload } from './handleDownload';
 import { QCanvas } from './QCanvas';
 import { QControls } from './QControls';
 
 export function QLayout() {
-  const downloadFrameRef = useRef<HTMLDivElement | null>(null);
+  let downloadFrameEl: HTMLDivElement | undefined;
 
-  const downloadQuote = useCallback(() => {
-    if (downloadFrameRef.current) {
-      handleDownload(downloadFrameRef as RefObject<HTMLDivElement>)();
+  const downloadQuote = () => {
+    if (downloadFrameEl) {
+      handleDownload(downloadFrameEl)();
     }
-  }, []);
+  };
 
   return (
-    <div className="text-center" data-testid="quote-layout">
+    <div class="text-center" data-testid="quote-layout">
       <QControls />
       <QCanvas />
       <button
-        className="mt-5 inline-flex items-center justify-center min-w-[160px] px-4 py-2 bg-primary text-primary-content hover:brightness-110 rounded"
+        class="mt-5 inline-flex items-center justify-center min-w-[160px] px-4 py-2 bg-primary text-primary-content hover:brightness-110 rounded"
         onClick={downloadQuote}
         type="button"
         data-testid="download-quote-button"
       >
-        <IconDownload size={20} className="mr-2" />
+        <IconDownload size={20} class="mr-2" />
         Download
       </button>
-      <DownloadFrame ref={downloadFrameRef} />
+      <DownloadFrame ref={(el) => (downloadFrameEl = el)} />
     </div>
   );
 }

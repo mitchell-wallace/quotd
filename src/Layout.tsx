@@ -1,17 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import type { RouteSectionProps } from '@solidjs/router';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 
-export function Layout() {
+export function Layout(props: RouteSectionProps) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="flex-shrink-0">
+    <div class="min-h-screen flex flex-col">
+      <div class="flex-shrink-0">
         <Header />
       </div>
-      <main className="flex-1">
-        <Outlet />
+      <main class="flex-1">
+        {props.children}
       </main>
-      <div className="flex-shrink-0">
+      <div class="flex-shrink-0">
         <Footer />
       </div>
     </div>

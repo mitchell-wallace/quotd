@@ -1,4 +1,4 @@
-import { createEffect, createSignal, onCleanup } from 'solid-js';
+import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js';
 import { WordsList } from '../../data/WordsList';
 // Import fonts
 import '@fontsource/raleway';
@@ -79,29 +79,26 @@ interface QuoteTextProps {
   onFontLoaded?: () => void; // Callback when font is loaded
 }
 
-export function QTypography({
-  variant,
-  currentWordsIndex,
-  currentFontIndex,
-  currentFontSize,
-  outgoingFontIndex,
-  onFontLoaded,
-}: QuoteTextProps) {
-  // Use previousFontIndex if provided (during loading), otherwise use currentFontIndex
-  const displayFontIndex =
-    typeof outgoingFontIndex === 'number' ? outgoingFontIndex : currentFontIndex;
-  let boxRef: HTMLDivElement | null = null;
+export function QTypography(props: QuoteTextProps) {
+  // Use outgoingFontIndex if provided (during loading), otherwise use currentFontIndex
+  const displayFontIndex = createMemo(() =>
+    typeof props.outgoingFontIndex === 'number' ? props.outgoingFontIndex : props.currentFontIndex,
+  );
+  const fontDefinition = createMemo(() => FontDefinitions[displayFontIndex()]);
+  const variant = () => props.variant ?? 'display';
+  const isDisplayVariant = () => variant() !== 'download';
+  const words = createMemo(() => WordsList[props.currentWordsIndex]);
+  let boxRef: HTMLDivElement | undefined;
   const [viewScaleFactor, setViewScaleFactor] = createSignal(1);
-  const isDisplayVariant = variant !== 'download';
 
   createEffect(() => {
-    if (variant === 'download') {
+    if (variant() === 'download') {
       setViewScaleFactor(1080 / 580);
       return;
     }
 
     const updateScale = () => {
-      if (variant === 'display' && boxRef) {
+      if (variant() === 'display' && boxRef) {
         const scale = boxRef.offsetWidth / 580;
         setViewScaleFactor(scale);
       }
@@ -119,15 +116,9 @@ export function QTypography({
   // Effect to handle font loading
   createEffect(() => {
     // Only try to load the font if we need to (when currentFontIndex != previousFontIndex)
-    if (outgoingFontIndex !== undefined && currentFontIndex !== outgoingFontIndex) {
-      // const fontToLoad = fonts[currentFontIndex].fontName;
-
-      // Load the font
-      loadFontByIndex(currentFontIndex).then(() => {
-        // Notify parent that font is loaded
-        if (onFontLoaded) {
-          onFontLoaded();
-        }
+    if (props.outgoingFontIndex !== undefined && props.currentFontIndex !== props.outgoingFontIndex) {
+      loadFontByIndex(props.currentFontIndex).then(() => {
+        props.onFontLoaded?.();
       });
     }
   });
@@ -137,8 +128,8 @@ export function QTypography({
       ref={(el) => (boxRef = el)}
       class="quote-typography absolute inset-0 mx-auto flex"
       style={{
-        'max-height': variant === 'display' ? '400px' : `${(400 / 580) * 1080}px`,
-        'max-width': variant === 'display' ? '580px' : '1080px',
+        'max-height': isDisplayVariant() ? '400px' : `${(400 / 580) * 1080}px`,
+        'max-width': isDisplayVariant() ? '580px' : '1080px',
         padding: `${2 * viewScaleFactor()}em`,
         'align-items': 'center',
         'justify-content': 'center',
@@ -148,32 +139,32 @@ export function QTypography({
         <p
           class="text-center"
           style={{
-            'max-width': variant === 'display' ? '500px' : `${(500 / 580) * 1080}px`,
+            'max-width': isDisplayVariant() ? '500px' : `${(500 / 580) * 1080}px`,
             width: '80%',
-            'font-family': `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
-            'font-size': `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor()}em`,
+            'font-family': `"${fontDefinition().fontName}", sans-serif`,
+            'font-size': `${props.currentFontSize * fontDefinition().sizingFactor * viewScaleFactor()}em`,
             color: 'white',
             'text-shadow': '2px 2px 4px rgba(0,0,0,0.5)',
-            'line-height': `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
+            'line-height': `${1.4 * fontDefinition().spacingFactor}`,
           }}
-          data-testid={isDisplayVariant ? 'quote-text' : undefined}
+          data-testid={isDisplayVariant() ? 'quote-text' : undefined}
         >
-          {WordsList[currentWordsIndex].text}
+          {words().text}
         </p>
         <p
           class="text-center"
           style={{
-            'max-width': variant === 'display' ? '500px' : `${(500 / 580) * 1080}px`,
+            'max-width': isDisplayVariant() ? '500px' : `${(500 / 580) * 1080}px`,
             width: '80%',
-            'font-family': `"${FontDefinitions[displayFontIndex].fontName}", sans-serif`,
-            'font-size': `${currentFontSize * FontDefinitions[displayFontIndex].sizingFactor * viewScaleFactor() - 0.6}em`,
+            'font-family': `"${fontDefinition().fontName}", sans-serif`,
+            'font-size': `${props.currentFontSize * fontDefinition().sizingFactor * viewScaleFactor() - 0.6}em`,
             color: 'white',
             'text-shadow': '2px 2px 4px rgba(0,0,0,0.5)',
-            'line-height': `${1.4 * FontDefinitions[displayFontIndex].spacingFactor}`,
+            'line-height': `${1.4 * fontDefinition().spacingFactor}`,
           }}
-          data-testid={isDisplayVariant ? 'quote-source' : undefined}
+          data-testid={isDisplayVariant() ? 'quote-source' : undefined}
         >
-          {WordsList[currentWordsIndex].source} {WordsList[currentWordsIndex].translation}
+          {words().source} {words().translation}
         </p>
       </div>
     </div>

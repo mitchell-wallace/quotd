@@ -1,4 +1,4 @@
-import { createEffect, JSX } from 'solid-js';
+import { createEffect, createMemo, JSX } from 'solid-js';
 import { ImageUrlList } from '../../data/ImageUrlList';
 
 // Helper function to load an image and return a promise that resolves when the image is loaded
@@ -19,26 +19,28 @@ interface QuoteImageProps {
   children?: JSX.Element;
 }
 
-export function QImage({ currentImageIndex, children, variant, outgoingImageIndex, onImageLoaded }: QuoteImageProps) {
+export function QImage(props: QuoteImageProps) {
   // Use outgoingImageIndex if provided (during loading), otherwise use currentImageIndex
-  const displayImageIndex =
-    typeof outgoingImageIndex === 'number' ? outgoingImageIndex : currentImageIndex;
-  const isDisplayVariant = variant === 'display';
+  const displayImageIndex = createMemo(() =>
+    typeof props.outgoingImageIndex === 'number' ? props.outgoingImageIndex : props.currentImageIndex,
+  );
+  const variant = () => props.variant ?? 'display';
+  const isDisplayVariant = () => variant() === 'display';
 
   // Effect to handle image loading
   createEffect(() => {
     // Only try to load the image if we need to (when currentImageIndex != outgoingImageIndex)
-    if (outgoingImageIndex !== undefined && currentImageIndex !== outgoingImageIndex) {
-      const imageUrl = ImageUrlList[currentImageIndex];
+    if (props.outgoingImageIndex !== undefined && props.currentImageIndex !== props.outgoingImageIndex) {
+      const imageUrl = ImageUrlList[props.currentImageIndex];
 
       // Load the image
       loadImageByUrl(imageUrl)
         .then(() => {
-          if (onImageLoaded) onImageLoaded();
+          props.onImageLoaded?.();
         })
         .catch((error) => {
           console.warn('Image loading failed:', error);
-          if (onImageLoaded) onImageLoaded();
+          props.onImageLoaded?.();
         });
     }
   });
@@ -47,20 +49,20 @@ export function QImage({ currentImageIndex, children, variant, outgoingImageInde
     <div
       class="relative h-full w-full"
       style={{
-        'max-height': variant === 'display' ? '400px' : undefined,
-        'max-width': variant === 'display' ? '580px' : undefined,
-        width: variant === 'display' ? '100%' : '1080px',
-        height: variant === 'display' ? '100%' : '720px',
+        'max-height': isDisplayVariant() ? '400px' : undefined,
+        'max-width': isDisplayVariant() ? '580px' : undefined,
+        width: isDisplayVariant() ? '100%' : '1080px',
+        height: isDisplayVariant() ? '100%' : '720px',
       }}
     >
       <img
-        class={`mx-auto h-full w-full object-cover ${variant === 'display' ? 'rounded-md' : ''}`}
-        src={ImageUrlList[displayImageIndex]}
+        class={`mx-auto h-full w-full object-cover ${isDisplayVariant() ? 'rounded-md' : ''}`}
+        src={ImageUrlList[displayImageIndex()]}
         alt="Inspirational nature image"
         style={{ filter: 'brightness(0.7)' }}
-        data-testid={isDisplayVariant ? 'quote-image' : undefined}
+        data-testid={isDisplayVariant() ? 'quote-image' : undefined}
       />
-      {children}
+      {props.children}
     </div>
   );
 }

@@ -9,33 +9,25 @@ interface SplitButtonProps {
   idPrefix?: string;
 }
 
-export function SplitButton({
-  buttonText,
-  prevAction,
-  nextAction,
-  iconStyle,
-  loading = false,
-  idPrefix,
-}: SplitButtonProps) {
-  const PrevIcon = iconStyle === 'arrows' ? IconChevronLeft : IconMinus;
-  const NextIcon = iconStyle === 'arrows' ? IconChevronRight : IconPlus;
-  const prevButtonTestId = idPrefix ? `${idPrefix}-prev` : undefined;
-  const nextButtonTestId = idPrefix ? `${idPrefix}-next` : undefined;
+export function SplitButton(props: SplitButtonProps) {
+  const prevButtonTestId = () => (props.idPrefix ? `${props.idPrefix}-prev` : undefined);
+  const nextButtonTestId = () => (props.idPrefix ? `${props.idPrefix}-next` : undefined);
+  const isLoading = () => props.loading ?? false;
 
   return (
     <div class="inline-flex">
       <button
         type="button"
-        onClick={prevAction}
-        disabled={loading}
+        onClick={props.prevAction}
+        disabled={isLoading()}
         class="border border-border rounded-l px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
-        data-testid={prevButtonTestId}
-        aria-label={`${buttonText} previous`}
+        data-testid={prevButtonTestId()}
+        aria-label={`${props.buttonText} previous`}
       >
-        <PrevIcon size={20} />
+        {props.iconStyle === 'arrows' ? <IconChevronLeft size={20} /> : <IconMinus size={20} />}
       </button>
       <div class="flex items-center justify-center border-y border-border px-4 min-w-[120px] text-sm bg-surface text-base-content">
-        {loading ? (
+        {isLoading() ? (
           <svg class="animate-spin h-4 w-4 text-muted" viewBox="0 0 24 24">
             <circle
               class="opacity-25"
@@ -53,18 +45,18 @@ export function SplitButton({
             />
           </svg>
         ) : (
-          buttonText
+          props.buttonText
         )}
       </div>
       <button
         type="button"
-        onClick={nextAction}
-        disabled={loading}
+        onClick={props.nextAction}
+        disabled={isLoading()}
         class="border border-border rounded-r px-3 py-2 bg-surface text-base-content hover:bg-surface-hover disabled:opacity-50"
-        data-testid={nextButtonTestId}
-        aria-label={`${buttonText} next`}
+        data-testid={nextButtonTestId()}
+        aria-label={`${props.buttonText} next`}
       >
-        <NextIcon size={20} />
+        {props.iconStyle === 'arrows' ? <IconChevronRight size={20} /> : <IconPlus size={20} />}
       </button>
     </div>
   );

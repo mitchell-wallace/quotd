@@ -6,23 +6,23 @@
     </main>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="flex-shrink-0 bg-white border-t border-gray-200 safe-area-bottom">
+    <nav class="flex-shrink-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 safe-area-bottom">
       <div class="flex items-center justify-around h-16">
-        <!-- App Tab -->
+        <!-- Home Tab -->
         <router-link
           to="/app"
           class="flex flex-col items-center justify-center flex-1 h-full transition-colors"
-          :class="isActiveRoute('/app') ? 'text-blue-600' : 'text-gray-600'"
+          :class="isActiveRoute('/app') ? 'text-[#fbbf24]' : 'text-gray-600 dark:text-gray-400'"
         >
-          <IconSparkles :size="24" :stroke="isActiveRoute('/app') ? 2.5 : 2" />
-          <span class="text-xs mt-1 font-medium">App</span>
+          <IconHome :size="24" :stroke="isActiveRoute('/app') ? 2.5 : 2" />
+          <span class="text-xs mt-1 font-medium">Home</span>
         </router-link>
 
         <!-- Library Tab -->
         <router-link
           to="/library"
           class="flex flex-col items-center justify-center flex-1 h-full transition-colors"
-          :class="isActiveRoute('/library') ? 'text-blue-600' : 'text-gray-600'"
+          :class="isActiveRoute('/library') ? 'text-[#fbbf24]' : 'text-gray-600 dark:text-gray-400'"
         >
           <IconBookmarks :size="24" :stroke="isActiveRoute('/library') ? 2.5 : 2" />
           <span class="text-xs mt-1 font-medium">Library</span>
@@ -33,9 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { IconSparkles, IconBookmarks } from '@tabler/icons-vue';
+import { IconHome, IconBookmarks } from '@tabler/icons-vue';
 
 const route = useRoute();
 

@@ -82,7 +82,8 @@ export const useQuoteStore = defineStore('quote', () => {
 
   function prevFont() {
     if (isFontLoading.value) return;
-    const prevIndex = (currentFontIndex.value - 1 + FontDefinitions.length) % FontDefinitions.length;
+    const prevIndex =
+      (currentFontIndex.value - 1 + FontDefinitions.length) % FontDefinitions.length;
     handleFontChange(prevIndex);
   }
 

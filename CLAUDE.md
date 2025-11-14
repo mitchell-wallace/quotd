@@ -4,6 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+### Web Development
 - `yarn dev` - Start development server
 - `yarn build` - Build production version (includes TypeScript compilation)
 - `yarn typecheck` - Run TypeScript type checking
@@ -15,15 +16,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `yarn test` - Full test suite (typecheck + prettier + lint + vitest + build)
 - `yarn storybook` - Start Storybook development server
 
+### Mobile App (Capacitor)
+- `yarn build:mobile` - Build and sync to all platforms
+- `yarn cap:sync` - Sync web assets to native projects
+- `yarn cap:sync:ios` - Sync iOS only
+- `yarn cap:sync:android` - Sync Android only
+- `yarn cap:open:ios` - Open iOS project in Xcode
+- `yarn cap:open:android` - Open Android project in Android Studio
+- `yarn cap:run:ios` - Run on iOS simulator/device
+- `yarn cap:run:android` - Run on Android emulator/device
+
+See [CAPACITOR_SETUP.md](./CAPACITOR_SETUP.md) for detailed mobile app documentation.
+
 ## Architecture Overview
 
-This is a **quote generator application** that creates inspirational Bible verse images. The core architecture follows a component-based React structure with Zustand for state management.
+This is a **quote generator application** that creates inspirational Bible verse images. The core architecture follows a component-based **Vue 3** structure with **Pinia** for state management.
+
+### Platform Support
+
+The application supports both **web** and **native mobile** (iOS/Android) platforms using Capacitor:
+
+- **Web Version**: Traditional web app with header and footer
+- **Mobile App Version**: Native app with bottom navigation bar
+  - No home page (launches directly to app)
+  - Two tabs: "App" (quote generator) and "Library" (under construction)
+  - Platform detection automatically switches layouts
 
 ### Key Application Flow
 1. **Data Layer**: Static data stored in `src/data/` (biblical quotes, background images, font definitions)
-2. **State Management**: Zustand store (`src/stores/quoteStore.ts`) manages current selections and UI state
+2. **State Management**: Pinia store (`src/stores/quoteStore.ts`) manages current selections and UI state
 3. **Quote Generation**: Combines background images, typography, and verses into downloadable graphics
 4. **Download System**: Uses `html-to-image` library to convert DOM elements to downloadable images
+5. **Platform Detection**: `src/utils/platform.ts` determines web vs native environment
 
 ### Core Components Architecture
 
@@ -81,8 +105,15 @@ The application implements custom font loading with:
 
 ### Routing Structure
 
+**Web Version** (`Layout.vue`):
 - `/` - HomePage with Welcome component
 - `/app` - QuotesPage with main quote generator (QLayout)
+
+**Mobile App Version** (`AppLayout.vue`):
+- `/app` - QuotesPage (default route, no home page)
+- `/library` - Library page (under construction placeholder)
+
+The router (`src/router.ts`) automatically selects the appropriate layout based on platform detection.
 
 ### Testing Setup
 

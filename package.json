@@ -16,9 +16,19 @@
     "vitest": "vitest run",
     "vitest:watch": "vitest",
     "test:e2e": "yarn build && playwright test",
-    "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build"
+    "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
+    "cap:sync": "cap sync",
+    "cap:sync:ios": "cap sync ios",
+    "cap:sync:android": "cap sync android",
+    "cap:open:ios": "cap open ios",
+    "cap:open:android": "cap open android",
+    "cap:run:ios": "cap run ios",
+    "cap:run:android": "cap run android",
+    "build:mobile": "yarn build && cap sync"
   },
   "dependencies": {
+    "@capacitor/app": "^7.1.0",
+    "@capacitor/core": "^7.4.4",
     "@fontsource/architects-daughter": "^5.1.1",
     "@fontsource/covered-by-your-grace": "^5.1.1",
     "@fontsource/exo-2": "^5.2.5",
@@ -44,6 +54,9 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/ios": "^7.4.4",
     "@eslint/js": "^9.18.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@playwright/test": "^1.49.1",

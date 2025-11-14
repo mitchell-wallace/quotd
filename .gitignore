@@ -138,3 +138,7 @@ dist
 playwright-report/
 blob-report/
 test-results/
+
+# Capacitor
+ios/
+android/

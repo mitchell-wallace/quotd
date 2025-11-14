@@ -6,7 +6,7 @@ async function getFontFamily(locator: Locator) {
 
 async function getFontSize(locator: Locator) {
   return locator.evaluate((element) =>
-    parseFloat(window.getComputedStyle(element as HTMLElement).fontSize),
+    parseFloat(window.getComputedStyle(element as HTMLElement).fontSize)
   );
 }
 
@@ -64,10 +64,12 @@ test.describe('Quote customisation controls', () => {
 
     await prevSizeButton.click();
     await expect.poll(async () => getFontSize(quoteText)).toBeLessThanOrEqual(increasedSize);
-    await expect.poll(async () => {
-      const current = await getFontSize(quoteText);
-      return Math.abs(current - initialSize);
-    }).toBeLessThan(0.5);
+    await expect
+      .poll(async () => {
+        const current = await getFontSize(quoteText);
+        return Math.abs(current - initialSize);
+      })
+      .toBeLessThan(0.5);
   });
 
   test('cycles through available quotes forwards and backwards', async ({ page }) => {

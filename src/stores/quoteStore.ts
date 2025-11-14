@@ -1,151 +1,152 @@
-import { createStore } from 'solid-js/store';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 import { FontDefinitions } from '../data/FontDefinitions';
 import { ImageUrlList } from '../data/ImageUrlList';
 import { WordsList } from '../data/WordsList';
 
-type QuoteState = {
-  currentFontIndex: number;
-  outgoingFontIndex: number;
-  isFontLoading: boolean;
-  currentFontSize: number;
+export const useQuoteStore = defineStore('quote', () => {
+  // State
+  const currentFontIndex = ref(0);
+  const outgoingFontIndex = ref(0);
+  const isFontLoading = ref(false);
+  const currentFontSize = ref(2.6);
 
-  outgoingImageIndex: number;
-  isImageLoading: boolean;
+  const outgoingImageIndex = ref(0);
+  const isImageLoading = ref(false);
 
-  currentWordsIndex: number;
-  currentImageIndex: number;
+  const currentWordsIndex = ref(Math.floor(Math.random() * WordsList.length));
+  const currentImageIndex = ref(0);
 
-  maxFontSize: number;
-  minFontSize: number;
-  incFontSize: number;
-};
+  const maxFontSize = ref(3.2);
+  const minFontSize = ref(2.0);
+  const incFontSize = ref(0.2);
 
-const [state, set] = createStore<QuoteState>({
-  currentFontIndex: 0,
-  outgoingFontIndex: 0,
-  isFontLoading: false,
-  currentFontSize: 2.6,
-  outgoingImageIndex: 0,
-  isImageLoading: false,
-  currentWordsIndex: Math.floor(Math.random() * WordsList.length),
-  currentImageIndex: 0,
+  // Actions
+  function setCurrentFontIndex(index: number) {
+    currentFontIndex.value = index;
+  }
 
-  maxFontSize: 3.2,
-  minFontSize: 2.0,
-  incFontSize: 0.2,
-});
+  function setOutgoingFontIndex(index: number) {
+    outgoingFontIndex.value = index;
+  }
 
-const actions = {
-  setCurrentFontIndex(index: number) {
-    set('currentFontIndex', index);
-  },
-  setOutgoingFontIndex(index: number) {
-    set('outgoingFontIndex', index);
-  },
-  setIsFontLoading(loading: boolean) {
-    set('isFontLoading', loading);
-  },
-  setCurrentFontSize(size: number) {
-    set('currentFontSize', size);
-  },
-  setOutgoingImageIndex(index: number) {
-    set('outgoingImageIndex', index);
-  },
-  setIsImageLoading(loading: boolean) {
-    set('isImageLoading', loading);
-  },
-  setCurrentWordsIndex(index: number) {
-    set('currentWordsIndex', index);
-  },
-  setCurrentImageIndex(index: number) {
-    set('currentImageIndex', index);
-  },
+  function setIsFontLoading(loading: boolean) {
+    isFontLoading.value = loading;
+  }
 
-  handleFontChange(newIndex: number) {
-    set({ isFontLoading: true, currentFontIndex: newIndex });
-  },
-  handleFontLoaded() {
-    set({ outgoingFontIndex: state.currentFontIndex, isFontLoading: false });
-  },
-  handleImageChange(newIndex: number) {
-    set({ isImageLoading: true, currentImageIndex: newIndex });
-  },
-  handleImageLoaded() {
-    set({ outgoingImageIndex: state.currentImageIndex, isImageLoading: false });
-  },
-  nextFont() {
-    if (state.isFontLoading) return;
-    const nextIndex = (state.currentFontIndex + 1) % FontDefinitions.length;
-    actions.handleFontChange(nextIndex);
-  },
-  prevFont() {
-    if (state.isFontLoading) return;
-    const prevIndex = (state.currentFontIndex - 1 + FontDefinitions.length) % FontDefinitions.length;
-    actions.handleFontChange(prevIndex);
-  },
-  nextFontSize() {
-    set('currentFontSize', Math.min(state.currentFontSize + state.incFontSize, state.maxFontSize));
-  },
-  prevFontSize() {
-    set('currentFontSize', Math.max(state.currentFontSize - state.incFontSize, state.minFontSize));
-  },
-  nextWordsIndex() {
-    set('currentWordsIndex', (state.currentWordsIndex + 1) % WordsList.length);
-  },
-  prevWordsIndex() {
-    set('currentWordsIndex', (state.currentWordsIndex - 1 + WordsList.length) % WordsList.length);
-  },
-  nextImageIndex() {
-    if (state.isImageLoading) return;
-    const nextIndex = (state.currentImageIndex + 1) % ImageUrlList.length;
-    actions.handleImageChange(nextIndex);
-  },
-  prevImageIndex() {
-    if (state.isImageLoading) return;
-    const prevIndex = (state.currentImageIndex - 1 + ImageUrlList.length) % ImageUrlList.length;
-    actions.handleImageChange(prevIndex);
-  },
-};
+  function setCurrentFontSize(size: number) {
+    currentFontSize.value = size;
+  }
 
-export function useQuoteStore() {
-  // Expose state via getters to preserve reactivity when read in JSX
+  function setOutgoingImageIndex(index: number) {
+    outgoingImageIndex.value = index;
+  }
+
+  function setIsImageLoading(loading: boolean) {
+    isImageLoading.value = loading;
+  }
+
+  function setCurrentWordsIndex(index: number) {
+    currentWordsIndex.value = index;
+  }
+
+  function setCurrentImageIndex(index: number) {
+    currentImageIndex.value = index;
+  }
+
+  function handleFontChange(newIndex: number) {
+    isFontLoading.value = true;
+    currentFontIndex.value = newIndex;
+  }
+
+  function handleFontLoaded() {
+    outgoingFontIndex.value = currentFontIndex.value;
+    isFontLoading.value = false;
+  }
+
+  function handleImageChange(newIndex: number) {
+    isImageLoading.value = true;
+    currentImageIndex.value = newIndex;
+  }
+
+  function handleImageLoaded() {
+    outgoingImageIndex.value = currentImageIndex.value;
+    isImageLoading.value = false;
+  }
+
+  function nextFont() {
+    if (isFontLoading.value) return;
+    const nextIndex = (currentFontIndex.value + 1) % FontDefinitions.length;
+    handleFontChange(nextIndex);
+  }
+
+  function prevFont() {
+    if (isFontLoading.value) return;
+    const prevIndex = (currentFontIndex.value - 1 + FontDefinitions.length) % FontDefinitions.length;
+    handleFontChange(prevIndex);
+  }
+
+  function nextFontSize() {
+    currentFontSize.value = Math.min(currentFontSize.value + incFontSize.value, maxFontSize.value);
+  }
+
+  function prevFontSize() {
+    currentFontSize.value = Math.max(currentFontSize.value - incFontSize.value, minFontSize.value);
+  }
+
+  function nextWordsIndex() {
+    currentWordsIndex.value = (currentWordsIndex.value + 1) % WordsList.length;
+  }
+
+  function prevWordsIndex() {
+    currentWordsIndex.value = (currentWordsIndex.value - 1 + WordsList.length) % WordsList.length;
+  }
+
+  function nextImageIndex() {
+    if (isImageLoading.value) return;
+    const nextIndex = (currentImageIndex.value + 1) % ImageUrlList.length;
+    handleImageChange(nextIndex);
+  }
+
+  function prevImageIndex() {
+    if (isImageLoading.value) return;
+    const prevIndex = (currentImageIndex.value - 1 + ImageUrlList.length) % ImageUrlList.length;
+    handleImageChange(prevIndex);
+  }
+
   return {
-    // state (as getters)
-    get currentFontIndex() {
-      return state.currentFontIndex;
-    },
-    get outgoingFontIndex() {
-      return state.outgoingFontIndex;
-    },
-    get isFontLoading() {
-      return state.isFontLoading;
-    },
-    get currentFontSize() {
-      return state.currentFontSize;
-    },
-    get outgoingImageIndex() {
-      return state.outgoingImageIndex;
-    },
-    get isImageLoading() {
-      return state.isImageLoading;
-    },
-    get currentWordsIndex() {
-      return state.currentWordsIndex;
-    },
-    get currentImageIndex() {
-      return state.currentImageIndex;
-    },
-    get maxFontSize() {
-      return state.maxFontSize;
-    },
-    get minFontSize() {
-      return state.minFontSize;
-    },
-    get incFontSize() {
-      return state.incFontSize;
-    },
-
-    // actions
-    ...actions,
-  } as const;
-}
+    // State
+    currentFontIndex,
+    outgoingFontIndex,
+    isFontLoading,
+    currentFontSize,
+    outgoingImageIndex,
+    isImageLoading,
+    currentWordsIndex,
+    currentImageIndex,
+    maxFontSize,
+    minFontSize,
+    incFontSize,
+    // Actions
+    setCurrentFontIndex,
+    setOutgoingFontIndex,
+    setIsFontLoading,
+    setCurrentFontSize,
+    setOutgoingImageIndex,
+    setIsImageLoading,
+    setCurrentWordsIndex,
+    setCurrentImageIndex,
+    handleFontChange,
+    handleFontLoaded,
+    handleImageChange,
+    handleImageLoaded,
+    nextFont,
+    prevFont,
+    nextFontSize,
+    prevFontSize,
+    nextWordsIndex,
+    prevWordsIndex,
+    nextImageIndex,
+    prevImageIndex,
+  };
+});

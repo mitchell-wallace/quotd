@@ -16,7 +16,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "jsxImportSource": "solid-js",
     "paths": {
       "@/*": ["./src/*"],
       "@test-utils": ["./test-utils"]

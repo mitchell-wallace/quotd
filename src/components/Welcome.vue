@@ -4,8 +4,7 @@
       class="text-[100px] font-black tracking-tight px-4 mt-24 max-sm:mt-0 max-sm:text-5xl"
       data-testid="welcome-heading"
     >
-      Welcome to{' '}
-      <span
+      Welcome to <span
         class="bg-clip-text text-transparent"
         :style="{
           'background-image': `linear-gradient(to right, ${themeGradients.logo.from}, ${themeGradients.logo.to})`,
@@ -22,15 +21,11 @@
       />
     </div>
     <p class="text-gray-500 mx-auto text-lg mt-8 max-w-[580px] px-4 max-[24rem]:text-base max-[24rem]:mt-4">
-      Find daily inspiration right here. Visit{' '}
-      <a href="https://ephodstudio.com/" class="underline text-lg">
+      Find daily inspiration right here. Visit <a href="https://ephodstudio.com/" class="underline text-lg">
         our agency website
-      </a>{' '}
-      or{' '}
-      <a href="https://mitchellwallace.dev/" class="underline text-lg">
+      </a> or <a href="https://mitchellwallace.dev/" class="underline text-lg">
         my portfolio
-      </a>{' '}
-      to see more of our work.
+      </a> to see more of our work.
     </p>
     <div class="flex justify-center">
       <button

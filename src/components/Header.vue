@@ -95,7 +95,8 @@ const links = [
 
 const opened = ref(false);
 const route = useRoute();
-const { active, setActive } = useHeaderStore();
+const headerStore = useHeaderStore();
+const { setActive } = headerStore;
 const headerRef = ref<HTMLElement>();
 
 watch(() => route.path, (newPath) => {
@@ -115,7 +116,7 @@ function getLinkId(link: typeof links[number], context: 'desktop' | 'mobile') {
 function getLinkClass(link: typeof links[number]) {
   const base = 'px-3 py-2 rounded text-sm font-medium text-muted';
   const activeClass =
-    active === link.link
+    headerStore.active === link.link
       ? 'bg-primary text-primary-content'
       : 'hover:bg-surface-hover';
   return `${base} ${activeClass}`;

@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite';
-import solid from 'vite-plugin-solid';
+import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite'
 import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
 
 export default defineConfig({
-  plugins: [solid(), tsconfigPaths(), tailwindcss()],
+  plugins: [vue(), tsconfigPaths(), tailwindcss()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

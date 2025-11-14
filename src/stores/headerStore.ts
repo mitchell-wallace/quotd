@@ -1,10 +1,15 @@
-import { createSignal } from 'solid-js';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-const [active, _setActive] = createSignal<string>('/');
+export const useHeaderStore = defineStore('header', () => {
+  const active = ref<string>('/');
 
-export function useHeaderStore() {
+  function setActive(path: string) {
+    active.value = path;
+  }
+
   return {
     active,
-    setActive: (path: string) => _setActive(path),
-  } as const;
-}
+    setActive,
+  };
+});

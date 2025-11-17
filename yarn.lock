@@ -189,6 +189,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor-community/safe-area@npm:^7.0.0-beta.4":
+  version: 7.0.0-beta.4
+  resolution: "@capacitor-community/safe-area@npm:7.0.0-beta.4"
+  peerDependencies:
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10c0/3411ed8300249be220cfe105fff6be236ad7436a1e462ddce78d3538e76ee122c21423c47e50a9dea2b078f36b2bd8097d4bb7b597bbf96b1d2a392fa6c2a19c
+  languageName: node
+  linkType: hard
+
 "@capacitor/core@npm:^7.4.4":
   version: 7.4.4
   resolution: "@capacitor/core@npm:7.4.4"
@@ -5453,6 +5462,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "quotd@workspace:."
   dependencies:
+    "@capacitor-community/safe-area": "npm:^7.0.0-beta.4"
     "@capacitor/core": "npm:^7.4.4"
     "@capacitor/filesystem": "npm:^7.1.4"
     "@capacitor/share": "npm:^7.0.2"

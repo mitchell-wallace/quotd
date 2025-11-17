@@ -15,7 +15,7 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "vitest": "vitest run",
     "vitest:watch": "vitest",
-    "test:e2e": "yarn build && playwright test",
+    "test:e2e": "npm run build && playwright test",
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
     "cap:sync": "cap sync",
     "cap:sync:ios": "cap sync ios",
@@ -23,8 +23,8 @@
     "cap:open:ios": "cap open ios",
     "cap:open:android": "cap open android",
     "cap:run:ios": "cap run ios",
-    "cap:run:android": "cap run android",
-    "build:mobile": "yarn build && cap sync"
+    "cap:run:android": "cap run android --target Pixel_8_API_35",
+    "build:mobile": "npm run build && cap sync"
   },
   "dependencies": {
     "@capacitor/app": "^7.1.0",
@@ -80,6 +80,5 @@
     "vite": "^6.0.7",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.2"
-  },
-  "packageManager": "yarn@4.9.4"
+  }
 }

@@ -5,6 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 export default defineConfig({
+  base: './', // Use relative paths for Capacitor compatibility
   plugins: [vue(), tsconfigPaths(), tailwindcss()],
   resolve: {
     alias: {

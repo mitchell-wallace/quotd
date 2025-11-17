@@ -29,6 +29,8 @@
   "dependencies": {
     "@capacitor/app": "^7.1.0",
     "@capacitor/core": "^7.4.4",
+    "@capacitor/filesystem": "^7.1.4",
+    "@capacitor/share": "^7.0.2",
     "@fontsource/architects-daughter": "^5.1.1",
     "@fontsource/covered-by-your-grace": "^5.1.1",
     "@fontsource/exo-2": "^5.2.5",

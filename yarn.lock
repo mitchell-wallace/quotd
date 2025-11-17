@@ -189,6 +189,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor/core@npm:^7.4.4":
+  version: 7.4.4
+  resolution: "@capacitor/core@npm:7.4.4"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: 10c0/6c89d2fe9ab64a45d2bcb786d9837380dbd652997c9bfd3ab8e62fa0759a8a8558342d800cd19b175f1f6238e290a5efefe3733b283ec737b088f178e1ed6c0d
+  languageName: node
+  linkType: hard
+
+"@capacitor/filesystem@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "@capacitor/filesystem@npm:7.1.4"
+  dependencies:
+    "@capacitor/synapse": "npm:^1.0.3"
+  peerDependencies:
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10c0/c7b1364c68ef9b5e5acb7b0902536dd9c39ef5a254e7ca2b7bdb315d4c4d65473ae6923aa7dee305b79cbcab6d1f3d09db9dfe6040937f35f92dbbe7ce1b4fe5
+  languageName: node
+  linkType: hard
+
+"@capacitor/share@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@capacitor/share@npm:7.0.2"
+  peerDependencies:
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10c0/4c6b89d27b391452b072c2a3fab37e15a81f969f83d47790ae085873fa5b88b2a013590a371408490a2ae5d7c35a3c3f0afaba5cea3ee2a727ef9afd580d317a
+  languageName: node
+  linkType: hard
+
+"@capacitor/synapse@npm:^1.0.3":
+  version: 1.0.4
+  resolution: "@capacitor/synapse@npm:1.0.4"
+  checksum: 10c0/83f37d06ebdb4234596f123417043aae8b0fd3b5905d399fe8bb7f1d7c3352c8449bef093793b01a0b3c4a59208ac27aec5b1ed7cf5e399c5c3004cc0ca74646
+  languageName: node
+  linkType: hard
+
 "@csstools/color-helpers@npm:^5.0.1":
   version: 5.0.1
   resolution: "@csstools/color-helpers@npm:5.0.1"
@@ -5417,6 +5453,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "quotd@workspace:."
   dependencies:
+    "@capacitor/core": "npm:^7.4.4"
+    "@capacitor/filesystem": "npm:^7.1.4"
+    "@capacitor/share": "npm:^7.0.2"
     "@eslint/js": "npm:^9.18.0"
     "@fontsource/architects-daughter": "npm:^5.1.1"
     "@fontsource/covered-by-your-grace": "npm:^5.1.1"
@@ -6357,7 +6396,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.4.0, tslib@npm:^2.8.0":
+"tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

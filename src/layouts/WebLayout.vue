@@ -18,8 +18,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Capacitor } from '@capacitor/core';
-import Footer from './components/Footer.vue';
-import Header from './components/Header.vue';
+import Footer from '../components/Footer.vue';
+import Header from '../components/Header.vue';
 
 const safeAreaStyle = ref({});
 

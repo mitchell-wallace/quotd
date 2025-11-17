@@ -19,9 +19,9 @@
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
     "cap:sync": "cap sync",
     "cap:sync:ios": "cap sync ios",
-    "cap:sync:android": "cap sync android",
+    "cap:sync:android": "cap sync android --target Pixel_8_API_35",
     "cap:open:ios": "cap open ios",
-    "cap:open:android": "cap open android",
+    "cap:open:android": "cap open android --target Pixel_8_API_35",
     "cap:run:ios": "cap run ios",
     "cap:run:android": "cap run android --target Pixel_8_API_35",
     "build:mobile": "npm run build && cap sync"

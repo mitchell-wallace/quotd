@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import AppLayout from './AppLayout.vue';
-import Layout from './Layout.vue';
+import MobileLayout from './layouts/MobileLayout.vue';
+import WebLayout from './layouts/WebLayout.vue';
 import HomePage from './pages/Home.page.vue';
 import LibraryPage from './pages/Library.page.vue';
 import QuotesPage from './pages/Quotes.page.vue';
 import { isNativeApp } from './utils/platform';
 
 // Determine which layout to use based on platform
-const RootLayout = isNativeApp() ? AppLayout : Layout;
+const RootLayout = isNativeApp() ? MobileLayout : WebLayout;
 
 const routes: RouteRecordRaw[] = [
   {

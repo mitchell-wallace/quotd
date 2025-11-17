@@ -13,6 +13,9 @@
       <p class="text-sm text-gray-500 mt-4">
         This feature is coming soon!
       </p>
+      <p class="text-sm text-gray-500 mt-4">
+        Build 0.1.16
+      </p>
     </div>
   </div>
 </template>

@@ -11,6 +11,9 @@ const config: CapacitorConfig = {
     SplashScreen: {
       launchShowDuration: 0,
     },
+    SafeArea: {
+      offsetForKeyboardInsetBug: true,
+    },
   },
 };
 

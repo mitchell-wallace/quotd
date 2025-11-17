@@ -3,6 +3,8 @@ import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 
+const BASE_SHARE_URL = 'https://quotd.vercel.app';
+
 /**
  * Captures the quote canvas as a PNG data URL
  */
@@ -21,6 +23,22 @@ async function captureQuoteImage(downloadFrameEl: HTMLDivElement): Promise<strin
   });
 }
 
+function buildShareUrl(
+  fontIndex: number,
+  fontSize: number,
+  wordsIndex: number,
+  imageIndex: number,
+): string {
+  const params = new URLSearchParams({
+    font: fontIndex.toString(),
+    size: fontSize.toString(),
+    words: wordsIndex.toString(),
+    image: imageIndex.toString(),
+  });
+
+  return `${BASE_SHARE_URL}?${params.toString()}`;
+}
+
 /**
  * Web share: Creates a shareable URL with quote configuration and copies to clipboard
  * Returns a callback to reset the button state
@@ -31,16 +49,7 @@ async function handleWebShare(
   wordsIndex: number,
   imageIndex: number,
 ): Promise<() => void> {
-  // Build share URL with query parameters
-  const baseUrl = window.location.origin + window.location.pathname;
-  const params = new URLSearchParams({
-    font: fontIndex.toString(),
-    size: fontSize.toString(),
-    words: wordsIndex.toString(),
-    image: imageIndex.toString(),
-  });
-
-  const shareUrl = `${baseUrl}?${params.toString()}`;
+  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex);
 
   // Copy to clipboard
   try {
@@ -57,8 +66,15 @@ async function handleWebShare(
 
 /**
  * Mobile share: Saves image and opens native share dialog
+ * Also includes a shareable link in the share payload so users can copy the link
  */
-async function handleMobileShare(dataUrl: string): Promise<() => void> {
+async function handleMobileShare(
+  dataUrl: string,
+  fontIndex: number,
+  fontSize: number,
+  wordsIndex: number,
+  imageIndex: number,
+): Promise<() => void> {
   const base64Data = dataUrl.split(',')[1];
   const fileName = `quote-${new Date().getTime()}.png`;
 
@@ -71,13 +87,19 @@ async function handleMobileShare(dataUrl: string): Promise<() => void> {
 
   console.log('File saved to cache for sharing:', savedFile.uri);
 
-  // Open native share dialog
-  await Share.share({
-    title: 'Share Quote',
-    text: 'Check out this quote!',
-    url: savedFile.uri,
-    dialogTitle: 'Share Quote',
-  });
+  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex);
+
+  // Open native share dialog. If the user dismisses the dialog, we don't treat it as an error.
+  try {
+    await Share.share({
+      title: 'Share Quote',
+      text: `Check out this quote!\n${shareUrl}`,
+      url: savedFile.uri,
+      dialogTitle: 'Share Quote',
+    });
+  } catch (error) {
+    console.warn('Share dialog was closed or failed:', error);
+  }
 
   // Return a no-op reset function for mobile
   return () => {};
@@ -94,7 +116,7 @@ export interface ShareOptions {
 /**
  * Shares the quote
  * For web: Creates shareable URL and copies to clipboard
- * For mobile: Opens native share dialog with the image
+ * For mobile: Opens native share dialog with the image and includes a shareable link
  * Returns a callback to reset button state (used for "Copied!" feedback on web)
  */
 export const handleShare =
@@ -110,7 +132,13 @@ export const handleShare =
       if (Capacitor.isNativePlatform()) {
         // Mobile: Capture image and share via native dialog
         const dataUrl = await captureQuoteImage(downloadFrameEl);
-        return await handleMobileShare(dataUrl);
+        return await handleMobileShare(
+          dataUrl,
+          fontIndex,
+          fontSize,
+          wordsIndex,
+          imageIndex,
+        );
       } else {
         // Web: Create and copy share URL
         return await handleWebShare(fontIndex, fontSize, wordsIndex, imageIndex);

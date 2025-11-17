@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { IconDownload, IconShare } from '@tabler/icons-vue';
+import { Capacitor } from '@capacitor/core';
 import { useQuoteStore } from '../../stores/quoteStore';
 import DownloadFrame from './DownloadFrame.vue';
 import { handleDownload } from './handleDownload';
@@ -64,14 +65,19 @@ async function shareQuote() {
       imageIndex: quoteStore.currentImageIndex,
     })();
 
-    // Show "Copied to clipboard!" feedback for web
-    isShareCopied.value = true;
+    // Only show "Copied to clipboard!" feedback on web (non-native platforms)
+    if (!Capacitor.isNativePlatform()) {
+      isShareCopied.value = true;
 
-    // Reset after 5 seconds
-    setTimeout(() => {
-      isShareCopied.value = false;
+      // Reset after 5 seconds
+      setTimeout(() => {
+        isShareCopied.value = false;
+        resetCallback();
+      }, 5000);
+    } else {
+      // On native, just run the reset callback immediately (no copied-to-clipboard UI)
       resetCallback();
-    }, 5000);
+    }
   } catch (error) {
     console.error('Failed to share quote:', error);
     alert('Failed to share quote. Please try again.');

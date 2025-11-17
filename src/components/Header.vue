@@ -23,6 +23,7 @@
             @click="opened = false"
           >
             {{ link.label }}
+            <IconExternalLink :size="16" class="inline" />
           </a>
           <router-link
             v-else
@@ -65,6 +66,7 @@
           @click="opened = false"
         >
           {{ link.label }}
+          <IconExternalLink :size="14" class="inline ml-1" />
         </a>
         <router-link
           v-else
@@ -82,7 +84,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
-import { IconMenu2, IconX } from '@tabler/icons-vue';
+import { IconMenu2, IconX, IconExternalLink } from '@tabler/icons-vue';
 import { useRoute } from 'vue-router';
 import { useHeaderStore } from '@/stores/headerStore';
 import ColorSchemeToggle from './ColorSchemeToggle.vue';
@@ -123,6 +125,10 @@ function getLinkClass(link: typeof links[number]) {
 }
 
 onMounted(() => {
+  // Initialize active state based on current route
+  setActive(route.path);
+
+  // Handle clicks outside header to close mobile menu
   function handleClick(e: MouseEvent) {
     if (headerRef.value && !headerRef.value.contains(e.target as Node)) {
       opened.value = false;

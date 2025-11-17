@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col h-screen mobile-safe-area">
     <!-- Main content area -->
     <main class="flex-1 overflow-auto">
       <router-view />
@@ -33,44 +33,8 @@
 </template>
 
 <script setup lang="ts">
-
-import { Capacitor } from '@capacitor/core';
 import { useRoute } from 'vue-router';
 import { IconHome, IconBookmarks } from '@tabler/icons-vue';
-import { ref, onMounted } from 'vue';
-
-const safeAreaStyle = ref({});
-
-onMounted(async () => {
-  // Only apply safe area insets when running in Capacitor
-  if (Capacitor.isNativePlatform()) {
-    try {
-      const { SafeArea } = await import('@capacitor-community/safe-area');
-
-      // Get safe area insets
-      const insets = await SafeArea.getSafeAreaInsets();
-
-      // Apply as inline styles
-      safeAreaStyle.value = {
-        paddingTop: `${insets.insets.top}px`,
-        paddingBottom: `${insets.insets.bottom}px`,
-        paddingLeft: `${insets.insets.left}px`,
-        paddingRight: `${insets.insets.right}px`,
-      };
-
-      // Also enable edge-to-edge mode if available
-      if (SafeArea.enable) {
-        await SafeArea.enable({
-          config: {
-            customEdgeToEdgeHandler: false,
-          },
-        });
-      }
-    } catch (error) {
-      console.error('Failed to setup safe area:', error);
-    }
-  }
-});
 
 const route = useRoute();
 
@@ -81,6 +45,11 @@ const isActiveRoute = (path: string): boolean => {
 
 <style scoped>
 /* Safe area for devices with notches/home indicators */
+.mobile-safe-area {
+  /* Safe area top inset plus extra breathing room for controls */
+  padding-top: calc(env(safe-area-inset-top) + 3.5rem);
+}
+
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }

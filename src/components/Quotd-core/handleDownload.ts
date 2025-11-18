@@ -1,6 +1,6 @@
 import { toPng } from 'html-to-image';
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import { saveToLibrary } from '../../services/libraryService';
 
 /**
  * Captures the quote canvas as a PNG data URL
@@ -31,27 +31,23 @@ async function handleWebDownload(dataUrl: string, fileName: string): Promise<voi
 }
 
 /**
- * Mobile download: Save directly to device's Documents directory
+ * Mobile download: Save to app's library folder
  */
-async function handleMobileDownload(dataUrl: string, fileName: string): Promise<void> {
+async function handleMobileDownload(dataUrl: string): Promise<void> {
   const base64Data = dataUrl.split(',')[1];
 
-  // Save file to Documents directory for permanent storage
-  const savedFile = await Filesystem.writeFile({
-    path: fileName,
-    data: base64Data,
-    directory: Directory.Documents,
-  });
+  // Save to library
+  const savedImage = await saveToLibrary(base64Data);
 
-  console.log('File saved to:', savedFile.uri);
+  console.log('File saved to library:', savedImage.uri);
 
   // Show success message
-  alert(`Quote saved to Downloads as ${fileName}`);
+  alert('Quote saved to Library!');
 }
 
 /**
  * Downloads the quote image with a fixed width of 1080px
- * For Capacitor apps, saves directly to Documents folder
+ * For Capacitor apps, saves to app library folder
  * For web, uses standard browser download
  * @param downloadFrameEl - Reference to the download frame element
  */
@@ -65,7 +61,7 @@ export const handleDownload = (downloadFrameEl: HTMLDivElement) => async () => {
     const fileName = `quote-${new Date().getTime()}.png`;
 
     if (Capacitor.isNativePlatform()) {
-      await handleMobileDownload(dataUrl, fileName);
+      await handleMobileDownload(dataUrl);
     } else {
       await handleWebDownload(dataUrl, fileName);
     }

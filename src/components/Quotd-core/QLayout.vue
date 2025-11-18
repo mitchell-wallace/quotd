@@ -63,6 +63,7 @@ async function shareQuote() {
       fontSize: quoteStore.currentFontSize,
       wordsIndex: quoteStore.currentWordsIndex,
       imageIndex: quoteStore.currentImageIndex,
+      aspectRatio: quoteStore.currentAspectRatio,
     })();
 
     // Only show "Copied to clipboard!" feedback on web (non-native platforms)

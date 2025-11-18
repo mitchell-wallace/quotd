@@ -28,12 +28,14 @@ function buildShareUrl(
   fontSize: number,
   wordsIndex: number,
   imageIndex: number,
+  aspectRatio: string,
 ): string {
   const params = new URLSearchParams({
     font: fontIndex.toString(),
     size: fontSize.toString(),
     words: wordsIndex.toString(),
     image: imageIndex.toString(),
+    ratio: aspectRatio,
   });
 
   return `${BASE_SHARE_URL}?${params.toString()}`;
@@ -48,8 +50,9 @@ async function handleWebShare(
   fontSize: number,
   wordsIndex: number,
   imageIndex: number,
+  aspectRatio: string,
 ): Promise<() => void> {
-  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex);
+  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex, aspectRatio);
 
   // Copy to clipboard
   try {
@@ -74,6 +77,7 @@ async function handleMobileShare(
   fontSize: number,
   wordsIndex: number,
   imageIndex: number,
+  aspectRatio: string,
 ): Promise<() => void> {
   const base64Data = dataUrl.split(',')[1];
   const fileName = `quote-${new Date().getTime()}.png`;
@@ -87,7 +91,7 @@ async function handleMobileShare(
 
   console.log('File saved to cache for sharing:', savedFile.uri);
 
-  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex);
+  const shareUrl = buildShareUrl(fontIndex, fontSize, wordsIndex, imageIndex, aspectRatio);
 
   // Open native share dialog. If the user dismisses the dialog, we don't treat it as an error.
   try {
@@ -111,6 +115,7 @@ export interface ShareOptions {
   fontSize: number;
   wordsIndex: number;
   imageIndex: number;
+  aspectRatio: string;
 }
 
 /**
@@ -122,7 +127,7 @@ export interface ShareOptions {
 export const handleShare =
   (options: ShareOptions) =>
   async (): Promise<() => void> => {
-    const { downloadFrameEl, fontIndex, fontSize, wordsIndex, imageIndex } = options;
+    const { downloadFrameEl, fontIndex, fontSize, wordsIndex, imageIndex, aspectRatio } = options;
 
     if (!downloadFrameEl) {
       throw new Error('Download frame element is required');
@@ -138,10 +143,11 @@ export const handleShare =
           fontSize,
           wordsIndex,
           imageIndex,
+          aspectRatio,
         );
       } else {
         // Web: Create and copy share URL
-        return await handleWebShare(fontIndex, fontSize, wordsIndex, imageIndex);
+        return await handleWebShare(fontIndex, fontSize, wordsIndex, imageIndex, aspectRatio);
       }
     } catch (error) {
       console.error('Error sharing quote:', error);

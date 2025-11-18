@@ -8,7 +8,9 @@
       "WebFetch(domain:medium.com)",
       "WebFetch(domain:stackoverflow.com)",
       "Bash(yarn dev)",
-      "Bash(npm run build:mobile:*)"
+      "Bash(npm run build:mobile:*)",
+      "Bash(NUL)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }

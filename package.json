@@ -24,7 +24,8 @@
     "cap:open:android": "cap open android --target Pixel_8_API_35",
     "cap:run:ios": "cap run ios",
     "cap:run:android": "cap run android --target Pixel_8_API_35",
-    "build:mobile": "npm run build && cap sync"
+    "build:mobile": "set BUILD_TARGET=mobile&& npm run build && cap sync",
+    "build:mobile:unix": "BUILD_TARGET=mobile npm run build && cap sync"
   },
   "dependencies": {
     "@capacitor/app": "^7.1.0",

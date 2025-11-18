@@ -1,31 +1,32 @@
 # Quotd
 
-Quotd is a web application for generating inspirational Bible quotes overlaid on beautiful background images. Users can customize fonts, font sizes, and images, then download the result as a PNG image.
+Quotd is a web and mobile application for generating inspirational Bible quotes overlaid on beautiful background images. Users can customize fonts, font sizes, and images, then download the result as a PNG image.
 
 ## Features
 
 - **Random Quote Selection**: Choose from a curated list of over 100 Bible verses (KJV and NKJV translations).
 - **Font Customization**: Select from 15+ Google Fonts with adjustable sizing and spacing factors.
 - **Image Backgrounds**: Cycle through a collection of high-quality nature and abstract images.
-- **Responsive Design**: Built with Mantine UI for a modern, mobile-friendly interface.
+- **Responsive Design**: Built with Tailwind CSS for a modern, mobile-friendly interface.
 - **Download Functionality**: Export the quote image at 1080x720 resolution using html-to-image.
-- **State Management**: Uses Zustand for efficient quote, font, and image state handling.
+- **Share Functionality**: Native share on mobile (iOS/Android), clipboard fallback on web.
+- **State Management**: Uses Pinia for efficient quote, font, and image state handling.
 - **Controls**: Easy navigation to next/previous quotes, fonts, images, and font size adjustments.
 
 ## Tech Stack
 
-- **Frontend**: React 19 with TypeScript
+- **Frontend**: Vue 3 with TypeScript
 - **Build Tool**: Vite 6
-- **UI Library**: Mantine 7
-- **Routing**: React Router DOM 7
-- **State Management**: Zustand 5
+- **Styling**: Tailwind CSS 4
+- **Routing**: Vue Router 4
+- **State Management**: Pinia 2
+- **Mobile**: Capacitor 7 (iOS & Android)
 - **Fonts**: Various @fontsource packages (e.g., Raleway, Roboto Slab, etc.)
 - **Image Export**: html-to-image 1.11
-- **Icons**: @tabler/icons-react
-- **Testing**: Vitest 3 with @testing-library/react
-- **Storybook**: 8.5 for component development and documentation
+- **Icons**: @tabler/icons-vue
+- **Testing**: Vitest 3, Playwright for E2E
 - **Linting/Formatting**: ESLint 9, Prettier 3, Stylelint 16
-- **Other**: PostCSS for styling, Unsplash JS (unused in current code)
+- **Other**: Capacitor Share & Filesystem APIs
 
 ## Installation
 
@@ -35,14 +36,14 @@ Quotd is a web application for generating inspirational Bible quotes overlaid on
    cd quotd-vite
    ```
 
-2. Install dependencies using Yarn (packageManager: yarn@4.6.0):
+2. Install dependencies:
    ```
-   yarn install
+   npm install
    ```
 
 3. Run the development server:
    ```
-   yarn dev
+   npm run dev
    ```
    The app will be available at http://localhost:5173
 
@@ -56,48 +57,57 @@ Quotd is a web application for generating inspirational Bible quotes overlaid on
 
 ## Project Structure
 
-- `src/App.tsx`: Main app component with MantineProvider and Router.
-- `src/components/Quotd-core/`: Core functionality including QCanvas (renders quote on image), QControls (buttons for changes), QLayout (main layout), Download (handles PNG export).
+- `src/App.vue`: Main app component with router-view.
+- `src/router.ts`: Router configuration with platform-aware layout selection.
+- `src/layouts/`: Platform-specific layouts (WebLayout.vue, MobileLayout.vue).
+- `src/components/Quotd-core/`: Core functionality including QCanvas (renders quote on image), QControls (buttons for changes), QLayout (main layout), DownloadFrame (handles PNG export).
 - `src/components/Welcome/`: Landing page component.
-- `src/data/`: 
+- `src/data/`:
   - `WordsList.ts`: Array of Bible quotes with text, source, and translation.
   - `FontDefinitions.ts`: Font configs with name, sizing, and spacing factors.
   - `ImageUrlList.ts`: Background image paths (imported in store).
-- `src/pages/`: Route components (Home.page.tsx, Quotes.page.tsx).
-- `src/stores/`: Zustand stores (quoteStore.ts for state/actions, headerStore.ts for navigation).
+- `src/pages/`: Route components (Home.page.vue, Quotes.page.vue, Library.page.vue).
+- `src/stores/`: Pinia stores (quoteStore.ts for state/actions, headerStore.ts for navigation).
+- `src/utils/platform.ts`: Platform detection utilities for Capacitor.
 - `public/assets/images/core/`: Background images for quotes.
-- `scripts/optimize-images.cjs`: Script for image optimization.
+- `capacitor.config.ts`: Capacitor configuration for mobile apps.
 - Config files: `package.json`, `vite.config.mjs`, `tsconfig.json`, `vercel.json` for deployment.
 
 ## Building and Deployment
 
 - **Build for Production**:
   ```
-  yarn build
+  npm run build
   ```
   Outputs to `dist/` directory.
 
 - **Preview Build**:
   ```
-  yarn preview
+  npm run preview
   ```
 
 - **Type Check**:
   ```
-  yarn typecheck
+  npm run typecheck
   ```
 
 - **Run Tests**:
   ```
-  yarn test
+  npm run test
   ```
   Includes linting, formatting, Vitest, and build verification.
 
-- **Storybook**:
+- **E2E Tests**:
   ```
-  yarn storybook
+  npm run test:e2e
   ```
-  Runs at http://localhost:6006.
+  Runs Playwright end-to-end tests.
+
+- **Mobile Build**:
+  ```
+  npm run build:mobile
+  ```
+  Builds web assets and syncs to native iOS/Android projects.
 
 - **Deployment**: Configured for Vercel via `vercel.json`. Push to GitHub and deploy via Vercel dashboard.
 
